@@ -31,7 +31,7 @@
                     <div class="card-body p-6">
                         <div class="mb-4">
                             <a href="<?= base_url() ?>">
-                                <h2><span class="text-primary">Integrated</span> Pensiun ASN</h2>
+                                <h2><span class="text-primary">e</span>Pensiun ASN Integrated</h2>
                             </a>
                             <p class="mb-4">Silahkan masukan akun yang terdaftar pada SIMPEG Balangan (SILKa Online)</p>
                         </div>

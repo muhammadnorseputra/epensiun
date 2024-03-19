@@ -15,14 +15,17 @@
     <link href="<?= base_url('template/') ?>assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
     <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-
+    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) === 'verifikasi') : ?>
+    <link href="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.css" rel="stylesheet">
+    <?php endif; ?>
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?= base_url('template/') ?>assets/css/theme.min.css">
     <title><?= $title ?></title>
 </head>
 
 <body class="bg-light">
-    <?php $toggled = $this->uri->segment(3) === 'buatusul' ? 'toggled' : ''; ?>
+    <?php $toggled = $this->uri->segment(3) === 'buatusul' || $this->uri->segment(3) === 'usul' || $this->uri->segment(2) === 'verifikasi' ? 'toggled' : ''; ?>
     <div id="db-wrapper" class="<?= $toggled ?>">
         <!-- navbar vertical -->
         <!-- Sidebar -->
@@ -30,7 +33,7 @@
             <div class="nav-scroller">
                 <!-- Brand logo -->
                 <a class="navbar-brand text-white fw-bold" href="<?= base_url() ?>">
-                    <span class="text-primary">I</span>Pensiun ASN
+                    <span class="text-primary">e</span>Pensiun ASN
                 </a>
                 <!-- Navbar nav -->
                 <ul class="navbar-nav flex-column" id="sideNavbar">
@@ -44,7 +47,7 @@
                     <li class="nav-item">
                         <div class="navbar-heading">Mainmenu</div>
                     </li>
-                    <?php if($this->session->userdata('level') === 'ADMIN'): ?>
+                    <?php if($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
                     <!-- Nav item -->
                     <li class="nav-item">
                         <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/buatusul') ?>">
@@ -55,7 +58,7 @@
 
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/inbox') ?>">
+                        <a class="nav-link has-arrow " href="<?= base_url('/app/inbox/usul') ?>">
                             <i data-feather="inbox" class="nav-icon icon-xs me-2">
                             </i> Inbox
                         </a>
@@ -63,11 +66,24 @@
                     <?php endif; ?>
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/cekusulan') ?>">
+                        <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/cekusul') ?>">
                             <i data-feather="check-circle" class="nav-icon icon-xs me-2">
-                            </i> Cek Status Usulan
+                            </i> Monitoring Usulan
                         </a>
                     </li>
+                    <?php if($this->session->userdata('username') === 'putra'): ?>
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <div class="navbar-heading">BKPSDM ONLY</div>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <a class="nav-link has-arrow " href="<?= base_url('/app/verifikasi/list') ?>">
+                            <i data-feather="check" class="nav-icon icon-xs me-2">
+                            </i> Verifikasi Usul
+                        </a>
+                    </li>
+                    <?php endif; ?>
                 </ul>
 
             </div>
@@ -209,12 +225,30 @@
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
+    <script src="<?= base_url('template/') ?>assets/js/format.js"></script>
     <script src="<?= base_url('template/') ?>assets/js/route.js"></script>
 
     <?php if ($this->uri->segment(3) === 'buatusul') : ?>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/buatusul.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(3) === 'cekusul') : ?>
+        <script src="<?= base_url('template/') ?>assets/js/cekusul.js"></script>
+    <?php endif; ?>
+
+    <?php if ($this->uri->segment(2) === 'inbox') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/js/inboxusul.js"></script>
+    <?php endif; ?>
+    <?php if ($this->uri->segment(2) === 'verifikasi') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/js/verifikasi.js"></script>
     <?php endif; ?>
 </body>
 

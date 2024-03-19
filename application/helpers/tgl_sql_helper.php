@@ -67,6 +67,13 @@ function indoSQL($date) {
     return $tahun . '-' . bulanindoSQL($bulan) . '-' . $hari;
 }
 
-function formatToSQL($date) {
-    return date("Y-m-d", strtotime($date));
+function formatToSQL($tanggal_awal) {
+    $tanggal_terformat = DateTime::createFromFormat("d/m/Y", $tanggal_awal)->format("Y-m-d");
+    return $tanggal_terformat;
+}
+
+function formatToSQLDateTime($tanggal_awal) {
+    // Memformat tanggal
+    $tanggal_terformat = DateTime::createFromFormat("d/m/Y H.i", $tanggal_awal)->format("Y-m-d H:i:s");
+    return $tanggal_terformat;
 }

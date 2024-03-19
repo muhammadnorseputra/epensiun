@@ -22,15 +22,20 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
 		cek_session();
+		$this->load->model(['ModelPensiun' => 'pensiun', 'ModelPensiunInbox' => 'inbox']);
     }
 
     public function index()
     {
 		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
+		$jumlah_usulan = $this->pensiun->getWhere('usul', ['is_status' => 'SKPD']);
+		$jumlah_selesai = $this->pensiun->getWhere('usul', ['is_status' => 'SELESAI']);
 		$data = [
 			'title' => 'Dashboard | Integrated Pensiun ASN',
 			'content' => 'pages/dashboard',
-			'statistik' => $statistik
+			'statistik' => $statistik,
+			'jumlah_usulan' => $jumlah_usulan->num_rows(),
+			'jumlah_selesai' => $jumlah_selesai->num_rows(),
 		];
 
         $this->load->view('layouts/app', $data);

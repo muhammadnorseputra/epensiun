@@ -1,0 +1,38 @@
+$(function () {
+	let $form = $("form#FormCekUsul"),
+		$container = $("#loadDataAsn");
+
+	function loadEffect(isLoading = true) {
+		if (isLoading) {
+			return `<div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>`;
+		}
+	}
+
+	function loadData($url, $data) {
+		$.post(
+			$url,
+			$data,
+			function (res) {
+				$container.html(res);
+			},
+			"json"
+		);
+	}
+
+	$form.on("submit", function (e) {
+		e.preventDefault();
+		let _ = $(this),
+			$url = _.attr("action"),
+			$data = _.serialize();
+
+		$container.html(loadEffect());
+
+		if (_.find("input[name='nip']").val() === "") {
+            $container.html('Masukan Nomor Induk Pegawai !');
+			return false;
+		}
+        loadData($url, $data);
+	});
+});

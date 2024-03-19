@@ -22,7 +22,7 @@
             $tanggal = $pecah[2];
             $bulan = $pecah[1];
             $tahun = $pecah[0];
-            return $tanggal.'-'.$bulan.'-'.$tahun;
+            return $tanggal.'/'.$bulan.'/'.$tahun;
         }
     }
       

@@ -109,7 +109,7 @@ class Verifikasi extends CI_Controller
                     <div class="ms-3 lh-1">
                         <h5 class="mb-1">
                             <strong>' . $r->nip . '</strong> <br>
-                            <a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar) . '" class="text-inherit">' . $r->nama . '</a> <br>
+                            <a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar.'&jenis='.$r->fid_jenis_usul) . '" class="text-inherit">' . $r->nama . '</a> <br>
 							<span class="text-secondary">'.$r->nama_unit_kerja.'</span>
                         </h5>
                     </div>
@@ -206,27 +206,6 @@ class Verifikasi extends CI_Controller
 		echo json_encode($msg);
 	}
 
-	protected function upload($url,$filename,$nip)
-	{
-		$request_headers = [
-			'apiKey:bkpsdm6811',
-			'Content-Type:multipart/form-data',
-			'Accept:application/json'
-		];
-		$curlFile = new \CURLFile($filename['tmp_name'],$filename['type'],$filename['name']);
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, [
-			'nip' => $nip,
-			'file' => $curlFile,
-		]);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-		$result = curl_exec($ch);	
-		return $result;
-	}
 	public function approve()
 	{
 		$post = $this->input->post();

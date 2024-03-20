@@ -144,7 +144,12 @@ $stat = json_decode($statistik);
                     </div>
                     <!-- chart  -->
                     <div class="mb-8">
-                        <div id="perfomanceChart"></div>
+                        <div id="PensiunChart" data-bup="<?= $charts['bup'] ?>"
+                        data-jadu="<?= $charts['jadu'] ?>"
+                        data-aps="<?= $charts['aps'] ?>"
+                        data-udzur="<?= $charts['udzur'] ?>"
+                        data-mpp="<?= $charts['mpp'] ?>"
+                        ></div>
                     </div>
                     <!-- icon with content  -->
                     <div class="d-flex align-items-center justify-content-around">

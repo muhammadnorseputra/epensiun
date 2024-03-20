@@ -12,7 +12,7 @@ class ModelPensiunVerifikasi extends CI_Model
     // default order 
     protected $order = array('up.id' => 'desc');
     // default select 
-    protected $select_table = array('u.*','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
+    protected $select_table = array('u.*','up.fid_jenis_usul','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
 
     private function _datatables()
     {

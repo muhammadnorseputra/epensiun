@@ -84,6 +84,14 @@
                             </i> Verifikasi Usul
                         </a>
                     </li>
+
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <a class="nav-link has-arrow " href="<?= base_url('/app/arsip/list') ?>">
+                            <i data-feather="archive" class="nav-icon icon-xs me-2">
+                            </i> Arsip
+                        </a>
+                    </li>
                     <?php endif; ?>
                 </ul>
 
@@ -240,10 +248,15 @@
         <script src="<?= base_url('template/') ?>assets/js/cekusul.js"></script>
     <?php endif; ?>
 
+    <?php if ($this->uri->segment(2) === 'dashboard') : ?>
+        <script src="<?= base_url('template/') ?>assets/js/dashboard.js"></script>
+    <?php endif; ?>
+
     <?php if ($this->uri->segment(2) === 'inbox') : ?>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/inboxusul.js"></script>
     <?php endif; ?>
+
     <?php if ($this->uri->segment(2) === 'verifikasi') : ?>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>

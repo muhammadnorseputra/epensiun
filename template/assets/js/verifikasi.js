@@ -89,7 +89,7 @@ $modalApprove.on("hidden.bs.modal", (event) => {
 
 function loadEffect(isLoading = true) {
 	return `<div class="d-flex justify-content-start gap-5">
-				<div class="placeholder avatar avatar-lg rounded-circle"></div>
+				<div class="placeholder avatar avatar-lg col-12 rounded-circle"></div>
 				<div class="w-100">
 					<span class="placeholder mb-2 col-6"></span>
 					<span class="placeholder mb-2 w-100"></span>
@@ -128,7 +128,9 @@ function Approve(token) {
 		{ token: token },
 		function (res) {
 			if (res.status === true) {
-				$formApprove.find("input[name='tanggal_approve']").val(formatDateTimeSQLToIndo(res.data.approve_at));
+				if(res.data.approve_at !== null) {
+					$formApprove.find("input[name='tanggal_approve']").val(formatDateTimeSQLToIndo(res.data.approve_at));
+				}
 				$formApprove.find("input[name='nip']").val(res.data.nip);
 				setTimeout(() => {
 					$container.html(`
@@ -206,6 +208,35 @@ function UbahStatus(token) {
 	);
 }
 
+function Arsip(token) {
+	$.confirm({
+		title: 'Arsipkan',
+		content: 'Apakah anda sudah menyerahkan SK kepada yang bersangkutan ?',
+		type: 'green',
+		theme: 'material',
+		buttons: {
+			sudah: function () {
+				$.post(`${_uri}/app/verifikasi/arsipkan`, {token: token}, function(res) {
+					if(res.status === true) {
+						TabelVerifikasiPesiun.ajax.reload();
+						return false;
+					}
+					$.alert({
+						title: "Warning !",
+						type: 'orange',
+						theme: 'material',
+						content: res.message,
+						typeAnimated: true,
+						autoClose: 'ok|5000'
+					});
+				}, 'json')
+			},
+			belum: function () {
+				return;
+			},
+		}
+	})
+}
 $formUbahStatus.find("select[name='status']").on("change", function () {
 	let _ = $(this),
 		$val = _.val();

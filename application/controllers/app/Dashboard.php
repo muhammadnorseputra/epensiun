@@ -28,14 +28,24 @@ class Dashboard extends CI_Controller {
     public function index()
     {
 		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
-		$jumlah_usulan = $this->pensiun->getWhere('usul', ['is_status' => 'SKPD']);
-		$jumlah_selesai = $this->pensiun->getWhere('usul', ['is_status' => 'SELESAI']);
+		$jumlah_usulan = $this->pensiun->JmlByUsulInbox();
+		$jumlah_selesai = $this->pensiun->JmlByUsulSelesai();
+
+		// Charts
+		$charts = [
+			'bup' => $this->pensiun->JmlByJenis(1)->num_rows(),
+			'jadu' => $this->pensiun->JmlByJenis(2)->num_rows(),
+			'aps' => $this->pensiun->JmlByJenis(3)->num_rows(),
+			'udzur' => $this->pensiun->JmlByJenis(4)->num_rows(),
+			'mpp' => $this->pensiun->JmlByJenis(5)->num_rows(),
+		];
 		$data = [
 			'title' => 'Dashboard | Integrated Pensiun ASN',
 			'content' => 'pages/dashboard',
 			'statistik' => $statistik,
 			'jumlah_usulan' => $jumlah_usulan->num_rows(),
 			'jumlah_selesai' => $jumlah_selesai->num_rows(),
+			'charts' => $charts
 		];
 
         $this->load->view('layouts/app', $data);

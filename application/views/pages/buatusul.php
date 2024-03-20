@@ -108,7 +108,7 @@
                                 ?>
                                     <div class="col w-sm-25">
                                         <div class="d-grid mb-3">
-                                            <button class="btn btn-sm btn-secondary" type="button"><i class="bi bi-journal-text me-2"></i> Lihat Persyaratan</button>
+                                            <button class="btn btn-sm btn-secondary" onclick="SyaratPensiun('<?= $jp->id ?>')" type="button"><i class="bi bi-journal-text me-2"></i> Lihat Persyaratan</button>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label ms-2" for="jenis_pensiun_<?= $jp->id ?>">
@@ -182,9 +182,9 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane fade <?= $is_show_step3 ?> <?= $step3 ?>" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-                            <?php if (@$detail->token && @$usul->is_status === 'SKPD') : ?>
+                            <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM') : ?>
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-6">
                                         <ul class="row row-cols-1 row-cols-sm-2 list-unstyled px-3">
                                             <li class="pb-3 ps-0 mb-3 border-bottom">
                                                 <div class="fs-sm fw-bold lh-1">NOMOR USUL</div>
@@ -245,32 +245,27 @@
                                         <!-- Textarea -->
                                         <div class="mb-3">
                                             <label for="textarea-input" class="form-label fw-bold">Tempel Link Eviden <span class="text-danger ms-1">*</span></label>
-                                            <textarea class="form-control" id="textarea-input" name="eviden" rows="5" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
+                                            <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
                                         <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
                                         <?= form_close() ?>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="card">
-                                            <div class="card-header">
-                                                <h3>Persyaratan Usulan</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius tenetur impedit nostrum, aliquam repellendus natus in maiores. Excepturi nisi non accusamus. Eligendi minus, minima recusandae delectus ipsum similique itaque esse.</p>
-                                            </div>
+                                            <div class="card-body pt-0" style="max-height: 700px; overflow-x:hidden; overflow-y: auto;" id="loadSyaratPensiun"></div>
                                         </div>
                                     </div>
                                 </div>
                             <?php endif; ?>
-                            <?php if (@$detail->token && @$usul->is_status === 'BKPSDM') : ?>
+                            <!-- <?php if (@$detail->token && @$usul->is_status === 'BKPSDM') : ?>
                             <div class="text-center">
                                 <img src="<?= base_url('template/assets/images/svg/verify.svg') ?>" class="w-75 w-md-25" alt="Verify Status">
                                 <h3 class="mt-8">TAHAP <span class="text-primary">VERIFIKASI BKPSDM</span></h3>
                                 <p>Usulan kamu sedang kami proses, mohon tunggu ya 👋🏻</p>
                                 <a href="<?= base_url('/app/inbox/usul') ?>" class="btn btn-lg btn-primary"><i class="bi bi-inbox me-2"></i> Inbox usul</a>
                             </div>
-                            <?php endif; ?>
+                            <?php endif; ?> -->
 
                             <?php if (@$detail->token && @$usul->is_status === 'TTD_SK') : ?>
                             <div class="text-center">
@@ -283,6 +278,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal approve usulan-->
+<div class="modal fade" id="modalSyarat" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}' role="dialog" aria-labelledby="modalSyaratTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-body pt-0"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-hand-thumbs-up-fill me-2"></i> Mengerti</button>
             </div>
         </div>
     </div>

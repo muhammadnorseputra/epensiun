@@ -12,7 +12,7 @@ class ModelPensiunInbox extends CI_Model
     // default order 
     protected $order = array('up.id' => 'desc');
     // default select 
-    protected $select_table = array('u.*','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
+    protected $select_table = array('u.*','up.fid_jenis_usul','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
 
     private function _datatables()
     {
@@ -85,7 +85,7 @@ class ModelPensiunInbox extends CI_Model
 
     public function TopUsulanPensiunByUnkerId()
     {
-        $this->db->select('u.nama,u.url_photo,u.is_status,u.nomor_sk,u.tanggal_sk,up.tanggal,uj.nama AS jenis_pensiun');
+        $this->db->select('u.nama,u.url_photo,u.is_status,u.nomor_sk,u.tanggal_sk,u.arsip_at,uj.nama AS jenis_pensiun');
         $this->db->from('usul AS u');
         $this->db->join('usul_pengantar AS up', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');

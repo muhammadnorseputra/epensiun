@@ -83,7 +83,7 @@ class Verifikasi extends CI_Controller
 			}
 
 			if($r->is_status === 'SELESAI' || $r->is_status === 'SELESAI_BTL' || $r->is_status === 'SELESAI_TMS') {
-				$button .= '<a class="dropdown-item" href="#"><i class="bi bi-archive me-2 text-warning"></i>Arsipkan</a>';
+				$button .= '<button type="button" class="dropdown-item" onclick="Arsip(\''.$r->token.'\')"><i class="bi bi-archive me-2 text-warning"></i>Arsipkan</button>';
 			}
 
 			if($r->is_status === 'SELESAI') {
@@ -233,7 +233,14 @@ class Verifikasi extends CI_Controller
 		
 		$baseUrlApi = 'http://silka.balangankab.go.id';
 
-		$fileupload = $this->upload($baseUrlApi."/services/pensiun/upload/skpensiun",$_FILES['filesk'],$post['nip']);
+		$file = $_FILES['filesk'];
+		$curlFile = new \CURLFile($file['tmp_name'],$file['type'],$file['name']);
+		$postapi = [
+			'nip' => $post['nip'],
+			'file' => $curlFile
+		];
+
+		$fileupload = Upload($baseUrlApi."/services/pensiun/upload/skpensiun",$postapi);
 		$doupload = json_decode($fileupload);
 
 		if($doupload->status === true)
@@ -255,6 +262,35 @@ class Verifikasi extends CI_Controller
 			$this->pensiun->update('usul_pengantar', ['is_status' => 'SELESAI'], $whr);
 		} else {
 			$msg = $doupload;
+		}
+		echo json_encode($msg);
+	}
+
+	public function arsipkan() 
+	{
+		$token = $this->input->post('token');
+		$data = [
+			'is_status' => 'SELESAI_ARSIP',
+			'arsip_at' => date('Y-m-d H:i:s')
+		];
+
+		$whr = [
+			'token' => $token
+		];
+		
+		$db = $this->pensiun->update('usul', $data, $whr);
+		if($db)
+		{
+			$this->pensiun->update('usul_pengantar', ['is_status' => 'SELESAI_ARSIP'], $whr);
+			$msg = [
+				'status' => true,
+				'message' => 'Usulan & SK telah diarsipkan'
+			];
+		} else {
+			$msg = [
+				'status' => false,
+				'message' => 'Usulan gagal diarsipkan'
+			];
 		}
 		echo json_encode($msg);
 	}

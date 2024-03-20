@@ -32,6 +32,31 @@ class Pensiun extends CI_Controller
 		echo $req;
 	}
 
+	public function syarat() {
+		$jns = $this->input->get('id');
+		if($jns === '1') {
+			return $this->load->view('pra-berkas/bup');
+		}
+
+		if($jns === '2') {
+			return $this->load->view('pra-berkas/jadu');
+		}
+
+		if($jns === '3') {
+			return $this->load->view('pra-berkas/aps');
+		}
+
+		if($jns === '4') {
+			return $this->load->view('pra-berkas/udzur');
+		}
+
+		if($jns === '5') {
+			return $this->load->view('pra-berkas/mpp');
+		}
+
+		echo "Page Not Found !";
+	}
+
 	public function cekusul()
 	{
 		$data = [
@@ -266,7 +291,7 @@ class Pensiun extends CI_Controller
 		if ($db) {
 			$msg = [
 				'status' => true,
-				'rediract' => base_url('/app/pensiun/buatusul?step=3&nip=' . $post['nip'] . '&token=' . $post['token'])
+				'rediract' => base_url('/app/pensiun/buatusul?step=3&nip=' . $post['nip'] . '&token=' . $post['token'].'&jenis='.$post['jns_pensiun'])
 			];
 		} else {
 			$msg = [

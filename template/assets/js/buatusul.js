@@ -37,12 +37,22 @@ $(function () {
 						}, 3000);
 						return false;
 					}
-					alert(res.message);
-					button
-						.prop("disabled", false)
-						.html(
-							`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`
-						);
+					$.alert({
+						title: "Galat!",
+						type: 'red',
+						theme: 'material',
+						content: res.message,
+						typeAnimated: true,
+						autoClose: 'ok|5000',
+						draggable: true,
+						onClose: function () {
+							button
+								.prop("disabled", false)
+								.html(
+									`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`
+								);
+						},
+					});
 				},
 				"json"
 			);
@@ -177,7 +187,14 @@ $(function () {
 			$data = _.serialize(),
 			$container = $("#loadProfile");
 		if (_.find('input[name="nip"]').val() === "") {
-			alert("Nomor Induk Pegawai Tidak Boleh Kosong !");
+			$.alert({
+				title: "Warning !",
+				type: 'orange',
+				theme: 'material',
+				content: `Nomor Induk Pegawai Tidak Boleh Kosong !`,
+				typeAnimated: true,
+				autoClose: 'ok|5000',
+			});
 			return false;
 		}
 		// state button cari
@@ -213,7 +230,14 @@ $(function () {
 			$url = _.attr("action"),
 			$data = _.serialize();
 		if (_.find('input[name="nip"]').val() === "") {
-			alert("Nomor Induk Pegawai Tidak Ditemukan !");
+			$.alert({
+				title: "Warning !",
+				type: 'orange',
+				theme: 'material',
+				content: `Nomor Induk Pegawai Tidak Ditemukan !`,
+				typeAnimated: true,
+				autoClose: 'ok|5000',
+			});
 			return false;
 		}
 		// state button cari
@@ -233,7 +257,14 @@ $(function () {
 					}, 3000);
 					return false;
 				}
-				alert(res.message);
+				$.alert({
+					title: "Warning !",
+					type: 'orange',
+					theme: 'material',
+					content: res.message,
+					typeAnimated: true,
+					autoClose: 'ok|5000',
+				});
 				button
 					.prop("disabled", false)
 					.html(`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`);
@@ -252,7 +283,6 @@ $(function () {
 			this.classList.add("was-validated");
 			return false;
 		}
-
 		// state button cari
 		let button = _.find("button[type='submit']");
 		button
@@ -260,30 +290,81 @@ $(function () {
 			.html(
 				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Kirim Usulan`
 			);
-		const msg = "Apakah anda yakin mengirim usulan tersebut ?";
-		if (confirm(msg)) {
-			$.post(
-				$url,
-				$data,
-				function (res) {
-					if (res.status === true) {
-						setTimeout(() => {
-							window.location.href = res.rediract;
-						}, 3000);
-						return false;
-					}
-					alert(res.message);
-					button
-						.prop("disabled", false)
-						.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+		$.confirm({
+			title: 'Yakin ?',
+			content: 'Apakah anda yakin mengirim usulan tersebut dan berkas sudah lengkap sesuai ketentuan ?',
+			type: 'blue',
+			theme: 'material',
+			buttons: {
+				sudah: function () {
+					$.post(
+						$url,
+						$data,
+						function (res) {
+							if (res.status === true) {
+								setTimeout(() => {
+									window.location.href = res.rediract;
+								}, 3000);
+								return false;
+							}
+							$.alert({
+								title: "Warning !",
+								type: 'orange',
+								theme: 'material',
+								content: res.message,
+								typeAnimated: true,
+								autoClose: 'ok|5000',
+								onClose: function() {
+									button
+									.prop("disabled", false)
+									.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+								}
+							});
+						},
+						"json"
+					);
 				},
-				"json"
-			);
-			return false;
-		}
-
-		button
-			.prop("disabled", false)
-			.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+				cancel: function () {
+					button
+					.prop("disabled", false)
+					.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+				},
+			}
+		})
 	});
 });
+
+function loadEffect(isLoading = true) {
+	return `<div class="d-flex flex-column justify-content-start gap-5 pt-4">
+				<div class="w-100">
+					<span class="placeholder mb-2 col-8 h-50"></span>
+					<hr>
+					<span class="placeholder mb-2 col-6"></span>
+					<span class="placeholder mb-2 w-100"></span>
+					<span class="placeholder mb-4" style="width: 95%;"></span>
+					<span class="placeholder mb-2 col-6"></span>
+					<span class="placeholder mb-2 w-100"></span>
+				</div>
+			</div>`;
+}
+
+function loadSyarat(id,target) {
+	target.html(loadEffect())
+	$.get(`${_uri}/app/pensiun/syarat`, {id: id}, function(res) {
+		setTimeout(() => {
+			target.html(res);
+		}, 1000)
+	}, 'html');
+}
+
+// auto req persyratan step 3
+let idSyarat = urlParams.get('jenis');
+loadSyarat(idSyarat,$("#loadSyaratPensiun"));
+
+// get persyratan step 1
+let $modalSyarat = $("#modalSyarat");
+function SyaratPensiun(id) {
+	$modalSyarat.modal('show');
+	let content = $modalSyarat.find('.modal-body');
+	loadSyarat(id,content);
+}

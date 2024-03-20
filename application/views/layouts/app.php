@@ -13,7 +13,8 @@
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/dropzone/dist/dropzone.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
-    <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.css" rel="stylesheet">
+    <link href="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+    <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) === 'verifikasi') : ?>
@@ -229,6 +230,7 @@
     <script src="<?= base_url('template/') ?>assets/js/route.js"></script>
 
     <?php if ($this->uri->segment(3) === 'buatusul') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/buatusul.js"></script>
@@ -243,6 +245,7 @@
         <script src="<?= base_url('template/') ?>assets/js/inboxusul.js"></script>
     <?php endif; ?>
     <?php if ($this->uri->segment(2) === 'verifikasi') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/moment-with-locales.js"></script>

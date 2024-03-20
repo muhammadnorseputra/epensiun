@@ -149,24 +149,29 @@ $stat = json_decode($statistik);
                     <!-- icon with content  -->
                     <div class="d-flex align-items-center justify-content-around">
                         <div class="text-center">
-                            <i class="icon-sm text-success" data-feather="check-circle"></i>
-                            <h1 class="mt-3  mb-1 fw-bold">76</h1>
+                            <i class="icon-sm text-success" data-feather="activity"></i>
+                            <h1 class="mt-3  mb-1 fw-bold"><?= $charts['bup'] ?></h1>
                             <p>BUP</p>
                         </div>
                         <div class="text-center">
-                            <i class="icon-sm text-warning" data-feather="trending-up"></i>
-                            <h1 class="mt-3  mb-1 fw-bold">32</h1>
+                            <i class="icon-sm text-warning" data-feather="activity"></i>
+                            <h1 class="mt-3  mb-1 fw-bold"><?= $charts['jadu'] ?></h1>
                             <p>JANDA/DUDA</p>
                         </div>
                         <div class="text-center">
-                            <i class="icon-sm text-danger" data-feather="trending-down"></i>
-                            <h1 class="mt-3  mb-1 fw-bold">13</h1>
+                            <i class="icon-sm text-secondary" data-feather="activity"></i>
+                            <h1 class="mt-3  mb-1 fw-bold"><?= $charts['aps'] ?></h1>
                             <p>APS</p>
                         </div>
                         <div class="text-center">
-                            <i class="icon-sm text-danger" data-feather="trending-down"></i>
-                            <h1 class="mt-3  mb-1 fw-bold">13</h1>
+                            <i class="icon-sm text-danger" data-feather="activity"></i>
+                            <h1 class="mt-3  mb-1 fw-bold"><?= $charts['udzur'] ?></h1>
                             <p>UDZUR</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="icon-sm text-info" data-feather="activity"></i>
+                            <h1 class="mt-3  mb-1 fw-bold"><?= $charts['mpp'] ?></h1>
+                            <p>MPP</p>
                         </div>
                     </div>
                 </div>
@@ -188,7 +193,7 @@ $stat = json_decode($statistik);
                                 <tr>
                                     <th>Pensiun ASN</th>
                                     <th>Nomor & Tanggal SK</th>
-                                    <th>Tanggal Usul</th>
+                                    <th>Tanggal Diserahkan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -196,6 +201,8 @@ $stat = json_decode($statistik);
                                 $db = $this->inbox->TopUsulanPensiunByUnkerId();
                                 if ($db->num_rows() > 0) :
                                     foreach ($db->result() as $r) :
+                                    
+                                    $arsip_date = $r->arsip_at !== null ? date_indo(substr($r->arsip_at,0,10)) : '<span class="text-danger bg-light p-2 rounded ">SK Belum diserahkan</span>';
                                 ?>
                                         <tr>
                                             <td class="align-middle">
@@ -210,7 +217,7 @@ $stat = json_decode($statistik);
                                                 </div>
                                             </td>
                                             <td class="align-middle"><span class="fw-bold"><?= $r->nomor_sk ?> </span><br> <?= date_indo($r->tanggal_sk) ?></td>
-                                            <td class="align-middle"><?= date_indo($r->tanggal) ?></td>
+                                            <td class="align-middle"><?= $arsip_date ?></td>
                                         </tr>
                                     <?php
                                     endforeach;

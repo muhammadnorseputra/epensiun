@@ -118,4 +118,31 @@ if (! function_exists('api_curl_get'))
 		 
 	}
 }
+
+if (! function_exists('Upload'))
+{
+	function Upload($url, $arr)
+	{
+
+		// set post fields
+		$post = $arr;
+
+		$request_headers = [
+			'apiKey:bkpsdm6811',
+			'Content-Type:multipart/form-data',
+			'Accept:application/json'
+		];
+		
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		$result = curl_exec($ch);	
+		return $result;
+		 
+	}
+}
 ?>

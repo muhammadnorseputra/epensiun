@@ -44,17 +44,17 @@ class Inbox extends CI_Controller
             
             if($r->is_status === 'SKPD') {
                 $status = '<span class="badge bg-secondary px-3 py-2"><i class="bi bi-check-circle-fill me-2"></i>DIUSULKAN</span>';
-                $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
+                $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
                 <button type="button" class="btn btn-danger btn-sm" onclick="Hapus(\''.$r->token_pengantar.'\')"><i class="bi bi-trash"></i> <br> HAPUS</button>';
             } elseif($r->is_status === 'BKPSDM') {
                 $status = '<span class="badge bg-primary px-3 py-2"><i class="bi bi-lock-fill"></i> VERIFIKASI BKPSDM</span>';
-                $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
+                $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             }  elseif($r->is_status === 'TTD_SK') {
                 $status = '<span class="badge bg-warning px-3 py-2"><i class="bi bi-patch-check-fill"></i> MENUNGGU TTD SK</span>';
-                $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
+                $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             }  else {
                 $status = '';
-                $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
+                $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
                 <button type="button" class="btn btn-danger btn-sm" onclick="Hapus(\''.$r->token_pengantar.'\')"><i class="bi bi-trash"></i> <br> HAPUS</button>';
             }
 
@@ -73,7 +73,7 @@ class Inbox extends CI_Controller
                     <div class="ms-3 lh-1">
                         <h5 class="mb-1">
                             <strong>' . $r->nip . '</strong> <br>
-                            <a href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar).'" class="text-inherit">' . $r->nama . '</a>
+                            <a href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'" class="text-inherit">' . $r->nama . '</a>
                         </h5>
                     </div>
                 </div>';

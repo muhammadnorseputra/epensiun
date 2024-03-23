@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row my-6">
-        <div class="col-sm-7 mx-auto text-center">
+        <div class="col-sm-8 mx-auto text-center">
             <div id="loadDataAsn"></div>
         </div>
     </div>

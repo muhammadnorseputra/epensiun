@@ -32,29 +32,30 @@ class Pensiun extends CI_Controller
 		echo $req;
 	}
 
-	public function syarat() {
+	public function syarat()
+	{
 		$jns = $this->input->get('id');
-		if($jns === '1') {
+		if ($jns === '1') {
 			return $this->load->view('pra-berkas/bup');
 		}
 
-		if($jns === '2') {
+		if ($jns === '2') {
 			return $this->load->view('pra-berkas/jadu');
 		}
 
-		if($jns === '3') {
+		if ($jns === '3') {
 			return $this->load->view('pra-berkas/aps');
 		}
 
-		if($jns === '4') {
+		if ($jns === '4') {
 			return $this->load->view('pra-berkas/udzur');
 		}
 
-		if($jns === '5') {
+		if ($jns === '5') {
 			return $this->load->view('pra-berkas/mpp');
 		}
 
-		echo "Page Not Found !";
+		echo "<div class='my-6 gap-6 d-flex flex-column justify-content-center align-items-center'><i class='bi bi-bell-slash-fill fs-1 text-danger me-2'></i> Page Not Found !</div>";
 	}
 
 	public function cekusul()
@@ -71,52 +72,10 @@ class Pensiun extends CI_Controller
 	{
 		$nip = $this->input->post('nip');
 		$db = $this->pensiun->getWhere('usul', ['nip' => $nip]);
-		$template = "";
+		
 		if ($db->num_rows() > 0) {
 			$usul = $db->row();
-			if($usul->is_status === 'SKPD') {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									Usulan Masih Dalam Tahap "<strong>DIUSULKAN SKPD</strong>"
-								</div>
-							</div>';
-			} elseif ($usul->is_status === 'BKPSDM') {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									<div class="d-flex flex-column justify-content-center align-items-center gap-3">
-									<img src="'.base_url('template/assets/images/svg/verify.svg').'" class="w-75 w-md-50 rounded mb-6" alt="Verify Status">
-									<h3>TAHAP VERIFIKASI</h3>
-									<span>Usulan Masih Dalam Tahap "<strong>VERIFIKASI BKPSDM</strong>"</span>
-									</div>
-								</div>
-							</div>';
-			} elseif($usul->is_status === 'SELESAI') {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									Usulan Pensiun Telah "<strong>SELESAI & SK Sudah Terbit</strong>". <br> Silahkan Ke Kantor BKPSDM untuk pengambilan SK
-								</div>
-							</div>';
-			} elseif($usul->is_status === 'TTD_SK') {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									Usulan Pensiun masih dalam tahap menunggu "<strong>TTD BUPATI BALANGAN</strong>"
-								</div>
-							</div>';
-			} elseif($usul->is_status === 'SELESAI_ARSIP') {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									SK Telah Diterima Yang Bersangkutan
-								</div>
-							</div>';
-			} else {
-				$template .= '<div class="card shadow-none border">
-								<div class="card-body">
-									Ops, usulan sepertinya <strong>Tidak Memenuhi Syarat</strong> atau <strong>Berkas Tidak Lengkap</strong>. <br> Silahkan hubungi SKPD terkait !
-								</div>
-							</div>';
-			}
-
-			echo json_encode($template);
+			$template = $this->load->view('pages/statususul', ['usul' => $usul]);
 			return false;
 		}
 
@@ -197,13 +156,13 @@ class Pensiun extends CI_Controller
 		if ($db) {
 			$msg = [
 				'status' => true,
-				'message' => 'Pengantar Berhasil Dibuat',
+				'message' => 'Pengantar Berhasil Disimpan',
 				'redirect' => base_url('/app/pensiun/buatusul?step=2&nip=' . $nip . '&token=' . $isToken)
 			];
 		} else {
 			$msg = [
 				'status' => false,
-				'message' => 'Pengantar Gagal Dibuat',
+				'message' => 'Pengantar Gagal Disimpan',
 				'redirect' => null
 			];
 		}
@@ -231,7 +190,7 @@ class Pensiun extends CI_Controller
 		if (($cekusul->num_rows() > 0 && $cekusul->row()->token !== $post['token'])) {
 			$msg = [
 				'status' => false,
-				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun '.$cekusul->row()->jenis_usul.'!',
+				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun ' . $cekusul->row()->jenis_usul . '!',
 				'rediract' => null
 			];
 			echo json_encode($msg);
@@ -291,7 +250,7 @@ class Pensiun extends CI_Controller
 		if ($db) {
 			$msg = [
 				'status' => true,
-				'rediract' => base_url('/app/pensiun/buatusul?step=3&nip=' . $post['nip'] . '&token=' . $post['token'].'&jenis='.$post['jns_pensiun'])
+				'rediract' => base_url('/app/pensiun/buatusul?step=3&nip=' . $post['nip'] . '&token=' . $post['token'] . '&jenis=' . $post['jns_pensiun'])
 			];
 		} else {
 			$msg = [
@@ -313,15 +272,15 @@ class Pensiun extends CI_Controller
 		if (($cekusul->num_rows() > 0 && $cekusul->row()->token !== $post['token'])) {
 			$msg = [
 				'status' => false,
-				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun '.$cekusul->row()->jenis_usul.'!',
+				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun ' . $cekusul->row()->jenis_usul . '!',
 				'rediract' => null
 			];
 			echo json_encode($msg);
 			return false;
 		}
-		
+
 		$eviden = $post['eviden'];
-		
+
 		$data = [
 			'url_berkas' => $eviden,
 			'is_status' => 'BKPSDM'

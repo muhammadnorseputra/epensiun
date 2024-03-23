@@ -80,7 +80,7 @@ class ModelPensiunVerifikasi extends CI_Model
     // -------------------------------- end-datatable --------------------------//
 
     public function getJenisUsul($token) {
-        $this->db->select('uj.nama,uj.keterangan');
+        $this->db->select('uj.id,uj.nama,uj.keterangan,uj.kelompok');
         $this->db->from('usul_pengantar AS up');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id');
         $this->db->where('up.token', $token);

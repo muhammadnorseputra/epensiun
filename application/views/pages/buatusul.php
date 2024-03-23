@@ -6,7 +6,7 @@
             <div>
                 <div class="d-flex justify-content-between">
                     <div class="mb-2 mb-lg-4 d-flex align-items-start gap-4">
-                        <i data-feather="home" class="icon-md text-white"></i>
+                        <i data-feather="users" class="icon-xl text-white"></i>
                         <div>
                             <h3 class="mb-0 text-white">Formulir Usul Pensiun ASN</h3>
                             <p class="text-white lead">Silahkan isi formulir step by step dibawah ini.</p>
@@ -96,7 +96,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card-body p-8">
+                <div class="card-body px-md-12">
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-sm-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
@@ -134,8 +134,10 @@
                                 </div>
                                 <div class="help-block-datepicker"></div>
                             </div>
-                            <button type="button" class="btn btn-lg btn-danger" onclick="window.location.replace('<?= base_url('/app/inbox/usul') ?>')"><i class="bi bi-arrow-bar-left me-2"></i>Batal</button>
-                            <button type="submit" class="btn btn-lg btn-primary" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Simpan & Lanjutkan</button>
+                            <div class="d-flex justify-content-start align-items-center gap-2">
+                                <button type="button" class="btn btn-lg btn-danger" onclick="window.location.replace('<?= base_url('/app/inbox/usul') ?>')"><i class="bi bi-arrow-bar-left me-2"></i>Batal</button>
+                                <button type="submit" class="btn btn-lg btn-primary" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Simpan & Lanjutkan</button>
+                            </div>
                             <?= form_close() ?>
                         </div>
                         <div class="tab-pane fade <?= $is_show_step2 ?> <?= $step2 ?>" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">

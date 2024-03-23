@@ -211,12 +211,13 @@ $stat = json_decode($statistik);
                                 ?>
                                         <tr>
                                             <td class="align-middle">
-                                                <div class="d-flex align-items-center">
+                                                <div class="d-flex align-items-start">
                                                     <div>
                                                         <img src="<?= $r->url_photo ?>" alt="<?= $r->nama ?>" class="avatar-md avatar rounded-circle">
                                                     </div>
                                                     <div class="ms-3 lh-1">
-                                                        <h5 class=" mb-1"><?= $r->nama ?></h5>
+                                                        <h5 class="mb-1 text-dark"><?= $r->nama ?></h5>
+                                                        <p class=" fw-bold text-dark"><?= $r->nip ?></p>
                                                         <p class="mb-0"><?= $r->jenis_pensiun ?></p>
                                                     </div>
                                                 </div>

@@ -65,7 +65,7 @@ class Verifikasi extends CI_Controller
 
 			$button = '
 			<div class="dropdown dropstart">
-				<a class="text-muted text-primary-hover border-primary border-primary-hover btn btn-sm"
+				<a class="text-muted text-primary-hover border-secondary border-primary-hover btn btn-sm"
 					href="#"
 					role="button"
 					id="dropdownTeamOne"
@@ -75,7 +75,7 @@ class Verifikasi extends CI_Controller
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical icon-xxs"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg> Options
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownTeamOne">
-					<button class="dropdown-item" type="button" onclick="UbahStatus(\''.$r->token.'\')"><i class="bi bi-pencil me-2"></i> Ubah Status</button>
+					<button class="dropdown-item" type="button" onclick="UbahStatus(\''.$r->token.'\')"><i class="bi bi-patch-check-fill text-primary me-2"></i> Verifikasi</button>
 			';
 			
 			if($r->is_status === 'TTD_SK' || ($r->nomor_sk !== null && $r->tanggal_sk !== null)) {
@@ -99,7 +99,7 @@ class Verifikasi extends CI_Controller
 			$no++;
 			$row = array();
 			$row[] = "<strong>" . $r->nomor . "</strong><br>" . @date_indo($r->tanggal);
-			$row[] = "<strong>" . $r->nama_jenis . "</strong> <br> <div class='text-nowrap'>" . $r->keterangan."</div>";
+			$row[] = "<strong>" . $r->nama_jenis . "</strong> <br> <div>" . $r->keterangan."</div>";
 			$row[] = '<div class="d-flex align-items-start">
                     <div>
                         <div class="avatar avatar-md">
@@ -136,7 +136,7 @@ class Verifikasi extends CI_Controller
 	public function getprofileasn()
 	{
 		$token = $this->input->get('token');
-		$db = $this->db->select('nip,nama,is_status,url_photo,nama_unit_kerja,nomor_sk,tanggal_sk,catatan,approve_at')->from('usul')->where('token', $token)->get();
+		$db = $this->db->select('*')->from('usul')->where('token', $token)->get();
 		if($db->num_rows() > 0) {
 			$db->row()->nama_jenis = $this->verify->getJenisUsul($token);
 			$data = [
@@ -164,11 +164,20 @@ class Verifikasi extends CI_Controller
 			'token' => $post['token']
 		];
 
+		$tgl_meninggal = !empty($post['tglmeninggal']) ? formatToSQL($post['tglmeninggal']) : null;
+
 		if($post['status'] === 'TTD_SK') {
 			$data = [
 				'is_status' => $post['status'],
 				'nomor_sk' => $post['nomorsk'],
 				'tanggal_sk' => formatToSQL($post['tanggalsk']),
+				'tgl_meninggal' => $tgl_meninggal,
+				'tmt_pensiun' => formatToSQL($post['tmt_pensiun']),
+				'nama_penerima' => $post['namakeluarga'],
+				'hub_keluarga' => $post['hubkeluarga'],
+				'tgl_lahir_penerima' => formatToSQL($post['tgl_lahir_penerima']),
+				'alamat_pensiun' => $post['alamat_pensiun'],
+				'catatan' => $post['note'],
 				'verify_at' => date('Y-m-d H:i:s'),
 				'verify_by' => $this->session->userdata('nip')
 			];
@@ -178,6 +187,12 @@ class Verifikasi extends CI_Controller
 				'catatan' => $post['catatan'],
 				'nomor_sk' => null,
 				'tanggal_sk' => null,
+				'tgl_meninggal' => null,
+				'tmt_pensiun' => null,
+				'nama_penerima' => null,
+				'hub_keluarga' => null,
+				'tgl_lahir_penerima' => null,
+				'alamat_pensiun' => null,
 				'verify_at' => date('Y-m-d H:i:s'),
 				'verify_by' => $this->session->userdata('nip')
 			];

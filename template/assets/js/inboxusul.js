@@ -29,32 +29,54 @@ var TabelUsulPesiun = $("#table-inbox").DataTable({
 	],
 	language: {
 		lengthMenu: "_MENU_ Data per halaman",
-		zeroRecords: "Belum Ada Usulan Pensiun",
 		info: "Showing page _PAGE_ of _PAGES_",
-		infoEmpty: "Belum Ada Usulan Pensiun",
 		infoFiltered: "(filtered from _MAX_ total records)",
 		search: "Masukan NIP/Nama",
 		paginate: {
-			previous: `<i class="fa fa-long-arrow-left"></i>`,
-			next: `<i class="fa fa-long-arrow-right"></i>`,
+			previous: `<i class="bi bi-arrow-bar-left"></i>`,
+			next: `<i class="bi bi-arrow-bar-right"></i>`,
 		},
 		emptyTable: "No matching records found, please filter this data",
 	},
 });
 
 function Hapus(token) {
-	let msg = "Apakah anda yakin akan menghapus usulan tersebut ?";
-	if (confirm(msg)) {
-		$.post(
-			`${_uri}/app/inbox/hapus`,
-			{ token: token },
-			function (res) {
-				if (res.status === true) {
+	$.confirm({
+		title: 'Hapus ?',
+		content: 'Apakah anda yakin akan menghapus usulan tersebut ?',
+		type: 'orange',
+		theme: 'material',
+		buttons: {
+			hapus: {
+				text: '<i class="bi bi-trash me-2"></i> Hapus',
+				btnClass: 'btn-lg btn-danger',
+				action: function () {
+					$.post(
+						`${_uri}/app/inbox/hapus`,
+						{ token: token },
+						function (res) {
+							if (res.status === true) {
+								iziToast.success({
+									timeout: 2000,
+									title: 'Berhasil',
+									position: 'topCenter',
+									message: 'Usulan telah dihapus',
+									transitionOut: 'fadeOutDown',
+									pauseOnHover: false,
+								});
+								TabelUsulPesiun.ajax.reload();
+							}
+						},
+						"json"
+					);
+				}
+			},
+			batal: {
+				text: '<i class="bi bi-x-lg me-2"></i> Batal',
+				action: function() {
 					TabelUsulPesiun.ajax.reload();
 				}
 			},
-			"json"
-		);
-		return false;
-	}
+		}
+	});
 }

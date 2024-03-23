@@ -89,7 +89,7 @@
         </div>
     </div>
     <!-- row  -->
-    <div class="row mt-6 px-2 px-md-2">
+    <div class="row mt-6">
         <div class="col-md-12 col-12">
             <!-- card  -->
             <div class="card">

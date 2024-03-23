@@ -35,6 +35,15 @@ $(function () {
 						setTimeout(() => {
 							window.location.href = res.redirect;
 						}, 3000);
+						iziToast.success({
+							title: 'Berhasil',
+							position: 'topCenter',
+							message: res.message,
+							progressBar: false,
+							transitionIn: 'fadeInDown',
+							transitionOut: 'fadeOutUp',
+							pauseOnHover: false,
+						});
 						return false;
 					}
 					$.alert({
@@ -80,6 +89,7 @@ $(function () {
 					.prop("disabled", false)
 					.html(`<i class="bi bi-search me-2"></i>Cari`);
 				if (res.status === true) {
+					
 					$formSaveASN.find("input[name='nip']").val(res.data.nip);
 					$formSaveASN.find("input[name='nama']").val(res.data.nama);
 					$formSaveASN
@@ -255,6 +265,15 @@ $(function () {
 					setTimeout(() => {
 						window.location.href = res.rediract;
 					}, 3000);
+					iziToast.success({
+						timeout: 3000,
+						title: 'Berhasil',
+						position: 'topCenter',
+						message: `Data ASN Telah Disimpan`,
+						transitionIn: 'fadeInDown',
+						transitionOut: 'fadeOutUp',
+						pauseOnHover: false,
+					});
 					return false;
 				}
 				$.alert({
@@ -293,38 +312,50 @@ $(function () {
 		$.confirm({
 			title: 'Yakin ?',
 			content: 'Apakah anda yakin mengirim usulan tersebut dan berkas sudah lengkap sesuai ketentuan ?',
-			type: 'blue',
-			theme: 'material',
+			type: 'green',
+			theme: 'supervan',
 			buttons: {
-				sudah: function () {
-					$.post(
-						$url,
-						$data,
-						function (res) {
-							if (res.status === true) {
-								setTimeout(() => {
-									window.location.href = res.rediract;
-								}, 3000);
-								return false;
-							}
-							$.alert({
-								title: "Warning !",
-								type: 'orange',
-								theme: 'material',
-								content: res.message,
-								typeAnimated: true,
-								autoClose: 'ok|5000',
-								onClose: function() {
-									button
-									.prop("disabled", false)
-									.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+				Kirim: {
+					action: function() {
+						$.post(
+							$url,
+							$data,
+							function (res) {
+								if (res.status === true) {
+									setTimeout(() => {
+										window.location.href = res.rediract;
+									}, 3000);
+									iziToast.success({
+										timeout: 3000,
+										title: 'Berhasil',
+										position: 'topCenter',
+										message: `Data usulan pensiun telah disimpan`,
+										transitionIn: 'fadeInDown',
+										transitionOut: 'fadeOutUp',
+										pauseOnHover: false,
+									});
+									return false;
 								}
-							});
-						},
-						"json"
-					);
+								$.alert({
+									title: "Warning !",
+									type: 'orange',
+									theme: 'material',
+									content: res.message,
+									typeAnimated: true,
+									autoClose: 'ok|5000',
+									onClose: function() {
+										button
+										.prop("disabled", false)
+										.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+									}
+								});
+							},
+							"json"
+						);
+					}
+					
 				},
-				cancel: function () {
+				Batal: function () {
 					button
 					.prop("disabled", false)
 					.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);

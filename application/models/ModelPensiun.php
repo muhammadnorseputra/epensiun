@@ -51,6 +51,37 @@ class ModelPensiun extends CI_Model {
         $this->db->where_in('up.is_status', ['SKPD','BKPSDM']);
         return $this->db->get(); 
     }
+
+    private function cekValueDate($val) {
+        return !empty($val) ? $val : '';
+    }
+
+    public function timeline($usul,$is_status) {
+		$selected_usul = $is_status === 'SKPD' ? 'selected' : '';
+		$selected_verify = $is_status === 'BKPSDM' ? 'selected' : '';
+		$selected_approve = $is_status === 'TTD_SK' ? 'selected' : '';
+		$selected_ttd = $is_status === 'TTD_SK' ? 'selected' : '';
+		$selected_selesai = $is_status === 'SELESAI' ? 'selected' : '';
+		$selected_arsip = $is_status === 'SELESAI_ARSIP' ? 'selected' : '';
+		return '
+		<div class="cd-horizontal-timeline loaded">
+			<div class="timeline">
+				<div class="events-wrapper">
+					<div class="events" style="width: 100%;">
+						<ol>
+							<li><a href="#0" style="left: 10px;" class="'.$selected_usul.' fw-bold">Usul <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->created_at, 0, 10))) . '</span></a></li>
+							<li><a href="#0" style="left: 150px;" class="'.$selected_verify.' fw-bold">Verify  <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->verify_at, 0, 10))) . '</span></a></li>
+							<li><a href="#0" style="left: 300px;" class="'.$selected_approve.' fw-bold">Approve  <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->approve_at, 0, 10))) . '</span></a></li>
+							<li><a href="#0" style="left: 450px;" class="'.$selected_ttd.' fw-bold">TTD SK <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->approve_at, 0, 10))) . '</span></a></li>
+							<li><a href="#0" style="left: 600px;" class="'.$selected_selesai.' fw-bold">Selesai <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->approve_at, 0, 10))) . '</span></a></li>
+							<li><a href="#0" style="left: 720px;" class="'.$selected_arsip.' fw-bold">Diserahkan <br> <span class="small fw-normal">' . $this->cekValueDate(@date_indo(substr($usul->arsip_at, 0, 10))) . '</span></a></li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		';
+	}
     
     public function insert($table, $data) 
     {

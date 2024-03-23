@@ -13,12 +13,16 @@
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/dropzone/dist/dropzone.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) === 'verifikasi') : ?>
+    <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) === 'verifikasi' || $this->uri->segment(2) === 'arsip') : ?>
     <link href="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.css" rel="stylesheet">
+    <?php endif; ?>
+    <?php if ($this->uri->segment(3) === 'cekusul') : ?>
+    <link href="<?= base_url('template/') ?>assets/css/timeline.css" rel="stylesheet">
     <?php endif; ?>
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?= base_url('template/') ?>assets/css/theme.min.css">
@@ -26,7 +30,7 @@
 </head>
 
 <body class="bg-light">
-    <?php $toggled = $this->uri->segment(3) === 'buatusul' || $this->uri->segment(3) === 'usul' || $this->uri->segment(2) === 'verifikasi' ? 'toggled' : ''; ?>
+    <?php $toggled = $this->uri->segment(3) === 'buatusul' || $this->uri->segment(3) === 'usul' ? 'toggled' : ''; ?>
     <div id="db-wrapper" class="<?= $toggled ?>">
         <!-- navbar vertical -->
         <!-- Sidebar -->
@@ -39,56 +43,56 @@
                 <!-- Navbar nav -->
                 <ul class="navbar-nav flex-column" id="sideNavbar">
                     <li class="nav-item">
-                        <a class="nav-link has-arrow  active " href="<?= base_url('/app/dashboard') ?>">
-                            <i data-feather="home" class="nav-icon icon-xs me-2"></i> Dashboard
+                        <a class="nav-link has-arrow <?= $this->uri->segment(2) === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('/app/dashboard') ?>">
+                            <i data-feather="home" class="nav-icon icon-xs me-2 rounded "></i> Dashboard
                         </a>
                     </li>
 
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <div class="navbar-heading">Mainmenu</div>
+                        <div class="navbar-heading text-white">Mainmenu</div>
                     </li>
                     <?php if($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
                     <!-- Nav item -->
-                    <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/buatusul') ?>">
-                            <i data-feather="user-plus" class="nav-icon icon-xs me-2">
+                    <li class="nav-item <?= $this->uri->segment(3) === 'buatusul' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow <?= $this->uri->segment(3) === 'buatusul' ? 'active' : '' ?>" href="<?= base_url('/app/pensiun/buatusul') ?>">
+                            <i data-feather="user-plus" class="nav-icon icon-xs me-2 text-primary">
                             </i> Buat Usul
                         </a>
                     </li>
 
                     <!-- Nav item -->
-                    <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/inbox/usul') ?>">
-                            <i data-feather="inbox" class="nav-icon icon-xs me-2">
+                    <li class="nav-item <?= $this->uri->segment(2) === 'inbox' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'inbox' ? 'active' : '' ?>" href="<?= base_url('/app/inbox/usul') ?>">
+                            <i data-feather="inbox" class="nav-icon icon-xs me-2 text-info">
                             </i> Inbox
                         </a>
                     </li>
                     <?php endif; ?>
                     <!-- Nav item -->
-                    <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/pensiun/cekusul') ?>">
-                            <i data-feather="check-circle" class="nav-icon icon-xs me-2">
+                    <li class="nav-item <?= $this->uri->segment(3) === 'cekusul' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'cekusul' ? 'active' : '' ?>" href="<?= base_url('/app/pensiun/cekusul') ?>">
+                            <i data-feather="check-circle" class="nav-icon icon-xs me-2 text-danger">
                             </i> Monitoring Usulan
                         </a>
                     </li>
                     <?php if($this->session->userdata('username') === 'putra'): ?>
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <div class="navbar-heading">BKPSDM ONLY</div>
+                        <div class="navbar-heading text-white">BKPSDM ONLY</div>
                     </li>
                     <!-- Nav item -->
-                    <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/verifikasi/list') ?>">
-                            <i data-feather="check" class="nav-icon icon-xs me-2">
+                    <li class="nav-item <?= $this->uri->segment(2) === 'verifikasi' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'verifikasi' ? 'active' : '' ?>" href="<?= base_url('/app/verifikasi/list') ?>">
+                            <i class="nav-icon bi bi-patch-check-fill text-primary me-2">
                             </i> Verifikasi Usul
                         </a>
                     </li>
 
                     <!-- Nav item -->
-                    <li class="nav-item">
-                        <a class="nav-link has-arrow " href="<?= base_url('/app/arsip/list') ?>">
-                            <i data-feather="archive" class="nav-icon icon-xs me-2">
+                    <li class="nav-item <?= $this->uri->segment(2) === 'arsip' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'arsip' ? 'active' : '' ?>" href="<?= base_url('/app/arsip/list') ?>">
+                            <i data-feather="archive" class="nav-icon text-warning icon-xs me-2">
                             </i> Arsip
                         </a>
                     </li>
@@ -126,9 +130,9 @@
                                         <!-- List group item -->
                                         <li class="list-group-item bg-light">
                                             <a href="#" class="text-muted">
-                                                <h5 class=" mb-1">Rishi Chopra</h5>
+                                                <h5 class=" mb-1">Admin</h5>
                                                 <p class="mb-0">
-                                                    Mauris blandit erat id nunc blandit, ac eleifend dolor pretium.
+                                                    Halo, <strong><?= $this->session->userdata('nama_lengkap'); ?></strong> selamat datang di ePensiun BKPSDM.
                                                 </p>
                                             </a>
                                         </li>
@@ -159,9 +163,9 @@
 
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">
+                                        <button type="button" class="dropdown-item" onclick="return Logout()">
                                             <i class="me-2 icon-xxs dropdown-item-icon" data-feather="power"></i>Log Out
-                                        </a>
+                                        </button>
                                     </li>
                                 </ul>
 
@@ -236,8 +240,11 @@
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/js/format.js"></script>
     <script src="<?= base_url('template/') ?>assets/js/route.js"></script>
+    <script src="<?= base_url('template/') ?>assets/js/logout.js"></script>
+
 
     <?php if ($this->uri->segment(3) === 'buatusul') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
@@ -249,15 +256,24 @@
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'dashboard') : ?>
+    <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/dashboard.js"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'inbox') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/inboxusul.js"></script>
     <?php endif; ?>
 
+    <?php if ($this->uri->segment(2) === 'arsip') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/js/arsip.js"></script>
+    <?php endif; ?>
+
     <?php if ($this->uri->segment(2) === 'verifikasi') : ?>
+        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>

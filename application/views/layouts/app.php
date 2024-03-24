@@ -235,6 +235,7 @@
     <script src="<?= base_url('template/') ?>assets/libs/dropzone/dist/min/dropzone.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
@@ -244,7 +245,6 @@
 
 
     <?php if ($this->uri->segment(3) === 'buatusul') : ?>
-        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
@@ -256,12 +256,10 @@
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'dashboard') : ?>
-    <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/dashboard.js"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'inbox') : ?>
-        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/inboxusul.js"></script>
@@ -273,7 +271,6 @@
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'verifikasi') : ?>
-        <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>

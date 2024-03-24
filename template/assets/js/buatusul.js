@@ -21,6 +21,7 @@ $(function () {
 
 		// state button cari
 		let button = _.find("button[type='submit']");
+
 		button
 			.prop("disabled", true)
 			.html(

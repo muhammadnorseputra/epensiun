@@ -42,3 +42,47 @@ var TabelArsip = $("#table-arsip").DataTable({
 		emptyTable: "No matching records found, please filter this data",
 	},
 });
+
+function UnArsip(token) {
+	iziToast.question({
+		timeout: 20000,
+		close: false,
+		theme: 'light',
+		color: 'green',
+		overlay: true,
+		icon: 'bi bi-archive',
+		displayMode: 'once',
+		id: 'question',
+		zindex: 999,
+		title: 'Unarsip',
+		message: 'Mengembalikan ke inbox bkpsdm atau verifikasi usul',
+		position: 'center',
+		buttons: [
+			['<button><b>OKE</b></button>', function (instance, toast) {
+	 
+				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+				$.post(`${_uri}/app/arsip/unarchive`, {token: token}, function(res) {
+					TabelArsip.ajax.reload();
+					iziToast.success({
+						timeout: 3000,
+						title: "Berhasil",
+						position: "topCenter",
+						icon: 'bi bi-check-circle-fill',
+						message: res.message,
+						transitionIn: 'fadeInDown',
+						transitionOut: 'fadeOutUp',
+						pauseOnHover: false,
+						// onClosing: function(instance, toast, closedBy){
+						// }
+					});
+				}, 'json');
+	 
+			}, true],
+			['<button>BATAL</button>', function (instance, toast) {
+	 
+				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+	 
+			}],
+		]
+	});
+}

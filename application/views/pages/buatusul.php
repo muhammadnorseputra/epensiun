@@ -101,7 +101,7 @@
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-sm-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
                             <input type="hidden" name="token" value="<?= @$detail->token ?>">
-                            <div class="row row-cols-1 row-cols-sm-2 g-3">
+                            <!-- <div class="row row-cols-1 row-cols-sm-2 g-3">
                                 <?php
                                 foreach ($jenis_pensiun->result() as $jp) :
                                     $check = @$detail->fid_jenis_usul === $jp->id ? 'checked' : '';
@@ -120,6 +120,22 @@
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
+                            </div> -->
+                            <div class="form-floating">
+                                <select class="form-select" name="jenis_pensiun" id="floatingSelect" required="" data-parsley-errors-container=".help-block-jp" data-parsley-required-message="Silahkan pilih jenis pensiun terlebih dahulu." <?= $disabled ?>>
+                                    <option value="">-- Pilih Jenis Usul --</option>
+                                    <?php
+                                foreach ($jenis_pensiun->result() as $jp) :
+                                    $selected = @$detail->fid_jenis_usul === $jp->id ? 'selected' : '';
+                                ?>
+                                    
+                                        <optgroup label="<?= $jp->nama ?>">
+                                           <option value="<?= $jp->id ?>" <?= $selected ?>> <i class="bi bi-person-badge"></i> <?= $jp->keterangan ?></option>
+                                        </optgroup> 
+                                    
+                                    <?php endforeach; ?>
+                                </select>
+                                <label for="floatingSelect">Jenis Usul Pensiun</label>
                             </div>
                             <p class="help-block-jp"></p>
                             <div class="form-group mb-4">
@@ -270,12 +286,12 @@
                             <?php endif; ?> -->
 
                             <?php if (@$detail->token && @$usul->is_status === 'TTD_SK') : ?>
-                            <div class="text-center">
-                                <img src="<?= base_url('template/assets/images/svg/verify.svg') ?>" class="w-75 w-md-25" alt="Signature Status">
-                                <h3 class="mt-8">TAHAP <span class="text-warning">TANDA TANGAN SK</span></h3>
-                                <p>Usulan Pensiun dalam tahap TTD SK Oleh Bupati Balangan.</p>
-                                <a href="<?= base_url('/app/inbox/usul') ?>" class="btn btn-lg btn-primary"><i class="bi bi-inbox me-2"></i> Inbox usul</a>
-                            </div>
+                                <div class="text-center">
+                                    <img src="<?= base_url('template/assets/images/svg/verify.svg') ?>" class="w-75 w-md-25" alt="Signature Status">
+                                    <h3 class="mt-8">TAHAP <span class="text-warning">TANDA TANGAN SK</span></h3>
+                                    <p>Usulan Pensiun dalam tahap TTD SK Oleh Bupati Balangan.</p>
+                                    <a href="<?= base_url('/app/inbox/usul') ?>" class="btn btn-lg btn-primary"><i class="bi bi-inbox me-2"></i> Inbox usul</a>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>

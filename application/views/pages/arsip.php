@@ -22,7 +22,7 @@
                             <th>Jenis Usul</th>
                             <th>Pensiun ASN</th>
                             <th>Usia</th>
-                            <th class="text-nowrap">Berkas Usul</th>
+                            <th class="text-nowrap">Aksi</th>
                         </tr>
                     </thead>
                 </table>

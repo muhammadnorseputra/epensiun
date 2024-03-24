@@ -110,7 +110,7 @@
                             <label for="tgl_lahir_penerima">Tanggal Lahir Penerima</label>
                         </div>
                     </div>
-                    <div class="w-100"></div>
+                    <div class="w-100 my-2"></div>
                     <div>
                         <div class="form-floating">
                             <textarea class="form-control" name="alamat_pensiun" placeholder="Alamat Pensiun" id="AlamatPensiun" style="height: 100px"></textarea>
@@ -172,11 +172,50 @@
                     <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
                     <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
                 </div>
-                
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
                 <button type="submit" class="btn btn-success"><i class="bi bi-hand-thumbs-up-fill me-2"></i> Approve</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal archive usulan-->
+<div class="modal fade" id="modelArchive" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}' role="dialog" aria-labelledby="modelArchiveTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <?= form_open_multipart(base_url('/app/verifikasi/arsipkan'), ['id' => 'FormArchive', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
+            <input type="hidden" name="token">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="modelArchiveTitle"><i class="bi bi-check-circle-fill me-2 text-success"></i> Tanda Terima SK</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="loadProfile"></div>
+                <div class="row row-cols-2">
+                    <div>
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="tanda_penerima" id="tanda_penerima" placeholder="Masukan Nama Penerima." required>
+                            <label for="tanda_penerima">Tanda Penerima</label>
+                        </div>
+                    </div>
+                    <div>
+
+                        <div class="form-floating">
+                            <input type="text" class="form-control tanggal-waktu" name="tanggal_archive" id="tanggal_archive" placeholder="Masukan Tanggal archive" required>
+                            <label for="tanggal_archive">Pilih tanggal & jam diterima</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-send me-2"></i> Simpan</button>
             </div>
             <?= form_close() ?>
         </div>

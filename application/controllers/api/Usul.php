@@ -11,6 +11,10 @@ class Usul extends RestController
     $this->load->model(['ModelApi' => 'api']);
   }
 
+  private function cekValue($val) {
+    return !empty($val) || $val !== null || $val !== "" ? $val : null;
+}
+
   public function detail_post() {
     $nip = $this->query('nip');
 
@@ -48,11 +52,12 @@ class Usul extends RestController
       $row = $db->row();
       if($row->is_status === 'SELESAI' || $row->is_status === 'SELESAI_ARSIP'):
         $data = [
+          '_id' => $row->id,
           'nip' => $row->nip,
           'nama' => $row->nama,
           'unker' => $row->nama_unit_kerja,
           'tgl_lahir' => $row->tgl_lahir,
-          'tgl_meninggal' => !empty($row->tgl_meninggal) ? $row->tgl_meninggal : null,
+          'tgl_meninggal' => $this->cekValue($row->tgl_meninggal),
           'jenis_pensiun' => $row->nama_jenis, 
           'keterangan_pensiun' => $row->keterangan_jenis, 
           'sk' => [
@@ -65,11 +70,23 @@ class Usul extends RestController
             'alamat_pensiun' => $row->alamat_pensiun,
             'catatan' => $row->catatan
           ],
+          'user' => [
+            'created_at' => $row->created_at,
+            'created_by' => $row->created_by,
+            'update_at' => $this->cekValue($row->update_at),
+            'update_by' => $this->cekValue($row->update_by),
+            'verify_at' => $this->cekValue($row->verify_at),
+            'verify_by' => $this->cekValue($row->verify_by),
+            'approve_at' => $this->cekValue($row->approve_at),
+            'approve_by' => $this->cekValue($row->approve_by),
+            'arsip_at' => $this->cekValue($row->arsip_at),
+            'arsip_by' => $this->cekValue($row->arsip_by)
+          ]
         ];
         $response = [
           'status' => true,
           'status_color' => 'success',
-          'message' => 'Berhasil, usul "'.$nip.'" ditemukan pada database.',
+          'message' => 'Berhasil, usul "'.$nip.'" ditemukan pada database epensiun.',
           'data' => $data
         ];
         return $this->response($response, RestController::HTTP_OK);

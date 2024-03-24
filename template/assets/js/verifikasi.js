@@ -69,8 +69,10 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 
 let $modalUbahStatus = $("#modalUbahStatusUsul"),
 	$modalApprove = $("#modalApprove"),
+	$modalArchive = $("#modelArchive"),
 	$formUbahStatus = $("form#FormUbahStatus"),
-	$formApprove = $("form#FormApprove");
+	$formApprove = $("form#FormApprove"),
+	$formArchive = $("form#FormArchive");
 
 $modalUbahStatus.on("hidden.bs.modal", (event) => {
 	$formUbahStatus[0].reset();
@@ -79,6 +81,10 @@ $modalUbahStatus.on("hidden.bs.modal", (event) => {
 
 $modalApprove.on("hidden.bs.modal", (event) => {
 	$formApprove[0].reset();
+});
+
+$modalArchive.on("hidden.bs.modal", (event) => {
+	$formArchive[0].reset();
 });
 
 function loadEffect(isLoading = true) {
@@ -133,12 +139,8 @@ function changeStatus($val) {
 			.parsley();
 	} else {
 		$(".field-sk").addClass("d-none");
-		$("input[name='nomorsk']")
-			.removeAttr("data-parsley-required")
-			.parsley();
-		$("input[name='tanggalsk']")
-			.removeAttr("data-parsley-required")
-			.parsley();
+		$("input[name='nomorsk']").removeAttr("data-parsley-required").parsley();
+		$("input[name='tanggalsk']").removeAttr("data-parsley-required").parsley();
 		$("input[name='tglmeninggal']")
 			.removeAttr("data-parsley-required")
 			.parsley();
@@ -178,12 +180,12 @@ function Approve(token) {
 				$formApprove.find("input[name='nip']").val(res.data.nip);
 
 				let download = $("div#filesk");
-				if(res.data.url_sk !== null) {
-					download.removeClass('d-none')
+				if (res.data.url_sk !== null) {
+					download.removeClass("d-none");
 					download.find("#filename").text(`/fileskpensiun/${res.data.nip}.pdf`);
-					download.find("a#filename-link").attr('href', res.data.url_sk)
+					download.find("a#filename-link").attr("href", res.data.url_sk);
 				} else {
-					download.addClass('d-none');
+					download.addClass("d-none");
 				}
 
 				setTimeout(() => {
@@ -242,7 +244,7 @@ function UbahStatus(token) {
 					$formUbahStatus
 						.find("textarea#floatingTextarea")
 						.val(res.data.catatan);
-						$formUbahStatus.find("select[name='status']").val(res.data.is_status);
+					$formUbahStatus.find("select[name='status']").val(res.data.is_status);
 				}
 
 				if (
@@ -336,63 +338,137 @@ function UbahStatus(token) {
 }
 
 function Arsip(token) {
-	$.confirm({
-		title: "Arsipkan",
-		content:
-			"Apakah anda yakin akan mengarsipkan Usulan tersebut ? atau anda sudah menyerahkan SK kepada yang bersangkutan ?",
-		type: "green",
-		theme: "material",
-		animation: "bottom",
-		closeAnimation: "bottom",
-		animateFromElement: false,
-		animationSpeed: 200,
-		buttons: {
-			ok: {
-				text: '<i class="bi bi-check-circle-fill me-2"></i> Ok',
-				btnClass: "btn-success",
-				action: function () {
-					$.post(
-						`${_uri}/app/verifikasi/arsipkan`,
-						{ token: token },
-						function (res) {
-							if (res.status === true) {
-								TabelVerifikasiPesiun.ajax.reload();
-								iziToast.success({
-									timeout: 3000,
-									title: "Berhasil",
-									position: "topCenter",
-									message: res.message,
-									transitionIn: 'fadeInDown',
-									transitionOut: 'fadeOutUp',
-									pauseOnHover: false,
-									// onClosing: function(instance, toast, closedBy){
-									// }
-								});
-								return false;
-							}
-							$.alert({
-								title: "Warning !",
-								type: "orange",
-								theme: "material",
-								content: res.message,
-								typeAnimated: true,
-								autoClose: "ok|5000",
-							});
-						},
-						"json"
-					);
-				},
-			},
-			batal: {
-				text: '<i class="bi bi-x-lg me-2"></i>Batal',
-				btnClass: "btn-danger",
-				action: function () {
-					return;
-				},
-			},
-		},
-	});
+	/* Arsip dengan form tanda terima */
+	$modalArchive.modal("show");
+	$formArchive.find("input[name='token']").val(token);
+	let $container = $formArchive.find("#loadProfile");
+	$container.html(loadEffect());
+	$.getJSON(
+		`${_uri}/app/verifikasi/getprofileasn`,
+		{ token: token },
+		function (res) {
+			if (res.status === true) {
+				$formArchive.find("input[name='tanda_penerima']").val(res.data.diterima_oleh);
+				$formArchive.find("input[name='tanggal_archive']").val(formatDateTimeSQLToIndo(res.data.arsip_at));
+
+				setTimeout(() => {
+					$container.html(`
+					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
+						<div>
+							<div class="avatar avatar-lg">
+								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
+							</div>
+						</div>
+						<div class="ms-3 lh-1">
+							<h5 class="mb-1">
+								<strong>${res.data.nip}</strong> <br>
+								${res.data.nama} <br>
+								<div class="text-secondary">${res.data.nama_unit_kerja}</div>
+								<div class="d-flex flex-wrap justify-content-start gap-2 align-items-center mt-2">
+									<div class="badge bg-secondary px-3 py-2 rounded text-white">Jenis Usul : ${
+										res.data.nama_jenis.nama
+									}</div>
+									<div class="badge bg-secondary px-3 py-2 rounded text-white">Keterangan : ${
+										res.data.nama_jenis.keterangan
+									}</div>
+									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
+										res.data.tanggal_sk
+									)}</div>
+									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
+										res.data.nomor_sk
+									}</div>
+								</div>
+							</h5>
+						</div>
+					</div>
+					`);
+				}, 1000);
+			}
+		}
+	);
 }
+
+$formArchive.on("submit", function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+
+	let _ = $(this),
+		$url = _.attr("action"),
+		$data = _.serialize();
+
+	// state button
+	let button = _.find("button[type='submit']");
+
+	if (!this.checkValidity()) {
+		this.classList.add("was-validated");
+		button
+			.prop("disabled", false)
+			.html(`<i class="bi bi-send me-2"></i>Simpan`);
+		return false;
+	}
+	if (_.parsley().isValid()) {
+		$.confirm({
+			title: "Arsipkan",
+			content:
+				"Apakah anda yakin akan mengarsipkan Usulan tersebut ? atau anda sudah menyerahkan SK kepada yang bersangkutan ?",
+			type: "green",
+			theme: "material",
+			animation: "bottom",
+			closeAnimation: "bottom",
+			columnClass: "m",
+			animateFromElement: false,
+			animationSpeed: 200,
+			buttons: {
+				ok: {
+					text: '<i class="bi bi-check-circle-fill me-2"></i> Ok',
+					btnClass: "btn-success",
+					action: function () {
+						$.post(
+							`${_uri}/app/verifikasi/arsipkan`,
+							$data,
+							function (res) {
+								if (res.status === true) {
+									TabelVerifikasiPesiun.ajax.reload();
+									$modalArchive.modal("hide");
+									iziToast.success({
+										timeout: 3000,
+										title: "Berhasil",
+										icon: "bi bi-check-circle-fill",
+										position: "topCenter",
+										message: res.message,
+										transitionIn: "fadeInDown",
+										transitionOut: "fadeOutUp",
+										pauseOnHover: false,
+										// onClosing: function(instance, toast, closedBy){
+										// }
+									});
+									return false;
+								}
+								$.alert({
+									title: "Warning !",
+									type: "orange",
+									theme: "material",
+									content: res.message,
+									typeAnimated: true,
+									autoClose: "ok|5000",
+								});
+							},
+							"json"
+						);
+					},
+				},
+				batal: {
+					text: '<i class="bi bi-x-lg me-2"></i>Batal',
+					btnClass: "btn-danger",
+					action: function () {
+						return;
+					},
+				},
+			},
+		});
+	}
+});
+
 $formUbahStatus.find("select[name='status']").on("change", function () {
 	let _ = $(this),
 		$val = _.val();
@@ -486,8 +562,8 @@ $formApprove.on("submit", function (e) {
 						title: "Berhasil",
 						position: "topCenter",
 						message: data.message,
-						transitionIn: 'fadeInDown',
-						transitionOut: 'fadeOutUp',
+						transitionIn: "fadeInDown",
+						transitionOut: "fadeOutUp",
 						pauseOnHover: false,
 						onOpening: function () {
 							TabelVerifikasiPesiun.ajax.reload();
@@ -513,8 +589,8 @@ $formApprove.on("submit", function (e) {
 					title: "Berhasil",
 					position: "topCenter",
 					message: `${status} ${error}`,
-					transitionIn: 'fadeInDown',
-					transitionOut: 'fadeOutUp',
+					transitionIn: "fadeInDown",
+					transitionOut: "fadeOutUp",
 					pauseOnHover: true,
 				});
 				button

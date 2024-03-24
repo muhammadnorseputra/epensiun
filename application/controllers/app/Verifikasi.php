@@ -265,7 +265,9 @@ class Verifikasi extends CI_Controller
 		$token = $this->input->post('token');
 		$data = [
 			'is_status' => 'SELESAI_ARSIP',
-			'arsip_at' => date('Y-m-d H:i:s')
+			'arsip_at' => formatToSQLDateTime($this->input->post('tanggal_archive')),
+			'arsip_by' => $this->session->userdata('nip'),
+			'diterima_oleh' => $this->input->post('tanda_penerima')
 		];
 
 		$whr = [

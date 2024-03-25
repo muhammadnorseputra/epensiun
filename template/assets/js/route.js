@@ -1,6 +1,6 @@
 // Uri Segement
 var $host = window.location.origin == 'http://localhost';
-if ($host) {
+if ($host || window.location.origin == 'https://bkpsdm.balangankab.go.id') {
     var _uri = `${window.location.origin}/epensiun`;
 } else {
     var _uri = `${window.location.origin}`;

@@ -349,8 +349,10 @@ function Arsip(token) {
 		function (res) {
 			if (res.status === true) {
 				$formArchive.find("input[name='tanda_penerima']").val(res.data.diterima_oleh);
-				$formArchive.find("input[name='tanggal_archive']").val(formatDateTimeSQLToIndo(res.data.arsip_at));
+				if(res.data.arsip_at !== null) {
+					$formArchive.find("input[name='tanggal_archive']").val(formatDateTimeSQLToIndo(res.data.arsip_at));
 
+				}
 				setTimeout(() => {
 					$container.html(`
 					<div class="d-flex align-items-start gap-2 mb-2 pb-3">

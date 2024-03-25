@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
-if($_SERVER['HTTP_HOST'] == 'localhost'):
+if($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '192.168.0.112'):
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
@@ -98,9 +98,9 @@ else:
 	$db['default'] = array(
 		'dsn'	=> '',
 		'hostname' => 'localhost',
-		'username' => 'bkpsdm_simev',
-		'password' => 'bkpsdm_simev',
-		'database' => 'bkpsdm_simev',
+		'username' => 'bkpsdm_epensiun',
+		'password' => 'bkpsdm_epensiun',
+		'database' => 'bkpsdm_epensiun',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

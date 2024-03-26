@@ -83,18 +83,31 @@
                                 <p class="small">Masuk dengan akun pengelola kepegawaian</p>
                             </label>
                         </div>
-                        
+
                         <!-- Username -->
-                        <div class="form-floating mb-3">
+                        <div class="mb-3">
+                                <label for="username" class="form-label fw-bold">Username</label>
+                                <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
+                            </div>
+                        <!-- Password -->
+                        <div class="mb-3 position-relative">
+                            <label for="password" class="form-label fw-bold">Password</label>
+                            <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
+                            <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
+                        </div>
+
+                        
+                        <!-- Username v2 -->
+                        <!--<div class="form-floating mb-3">
                             <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
                             <label for="username">Username</label>
-                        </div>
-                        <!-- Password -->
-                        <div class="form-floating mb-3 position-relative">
+                        </div>-->
+                        <!-- Password v2 -->
+                        <!-- <div class="form-floating mb-3 position-relative">
                             <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
                             <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50 translate-middle-y" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
                             <label for="password">Password</label>
-                        </div>
+                        </div> -->
                         <!-- Checkbox -->
                         <div class="d-lg-flex justify-content-between align-items-center mb-4">
                             <div class="form-check custom-checkbox">

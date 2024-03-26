@@ -3,7 +3,7 @@
         <div class="col-lg-12 col-md-12 col-12">
             <!-- Page header -->
             <div>
-                <div class="d-flex justify-content-between gap-5">
+                <div class="d-flex flex-column flex-lg-row justify-content-between gap-5">
                     <!-- card -->
                     <div class="card w-100">
                         <!-- card body -->
@@ -94,7 +94,7 @@
             <!-- card  -->
             <div class="card">
                 <!-- card header  -->
-                <div class="card-header bg-white py-4 d-flex justify-content-between align-items-start gap-5">
+                <div class="card-header bg-white py-4 d-flex flex-column flex-md-row justify-content-between align-items-start gap-5">
                     <i data-feather="inbox" class="icon-md"></i>
                     <div>
                         <h4 class="mb-0">Inbox Usulan Pensiun ASN</h4>

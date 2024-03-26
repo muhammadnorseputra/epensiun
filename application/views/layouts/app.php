@@ -31,7 +31,7 @@
 
 <body class="bg-light">
     <?php $toggled = $this->uri->segment(3) === 'buatusul' || $this->uri->segment(3) === 'usul' ? 'toggled' : ''; ?>
-    <div id="db-wrapper" class="<?= $toggled ?>">
+    <div id="db-wrapper">
         <!-- navbar vertical -->
         <!-- Sidebar -->
         <nav class="navbar-vertical navbar nav-dashboard">

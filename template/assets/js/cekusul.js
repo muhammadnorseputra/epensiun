@@ -4,7 +4,7 @@ $(function () {
 
 	function loadEffect(isLoading = true) {
 		if (isLoading) {
-			return `<div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+			return `<div class="spinner-border text-success" style="width: 2rem; height: 2rem;" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>`;
 		}
@@ -30,9 +30,11 @@ $(function () {
 		$container.html(loadEffect());
 
 		if (_.find("input[name='nip']").val() === "") {
-            $container.html('Masukan Nomor Induk Pegawai !');
+            $container.html(`<i class="bi bi-x-circle-fill text-danger me-2"></i>Masukan Nomor Induk Pegawai !`);
 			return false;
 		}
-        loadData($url, $data);
+		setTimeout(() => {
+			loadData($url, $data);
+		}, 2000)
 	});
 });

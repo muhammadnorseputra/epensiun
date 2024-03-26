@@ -2,6 +2,7 @@
 $(document).ready(function () {
 	var $containerMsg = $("#message");
 	$("input[name='username']").focus();
+
 	$.validate({
 		form: "#f_login",
 		lang: "en",
@@ -13,7 +14,7 @@ $(document).ready(function () {
 		onError: function ($form) {
 			$containerMsg.html(`
 			<div class="alert alert-danger shadow-sm mt-4" role="alert">
-				<i class="icon-block mr-2"></i> Auth access akun failed!
+				<i class="bi bi-x-circle-fill me-2"></i> Auth access akun failed, please check form !
 			</div>
 			`);
 			$('button[type="submit"]').prop("disabled", false).html(`Masuk`);

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('template/') ?>assets/images/favicon/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('template/') ?>assets/images/approve.png">
 
     <!-- Theme CSS -->
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -43,7 +43,8 @@
                         ?>
                         <!-- Form -->
                         <?= form_open(base_url('auth/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login', 'class' => 'toggle-disabled', 'novalidate' => ''], ['token' => $this->session->csrf_token, 'continue' => $urlRef]) ?>
-                            <div class="mb-4 d-flex justify-content-between gap-3">
+                        <!-- Chose user type login v1 -->
+                        <!-- <div class="mb-4 d-flex justify-content-between gap-3">
                                 <div class="border rounded p-2 w-100 cursor-pointer">
                                     <div class="form-check form-check-inline">
                                         <label class="form-check-label ms-2" for="flexRadioDefault1">
@@ -65,38 +66,55 @@
                                         <input class="form-check-input p-2" type="radio" value="UMPEG" data-sanitize="trim" name="type" id="flexRadioDefault2" required="">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Username -->
-                            <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">Username</label>
-                                <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
-                            </div>
-                            <!-- Password -->
-                            <div class="mb-3 position-relative">
-                                <label for="password" class="form-label fw-bold">Password</label>
-                                <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
-                                <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
-                            </div>
-                            <!-- Checkbox -->
-                            <div class="d-lg-flex justify-content-between align-items-center mb-4">
-                                <div class="form-check custom-checkbox">
-                                    <input type="checkbox" class="form-check-input" id="rememberme">
-                                    <label class="form-check-label" for="rememberme">Remember
-                                        me</label>
-                                </div>
-                            </div>
-                            <div>
-                                <!-- Button -->
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Masuk</button>
-                                </div>
+                            </div> -->
+                        <!-- Chose user type login v2 -->
+                        <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off" value="PERSONAL" checked required="">
+                            <label class="btn btn-outline-primary w-100" for="type1">
+                                <h1><i class="bi bi-person-badge text-warning"></i></h1>
+                                <b>PERSONAL</b>
+                                <p class="small">Masuk dengan akun personal ASN</p>
+                            </label>
 
-                                <div class="d-md-flex justify-content-between mt-4">
-                                    <div>
-                                        <a href="<?= base_url('auth/forget') ?>" class="text-inherit fs-5">Forgot your password?</a>
-                                    </div>
+                            <input type="radio" class="btn-check" name="type" id="type2" autocomplete="off" value="UMPEG" required="">
+                            <label class="btn btn-outline-primary w-100" for="type2">
+                                <h1><i class="bi bi-person-vcard text-info"></i></h1>
+                                <b>UMPEG</b>
+                                <p class="small">Masuk dengan akun pengelola kepegawaian</p>
+                            </label>
+                        </div>
+                        
+                        <!-- Username -->
+                        <div class="form-floating mb-3">
+                            <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
+                            <label for="username">Username</label>
+                        </div>
+                        <!-- Password -->
+                        <div class="form-floating mb-3 position-relative">
+                            <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
+                            <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50 translate-middle-y" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
+                            <label for="password">Password</label>
+                        </div>
+                        <!-- Checkbox -->
+                        <div class="d-lg-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check custom-checkbox">
+                                <input type="checkbox" class="form-check-input" id="rememberme">
+                                <label class="form-check-label" for="rememberme">Remember
+                                    me</label>
+                            </div>
+                        </div>
+                        <div>
+                            <!-- Button -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-lg btn-primary">Masuk</button>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between mt-4">
+                                <div>
+                                    <a href="<?= base_url('auth/forget') ?>" class="text-inherit fs-5">Forgot your password?</a>
                                 </div>
                             </div>
+                        </div>
                         <?= form_close() ?>
                     </div>
                 </div>

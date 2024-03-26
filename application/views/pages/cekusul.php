@@ -12,11 +12,12 @@
                     </div>
                 </div>
                 <?= form_open(base_url('/app/pensiun/cekusul_proses'), ['id' => 'FormCekUsul']) ?>
-                <div class="form-group mb-4 w-100">
-                    <div class="input-group">
-                        <input type="text" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
-                        <button class="btn btn-warning btn-lg shadow-lg" type="submit"><i class="bi bi-search me-2"></i>Submit</button>
+                <div class="input-group mb-4">
+                    <div class="form-floating">
+                        <input type="search" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
+                        <label for="nip">Nomor Induk Pegawai</label>
                     </div>
+                    <button class="btn btn-warning btn-lg shadow-lg" type="submit"><i class="bi bi-search me-3"></i>Submit</button>
                 </div>
                 <?= form_close() ?>
             </div>

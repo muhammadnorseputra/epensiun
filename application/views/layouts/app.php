@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 
 <head>
     <!-- Required meta tags -->
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('template/') ?>assets/images/favicon/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('template/') ?>assets/images/approve.png">
 
     <!-- Libs CSS -->
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -76,7 +76,7 @@
                             </i> Monitoring Usulan
                         </a>
                     </li>
-                    <?php if($this->session->userdata('username') === 'putra'): ?>
+                    <?php if($this->session->userdata('username') === 'putra' || $this->session->userdata('nip') === '199412242019032007'): ?>
                     <!-- Nav item -->
                     <li class="nav-item">
                         <div class="navbar-heading text-white">BKPSDM ONLY</div>

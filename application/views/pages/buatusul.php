@@ -164,7 +164,7 @@
                                     <div class="form-group mb-4 col-12 col-sm-6">
                                         <label for="nip" class="form-label fw-bold">Masukan Nomor Induk Pegawai</label>
                                         <div class="input-group">
-                                            <input type="text" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
+                                            <input type="search" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
                                             <button class="btn btn-primary btn-lg shadow-lg" type="submit"><i class="bi bi-search me-2"></i>Cari</button>
                                         </div>
                                     </div>

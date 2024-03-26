@@ -86,7 +86,7 @@ class Usul extends RestController
         $response = [
           'status' => true,
           'status_color' => 'success',
-          'message' => 'Berhasil, usul "'.$nip.'" ditemukan pada database epensiun.',
+          'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> '..' ditemukan pada database epensiun.',
           'data' => $data
         ];
         return $this->response($response, RestController::HTTP_OK);
@@ -94,7 +94,7 @@ class Usul extends RestController
         $response = [
           'status' => true,
           'status_color' => 'warning',
-          'message' => 'Opps, usul "'.$nip.'" ditemukan pada database tetapi masih dalam tahap " . '.$row->is_status.' . " pada aplikasi epensiun.',
+          'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> ditemukan pada database tetapi masih dalam tahap " . '.$row->is_status.' . " pada aplikasi epensiun.',
           'data' => null
         ];
         return $this->response($response, RestController::HTTP_BAD_REQUEST);

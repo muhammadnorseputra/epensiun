@@ -86,7 +86,7 @@ class Usul extends RestController
         $response = [
           'status' => true,
           'status_color' => 'success',
-          'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> '..' ditemukan pada database epensiun.',
+          'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> ditemukan pada database epensiun.',
           'data' => $data
         ];
         return $this->response($response, RestController::HTTP_OK);

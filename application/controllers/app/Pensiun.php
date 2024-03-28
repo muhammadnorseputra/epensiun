@@ -184,6 +184,20 @@ class Pensiun extends CI_Controller
 			return false;
 		}
 
+		$cekperemajaan = postApi('http://silka.balangankab.go.id/services/pensiun/profile/cekfile', ['nip' => $post['nip']]);
+		$peremajaan = json_decode($cekperemajaan);
+
+		if($peremajaan->data->no_ktp === false || $peremajaan->data->no_npwp === false || $peremajaan->data->file_rekening === false || $peremajaan->data->file_ktp === false || $peremajaan->data->file_npwp === false) {
+			$msg = [
+				'status' => false,
+				'message' => 'Data belum diremajakan pada SILKa Online.',
+				'data' => $peremajaan->data
+			];
+			echo json_encode($msg);
+			return false;
+		}
+
+
 		$cekusul = $this->pensiun->cekusulasn('usul', $post['nip'], $post['jns_pensiun']);
 
 		// jika nip sudah ada pada database dan token tidak kosong

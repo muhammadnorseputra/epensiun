@@ -21,7 +21,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK']);
+        $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK','SELESAI_TMS','SELESAI_BTL']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         $this->db->where('up.created_by', $this->session->userdata('nip'));
         $i = 0;
@@ -98,6 +98,15 @@ class ModelPensiunInbox extends CI_Model
     public function getJumlah($tbl, $whr)
     {
         return $this->db->get_where($tbl, $whr);
+    }
+
+    public function getCatatan($tbl, $whr)
+    {
+        $this->db->select('catatan');
+        $this->db->from('usul');
+        $this->db->where($whr);
+        $this->db->where_in('is_status', ['SELESAI_BTL','SELESAI_TMS']);
+        return $this->db->get();
     }
 
     public function hapus($tbl, $whr) {

@@ -82,7 +82,7 @@ class Verifikasi extends CI_Controller
 				$button .= '<button class="dropdown-item" type="button" onclick="Approve(\''.$r->token.'\')"><i class="bi bi-check-circle-fill me-2 text-success"></i>Approve</button>';
 			}
 
-			if($r->is_status === 'SELESAI' || $r->is_status === 'SELESAI_BTL' || $r->is_status === 'SELESAI_TMS') {
+			if($r->is_status === 'SELESAI') {
 				$button .= '<button type="button" class="dropdown-item" onclick="Arsip(\''.$r->token.'\')"><i class="bi bi-archive me-2 text-warning"></i>Arsipkan</button>';
 			}
 

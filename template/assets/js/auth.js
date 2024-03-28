@@ -35,6 +35,7 @@ $(document).ready(function () {
 					);
 				},
 				success: function(response) {
+					console.log(response);
 					if (response.status === true) {
 						$containerMsg.html(`
 						<div class="alert alert-success shadow-sm mt-4 d-flex justify-content-between align-items-center" role="alert">

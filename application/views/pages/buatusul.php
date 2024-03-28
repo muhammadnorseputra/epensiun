@@ -97,6 +97,15 @@
                     </ul>
                 </div>
                 <div class="card-body px-md-12">
+                <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
+                    <!-- Primary alert -->
+                    <div class="alert alert-warning d-flex align-items-center justify-content-between mb-8" role="alert">
+                        <div>
+                            Waduh sepertinya usulan kamu <strong><?= @$detail->is_status ?></strong>, silahkan perbaiki usulan sesuai catatan yang diberikan. 
+                        </div>
+                        <button onclick="DetailNotApprove('<?= @$detail->token ?>')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill text-danger me-2"></i> Lihat catatan</button>
+                    </div>
+                <?php endif; ?>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-sm-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
@@ -150,7 +159,7 @@
                                 </div>
                                 <div class="help-block-datepicker"></div>
                             </div>
-                            <div class="d-flex justify-content-start align-items-center gap-2">
+                            <div class="d-flex justify-content-between align-items-center gap-2">
                                 <button type="button" class="btn btn-lg btn-danger" onclick="window.location.replace('<?= base_url('/app/inbox/usul') ?>')"><i class="bi bi-arrow-bar-left me-2"></i>Batal</button>
                                 <button type="submit" class="btn btn-lg btn-primary" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Simpan & Lanjutkan</button>
                             </div>
@@ -192,15 +201,15 @@
                                 <input type="hidden" name="tmp_lahir">
                                 <input type="hidden" name="usia_pensiun">
                                 <input type="hidden" name="url_photo">
-                                <div class="d-flex justify-content-start align-items-center gap-2">
+                                <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 d-grid">
                                     <a href="<?= base_url('/app/pensiun/buatusul?step=1&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
-                                    <button type="submit" class="btn btn-primary btn-lg" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Simpan & Lanjutkan</button>
+                                    <button type="submit" class="btn btn-primary btn-lg shadow" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Simpan & Lanjutkan</button>
                                 </div>
                                 <?= form_close() ?>
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane fade <?= $is_show_step3 ?> <?= $step3 ?>" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-                            <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM') : ?>
+                            <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM' || @$usul->is_status === 'SELESAI_TMS' || @$usul->is_status === 'SELESAI_BTL') : ?>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <ul class="row row-cols-1 row-cols-sm-2 list-unstyled px-3">

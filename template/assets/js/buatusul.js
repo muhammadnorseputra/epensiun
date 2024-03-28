@@ -38,9 +38,9 @@ $(function () {
 						}, 3000);
 						iziToast.success({
 							title: 'Berhasil',
+							timeout: 3000,
 							position: 'topCenter',
 							message: res.message,
-							progressBar: false,
 							transitionIn: 'fadeInDown',
 							transitionOut: 'fadeOutUp',
 							pauseOnHover: false,
@@ -123,17 +123,17 @@ $(function () {
 					$formSaveASN.find("input[name='url_photo']").val(res.data.picture);
 					$container.html(`
 					<!-- Success alert -->
-					<div class="alert alert-success d-flex align-items-center" role="alert">
+					<div class="alert alert-success d-flex flex-column flex-md-row justify-content-start align-items-center gap-3" role="alert">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
 						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
 						</svg>
-						<div>
+						<div class="mt-3 mt-sm-0">
 						${res.message}
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-2">
-							<img src="${res.data.picture}" alt="${res.data.nama}" width="140">
+							<img src="${res.data.picture}" alt="${res.data.nama}" class="p-3 border bg-light" width="140">
 						</div>
 						<div class="col-md-10">
 							<ul class="row row-cols-1 row-cols-sm-2 list-unstyled">
@@ -399,4 +399,23 @@ function SyaratPensiun(id) {
 	$modalSyarat.modal('show');
 	let content = $modalSyarat.find('.modal-body');
 	loadSyarat(id,content);
+}
+
+function DetailNotApprove(token) {
+	$.confirm({
+		title: 'Catatan',
+		type: 'orange',
+		lazyOpen: false,
+		theme: 'material',
+		content: `url:${_uri}/app/inbox/catatan?token=${token}`,
+		contentLoaded: function(data, status, xhr){
+			// data is already set in content
+			this.setContentAppend(data.catatan);
+		},
+		buttons: {
+			ok: function() {
+				
+			}
+		}
+	});
 }

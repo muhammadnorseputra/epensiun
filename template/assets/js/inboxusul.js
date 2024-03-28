@@ -40,6 +40,25 @@ var TabelUsulPesiun = $("#table-inbox").DataTable({
 	},
 });
 
+function DetailNotApprove(token) {
+	$.confirm({
+		title: 'Catatan',
+		type: 'orange',
+		lazyOpen: false,
+		theme: 'material',
+		content: `url:${_uri}/app/inbox/catatan?token=${token}`,
+		contentLoaded: function(data, status, xhr){
+			// data is already set in content
+			this.setContentAppend(data.catatan);
+		},
+		buttons: {
+			ok: function() {
+				
+			}
+		}
+	});
+}
+
 function Hapus(token) {
 	$.confirm({
 		title: 'Hapus ?',

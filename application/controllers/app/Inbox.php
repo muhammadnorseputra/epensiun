@@ -41,6 +41,8 @@ class Inbox extends CI_Controller
         $data = array();
         $no = @$_POST['start'];
         foreach ($db as $r) {
+
+            $statusNoApprove = $r->is_status === "SELESAI_TMS" ? "TMS" : "BTL";
             
             if($r->is_status === 'SKPD') {
                 $status = '<span class="badge bg-secondary px-3 py-2"><i class="bi bi-check-circle-fill me-2"></i>DIUSULKAN</span>';
@@ -52,6 +54,9 @@ class Inbox extends CI_Controller
             }  elseif($r->is_status === 'TTD_SK') {
                 $status = '<span class="badge bg-warning px-3 py-2"><i class="bi bi-patch-check-fill"></i> MENUNGGU TTD SK</span>';
                 $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
+            }  elseif($r->is_status === 'SELESAI_TMS' || $r->is_status === 'SELESAI_BTL') {
+                $status = '<span class="badge bg-danger px-3 py-2"><i class="bi bi-x-lg me-2"></i> '.$statusNoApprove.'</span>';
+                $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-pencil"></i></a>  <button onclick="DetailNotApprove(\''.$r->token_pengantar.'\')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill"></i></button>';
             }  else {
                 $status = '';
                 $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
@@ -113,6 +118,13 @@ class Inbox extends CI_Controller
         }
 
         echo json_encode($msg);
+    }
+
+    public function catatan() 
+    {
+        $token = $this->input->get('token');
+        $db = $this->inbox->getCatatan('usul', ['token' => $token])->row();
+        echo $db->catatan;
     }
 }
 

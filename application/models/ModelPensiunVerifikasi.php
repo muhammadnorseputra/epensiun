@@ -21,7 +21,7 @@ class ModelPensiunVerifikasi extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['BKPSDM','TTD_SK','SELESAI','SELESAI_TMS','SELESAI_BTL']);
+        $this->db->where_in('u.is_status', ['BKPSDM','TTD_SK','SELESAI']);
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 

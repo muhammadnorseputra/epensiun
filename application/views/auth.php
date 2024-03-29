@@ -21,7 +21,7 @@
     <div class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center g-0
         min-vh-100">
-            <img class="position-fixed z-n1 opacity-25" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
+            <img class="position-fixed z-n1 opacity-50" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
             <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
 
                 <div id="message"></div>
@@ -131,7 +131,7 @@
                         <?= form_close() ?>
                     </div>
                 </div>
-                <p class="mx-auto mt-4 mb-3 text-center text-secondary">&copy; <?= date('Y') ?> Integrated Pensiun ASN by BKPSDM Balangan.</p>
+                <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Integrated Pensiun ASN by BKPSDM Balangan.</p>
             </div>
         </div>
     </div>

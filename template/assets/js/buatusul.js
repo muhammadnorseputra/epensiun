@@ -37,8 +37,8 @@ $(function () {
 							window.location.href = res.redirect;
 						}, 3000);
 						iziToast.success({
-							title: 'Berhasil',
 							timeout: 3000,
+							title: 'Berhasil',
 							position: 'topCenter',
 							message: res.message,
 							transitionIn: 'fadeInDown',

@@ -23,7 +23,7 @@
         min-vh-100">
             <img class="position-fixed z-n1 opacity-50" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
             <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
-
+            <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div>
                 <div id="message"></div>
                 <!-- Card -->
                 <div class="card smooth-shadow-sm border">
@@ -86,17 +86,24 @@
 
                         <!-- Username -->
                         <div class="mb-3">
-                                <label for="username" class="form-label fw-bold">Username</label>
+                            <label for="username" class="form-label fw-bold">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-circle"></i></span>
                                 <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
                             </div>
+                        </div>
                         <!-- Password -->
-                        <div class="mb-3 position-relative">
+                        <div class="mb-3">
                             <label for="password" class="form-label fw-bold">Password</label>
-                            <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
-                            <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon"><i class="bi bi-lock-fill"></i></span>
+                                <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
+                                <span class="input-group-text" id="basic-addon-append"><button class="btn btn-sm btn-default border-0 p-0 m-0" type="button"><i class="bi bi-eye-fill toggle-password fs-5"></i></button></span>
+                            </div>
+                            
                         </div>
 
-                        
+
                         <!-- Username v2 -->
                         <!--<div class="form-floating mb-3">
                             <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
@@ -119,7 +126,7 @@
                         <div>
                             <!-- Button -->
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-lg btn-primary">Masuk</button>
+                                <button type="submit" class="btn btn-lg btn-primary"><i class="bi bi-unlock-fill"></i> Masuk</button>
                             </div>
 
                             <div class="d-md-flex justify-content-between mt-4">

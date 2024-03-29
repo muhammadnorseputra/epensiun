@@ -6,6 +6,7 @@ var TabelUsulPesiun = $("#table-inbox").DataTable({
 	info: true,
 	searching: true,
 	deferRender: true,
+	stateSave: true,
 	pagingType: "full_numbers",
 	responsive: true,
 	datatype: "json",

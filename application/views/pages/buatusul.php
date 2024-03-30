@@ -97,15 +97,15 @@
                     </ul>
                 </div>
                 <div class="card-body px-md-12">
-                <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
-                    <!-- Primary alert -->
-                    <div class="alert alert-warning d-flex align-items-center justify-content-between mb-8" role="alert">
-                        <div>
-                            Waduh sepertinya usulan kamu <strong><?= @$detail->is_status ?></strong>, silahkan perbaiki usulan sesuai catatan yang diberikan. 
+                    <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
+                        <!-- Primary alert -->
+                        <div class="alert alert-warning d-flex align-items-center justify-content-between mb-8" role="alert">
+                            <div>
+                                Waduh sepertinya usulan kamu <strong><?= @$detail->is_status ?></strong>, silahkan perbaiki usulan sesuai catatan yang diberikan.
+                            </div>
+                            <button onclick="DetailNotApprove('<?= @$detail->token ?>')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill text-danger me-2"></i> Lihat catatan</button>
                         </div>
-                        <button onclick="DetailNotApprove('<?= @$detail->token ?>')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill text-danger me-2"></i> Lihat catatan</button>
-                    </div>
-                <?php endif; ?>
+                    <?php endif; ?>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                             <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-sm-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
@@ -130,21 +130,25 @@
                                     </div>
                                 <?php endforeach; ?>
                             </div> -->
-                            <div class="form-floating">
-                                <select class="form-select" name="jenis_pensiun" id="floatingSelect" required="" data-parsley-errors-container=".help-block-jp" data-parsley-required-message="Silahkan pilih jenis pensiun terlebih dahulu." <?= $disabled ?>>
-                                    <option value="">-- Pilih Jenis Usul --</option>
-                                    <?php
-                                foreach ($jenis_pensiun->result() as $jp) :
-                                    $selected = @$detail->fid_jenis_usul === $jp->id ? 'selected' : '';
-                                ?>
-                                    
-                                        <optgroup label="<?= $jp->nama ?>">
-                                           <option value="<?= $jp->id ?>" <?= $selected ?>> <i class="bi bi-person-badge"></i> <?= $jp->keterangan ?></option>
-                                        </optgroup> 
-                                    
-                                    <?php endforeach; ?>
-                                </select>
-                                <label for="floatingSelect">Jenis Usul Pensiun</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon"><i class="bi bi-card-checklist fs-3 p-0 m-0"></i></span>
+
+                                <div class="form-floating">
+                                    <select class="form-select" name="jenis_pensiun" id="floatingSelect" required="" data-parsley-errors-container=".help-block-jp" data-parsley-required-message="Silahkan pilih jenis pensiun." <?= $disabled ?>>
+                                        <option value="">-- Pilih Jenis Usul --</option>
+                                        <?php
+                                        foreach ($jenis_pensiun->result() as $jp) :
+                                            $selected = @$detail->fid_jenis_usul === $jp->id ? 'selected' : '';
+                                        ?>
+
+                                            <optgroup label="<?= $jp->nama ?>">
+                                                <option value="<?= $jp->id ?>" <?= $selected ?>> <i class="bi bi-person-badge"></i> <?= $jp->keterangan ?></option>
+                                            </optgroup>
+
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label for="floatingSelect">Jenis Usul Pensiun</label>
+                                </div>
                             </div>
                             <p class="help-block-jp"></p>
                             <div class="form-group mb-4">

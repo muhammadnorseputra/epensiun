@@ -21,7 +21,7 @@
     <div class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center g-0
         min-vh-100">
-            <img class="position-fixed z-n1 opacity-50" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
+            <img class="position-fixed z-n1 opacity-25" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
             <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
             <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div>
                 <div id="message"></div>

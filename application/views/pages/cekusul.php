@@ -13,9 +13,10 @@
                 </div>
                 <?= form_open(base_url('/app/pensiun/cekusul_proses'), ['id' => 'FormCekUsul']) ?>
                 <div class="input-group mb-4">
+                <span class="input-group-text" id="nip"><i class="bi bi-person-bounding-box fs-3 p-0 m-0"></i></span>
                     <div class="form-floating">
-                        <input type="search" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
-                        <label for="nip">Nomor Induk Pegawai</label>
+                        <input type="search" name="nip" id="nip" placeholder="Masukan NIP anda disini ..." class="form-control form-control-lg shadow-lg">
+                        <label for="nip">Masukan Nomor Induk Pegawai</label>
                     </div>
                     <button class="btn btn-warning btn-lg shadow-lg" type="submit"><i class="bi bi-search me-3"></i>Submit</button>
                 </div>

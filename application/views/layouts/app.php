@@ -248,6 +248,7 @@
         <script src="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/parsley/dist/parsley.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/bootstrap/bootstrap-maxlength.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/buatusul.js"></script>
     <?php endif; ?>
 

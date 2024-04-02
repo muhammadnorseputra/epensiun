@@ -66,7 +66,7 @@
             <?php endif; ?>
             <div class="card mb-4">
                 <div class="card-header p-6">
-                    <ul class="nav nav-pills flex-column flex-sm-row flex-nowrap" id="pills-tab" role="tablist">
+                    <ul class="nav nav-pills flex-column flex-lg-row flex-nowrap" id="pills-tab" role="tablist">
                         <li class="flex-sm-fill d-grid nav-item" role="presentation">
                             <button class="nav-link p-4 d-flex gap-3 <?= $step1 ?> text-start" <?= $disabled ?> id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">
                                 <div class="py-2 px-3 bg-white text-primary rounded">1</div>
@@ -96,7 +96,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="card-body px-md-12">
+                <div class="card-body px-lg-12">
                     <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
                         <!-- Primary alert -->
                         <div class="alert alert-warning d-flex align-items-center justify-content-between mb-8" role="alert">
@@ -108,7 +108,7 @@
                     <?php endif; ?>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                            <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-sm-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
+                            <?= form_open(base_url('app/pensiun/buatpengantar'), ['id' => 'FormPengantar', 'class' => 'needs-validation was-validated p-lg-6 p-xl-12', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
                             <input type="hidden" name="token" value="<?= @$detail->token ?>">
                             <!-- <div class="row row-cols-1 row-cols-sm-2 g-3">
                                 <?php
@@ -153,7 +153,7 @@
                             <p class="help-block-jp"></p>
                             <div class="form-group mb-4">
                                 <label class="form-label fw-bold" for="nomor_usul">Nomor Usul <span class="text-danger ms-1">*</span></label>
-                                <input type="text" id="nomor_usul" name="nomor_usul" class="form-control form-control-lg" value="<?= @$detail->nomor ?>" <?= $disabled ?> required="">
+                                <input type="text" id="nomor_usul" name="nomor_usul" class="form-control form-control-lg" minlength="6" maxlength="70" value="<?= @$detail->nomor ?>" <?= $disabled ?> required="">
                             </div>
                             <div class="mb-4 col-12 col-md-4">
                                 <label class="form-label fw-bold" for="nomor_usul">Tanggal Usul <span class="text-danger ms-1">*</span></label>
@@ -173,13 +173,14 @@
                             <?php if (@$detail->token) : ?>
                                 <?php if (@$detail->is_status === 'SKPD') : ?>
                                     <!-- Form Cari NIP -->
-                                    <?= form_open(base_url('/app/pensiun/carinip'), ['id' => 'FormCariNip']) ?>
-                                    <div class="form-group mb-4 col-12 col-sm-6">
+                                    <?= form_open(base_url('/app/pensiun/carinip'), ['id' => 'FormCariNip', 'data-parsley-validate' => '']) ?>
+                                    <div class="form-group mb-4 col-12 col-lg-8 col-xl-6">
                                         <label for="nip" class="form-label fw-bold">Masukan Nomor Induk Pegawai</label>
                                         <div class="input-group">
-                                            <input type="search" name="nip" id="nip" class="form-control form-control-lg shadow-lg">
+                                            <input type="search" name="nip" id="nip" data-parsley-type="integer" data-parsley-minlength="8" maxlength="18" data-parsley-errors-container=".help-block-nip" class="form-control form-control-lg shadow-lg">
                                             <button class="btn btn-primary btn-lg shadow-lg" type="submit"><i class="bi bi-search me-2"></i>Cari</button>
                                         </div>
+                                        <p class="help-block-nip"></p>
                                     </div>
                                     <?= form_close() ?>
                                 <?php endif; ?>
@@ -216,6 +217,9 @@
                             <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM' || @$usul->is_status === 'SELESAI_TMS' || @$usul->is_status === 'SELESAI_BTL') : ?>
                                 <div class="row">
                                     <div class="col-md-6">
+                                    <div class="avatar avatar-xxl mb-8">
+                                        <img src="<?= @$usul->url_photo ?>" alt="<?= @$usul->nama ?>" class="rounded-circle"/>
+                                    </div>
                                         <ul class="row row-cols-1 row-cols-sm-2 list-unstyled px-3">
                                             <li class="pb-3 ps-0 mb-3 border-bottom">
                                                 <div class="fs-sm fw-bold lh-1">NOMOR USUL</div>
@@ -266,9 +270,7 @@
                                                 <div><?= @$usul->alamat ?></div>
                                             </li>
                                         </ul>
-                                        <!-- <div class="avatar avatar-xl mb-8">
-                                        <img src="<?= @$usul->url_photo ?>" alt="<?= @$usul->nama ?>" class="rounded-circle"/>
-                                    </div> -->
+                                        
                                         <?= form_open(base_url('/app/pensiun/kirimusulan'), ['id' => 'FormKirimUsulan', 'class' => 'needs-validation was-validated', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
                                         <input type="hidden" name="token" value="<?= @$usul->token ?>">
                                         <input type="hidden" name="jns_pensiun" value="<?= @$detail->fid_jenis_usul ?>">
@@ -276,7 +278,7 @@
                                         <!-- Textarea -->
                                         <div class="mb-3">
                                             <label for="textarea-input" class="form-label fw-bold">Tempel Link Eviden <span class="text-danger ms-1">*</span></label>
-                                            <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
+                                            <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5"  maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
                                         <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
@@ -284,7 +286,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="card">
-                                            <div class="card-body pt-0" style="max-height: 700px; overflow-x:hidden; overflow-y: auto;" id="loadSyaratPensiun"></div>
+                                            <div class="card-body pt-0" style="max-height: 830px; overflow-x:hidden; overflow-y: auto;" id="loadSyaratPensiun"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,16 @@ $(function () {
 		todayHighlight: true,
 	});
 
+	$("[maxlength]").maxlength({
+		alwaysShow: true,
+		threshold: 30,
+		warningClass: "badge bg-success rounded-sm mt-2",
+		limitReachedClass: "badge bg-danger rounded-sm mt-2",
+		placement: 'bottom-right-inside',
+		// preText: '<i class="bi bi-arrow-up-right-circle-fill text-white me-1"></i>',
+		postText: '<i class="bi bi-check-circle-fill text-white ms-1"></i>',
+	});
+
 	let $formStep1 = $("form#FormPengantar"),
 		$formCariNip = $("form#FormCariNip"),
 		$formSaveASN = $("#FormSaveAsn"),
@@ -38,22 +48,22 @@ $(function () {
 						}, 3000);
 						iziToast.success({
 							timeout: 3000,
-							title: 'Berhasil',
-							position: 'topCenter',
+							title: "Berhasil",
+							position: "topCenter",
 							message: res.message,
-							transitionIn: 'fadeInDown',
-							transitionOut: 'fadeOutUp',
+							transitionIn: "fadeInDown",
+							transitionOut: "fadeOutUp",
 							pauseOnHover: false,
 						});
 						return false;
 					}
 					$.alert({
 						title: "Galat!",
-						type: 'red',
-						theme: 'material',
+						type: "red",
+						theme: "material",
 						content: res.message,
 						typeAnimated: true,
-						autoClose: 'ok|5000',
+						autoClose: "ok|5000",
 						draggable: true,
 						onClose: function () {
 							button
@@ -90,7 +100,6 @@ $(function () {
 					.prop("disabled", false)
 					.html(`<i class="bi bi-search me-2"></i>Cari`);
 				if (res.status === true) {
-					
 					$formSaveASN.find("input[name='nip']").val(res.data.nip);
 					$formSaveASN.find("input[name='nama']").val(res.data.nama);
 					$formSaveASN
@@ -123,19 +132,21 @@ $(function () {
 					$formSaveASN.find("input[name='url_photo']").val(res.data.picture);
 					$container.html(`
 					<!-- Success alert -->
-					<div class="alert alert-success d-flex flex-column flex-md-row justify-content-start align-items-center gap-3" role="alert">
+					<div class="alert alert-success d-flex flex-column flex-lg-row justify-content-start align-items-start gap-3" role="alert">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
 						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
 						</svg>
-						<div class="mt-3 mt-sm-0">
+						<div>
 						${res.message}
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-md-2">
-							<img src="${res.data.picture}" alt="${res.data.nama}" class="p-3 border bg-light" width="140">
+						<div class="col-12 col-lg-2 text-center">
+							<img src="${res.data.picture}" alt="${
+						res.data.nama
+					}" class="p-3 border bg-light" width="140">
 						</div>
-						<div class="col-md-10">
+						<div class="col-12 col-lg-10">
 							<ul class="row row-cols-1 row-cols-sm-2 list-unstyled">
 								<li class="pb-3 ps-0 mb-3 border-bottom">
 									<div class="fs-sm fw-bold lh-1">NIP</div>
@@ -200,11 +211,11 @@ $(function () {
 		if (_.find('input[name="nip"]').val() === "") {
 			$.alert({
 				title: "Warning !",
-				type: 'orange',
-				theme: 'material',
+				type: "orange",
+				theme: "material",
 				content: `Nomor Induk Pegawai Tidak Boleh Kosong !`,
 				typeAnimated: true,
-				autoClose: 'ok|5000',
+				autoClose: "ok|5000",
 			});
 			return false;
 		}
@@ -243,11 +254,11 @@ $(function () {
 		if (_.find('input[name="nip"]').val() === "") {
 			$.alert({
 				title: "Warning !",
-				type: 'orange',
-				theme: 'material',
+				type: "orange",
+				theme: "material",
 				content: `Nomor Induk Pegawai Tidak Ditemukan !`,
 				typeAnimated: true,
-				autoClose: 'ok|5000',
+				autoClose: "ok|5000",
 			});
 			return false;
 		}
@@ -268,22 +279,22 @@ $(function () {
 					}, 3000);
 					iziToast.success({
 						timeout: 3000,
-						title: 'Berhasil',
-						position: 'topCenter',
+						title: "Berhasil",
+						position: "topCenter",
 						message: `Data ASN Telah Disimpan`,
-						transitionIn: 'fadeInDown',
-						transitionOut: 'fadeOutUp',
+						transitionIn: "fadeInDown",
+						transitionOut: "fadeOutUp",
 						pauseOnHover: false,
 					});
 					return false;
 				}
 				$.alert({
 					title: "Warning !",
-					type: 'orange',
-					theme: 'material',
+					type: "orange",
+					theme: "material",
 					content: res.message,
 					typeAnimated: true,
-					autoClose: 'ok|5000',
+					autoClose: "ok|5000",
 				});
 				button
 					.prop("disabled", false)
@@ -311,13 +322,14 @@ $(function () {
 				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Kirim Usulan`
 			);
 		$.confirm({
-			title: 'Yakin ?',
-			content: 'Apakah anda yakin mengirim usulan tersebut dan berkas sudah lengkap sesuai ketentuan ?',
-			type: 'green',
-			theme: 'supervan',
+			title: "Yakin ?",
+			content:
+				"Apakah anda yakin mengirim usulan tersebut dan berkas sudah lengkap sesuai ketentuan ?",
+			type: "green",
+			theme: "supervan",
 			buttons: {
 				Kirim: {
-					action: function() {
+					action: function () {
 						$.post(
 							$url,
 							$data,
@@ -328,41 +340,42 @@ $(function () {
 									}, 3000);
 									iziToast.success({
 										timeout: 3000,
-										title: 'Berhasil',
-										position: 'topCenter',
+										title: "Berhasil",
+										position: "topCenter",
 										message: `Data usulan pensiun telah disimpan`,
-										transitionIn: 'fadeInDown',
-										transitionOut: 'fadeOutUp',
+										transitionIn: "fadeInDown",
+										transitionOut: "fadeOutUp",
 										pauseOnHover: false,
 									});
 									return false;
 								}
 								$.alert({
 									title: "Warning !",
-									type: 'orange',
-									theme: 'material',
+									type: "orange",
+									theme: "material",
 									content: res.message,
 									typeAnimated: true,
-									autoClose: 'ok|5000',
-									onClose: function() {
+									autoClose: "ok|5000",
+									onClose: function () {
 										button
-										.prop("disabled", false)
-										.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
-									}
+											.prop("disabled", false)
+											.html(
+												`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`
+											);
+									},
 								});
 							},
 							"json"
 						);
-					}
-					
+					},
 				},
 				Batal: function () {
 					button
-					.prop("disabled", false)
-					.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
+						.prop("disabled", false)
+						.html(`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`);
 				},
-			}
-		})
+			},
+		});
 	});
 });
 
@@ -380,42 +393,45 @@ function loadEffect(isLoading = true) {
 			</div>`;
 }
 
-function loadSyarat(id,target) {
-	target.html(loadEffect())
-	$.get(`${_uri}/app/pensiun/syarat`, {id: id}, function(res) {
-		setTimeout(() => {
-			target.html(res);
-		}, 1000)
-	}, 'html');
+function loadSyarat(id, target) {
+	target.html(loadEffect());
+	$.get(
+		`${_uri}/app/pensiun/syarat`,
+		{ id: id },
+		function (res) {
+			setTimeout(() => {
+				target.html(res);
+			}, 1000);
+		},
+		"html"
+	);
 }
 
 // auto req persyratan step 3
-let idSyarat = urlParams.get('jenis');
-loadSyarat(idSyarat,$("#loadSyaratPensiun"));
+let idSyarat = urlParams.get("jenis");
+loadSyarat(idSyarat, $("#loadSyaratPensiun"));
 
 // get persyratan step 1
 let $modalSyarat = $("#modalSyarat");
 function SyaratPensiun(id) {
-	$modalSyarat.modal('show');
-	let content = $modalSyarat.find('.modal-body');
-	loadSyarat(id,content);
+	$modalSyarat.modal("show");
+	let content = $modalSyarat.find(".modal-body");
+	loadSyarat(id, content);
 }
 
 function DetailNotApprove(token) {
 	$.confirm({
-		title: 'Catatan',
-		type: 'orange',
+		title: "Catatan",
+		type: "orange",
 		lazyOpen: false,
-		theme: 'material',
+		theme: "material",
 		content: `url:${_uri}/app/inbox/catatan?token=${token}`,
-		contentLoaded: function(data, status, xhr){
+		contentLoaded: function (data, status, xhr) {
 			// data is already set in content
 			this.setContentAppend(data.catatan);
 		},
 		buttons: {
-			ok: function() {
-				
-			}
-		}
+			ok: function () {},
+		},
 	});
 }

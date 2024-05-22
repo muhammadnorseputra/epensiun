@@ -92,7 +92,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->where_in('u.is_status', ['SELESAI','SELESAI_ARSIP']);
         $this->db->where('u.created_by_unorid', $this->session->userdata('unker_id'));
         $this->db->order_by('u.id', 'desc');
-        $this->db->limit(5);
+        $this->db->limit(4);
         return $this->db->get();
     }
 

@@ -213,7 +213,8 @@ $stat = json_decode($statistik);
                                             <td class="align-middle">
                                                 <div class="d-flex align-items-start">
                                                     <div>
-                                                        <img src="<?= $r->url_photo ?>" alt="<?= $r->nama ?>" class="avatar-md avatar rounded-circle">
+                                                        <!-- <img src="<?= $r->url_photo ?>" alt="<?= $r->nama ?>" class="avatar-md avatar rounded-circle"> -->
+                                                        <img src="http://silka.balangankab.go.id/photo/<?= $r->nip ?>.jpg" alt="<?= $r->nama ?>" class="avatar-md avatar rounded-circle">
                                                     </div>
                                                     <div class="ms-3 lh-1">
                                                         <h5 class="mb-1 text-dark"><?= $r->nama ?></h5>

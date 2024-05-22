@@ -50,7 +50,7 @@
 
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <div class="navbar-heading text-white">Mainmenu</div>
+                        <div class="navbar-heading text-white">MENU UTAMA</div>
                     </li>
                     <?php if($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
                     <!-- Nav item -->
@@ -79,7 +79,7 @@
                     <?php if($this->session->userdata('username') === 'putra' || $this->session->userdata('nip') === '199412242019032007'): ?>
                     <!-- Nav item -->
                     <li class="nav-item">
-                        <div class="navbar-heading text-white">BKPSDM ONLY</div>
+                        <div class="navbar-heading text-white">VERIFIKATOR</div>
                     </li>
                     <!-- Nav item -->
                     <li class="nav-item <?= $this->uri->segment(2) === 'verifikasi' ? 'border-4 border-start' : '' ?>">
@@ -94,6 +94,17 @@
                         <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'arsip' ? 'active' : '' ?>" href="<?= base_url('/app/arsip/list') ?>">
                             <i data-feather="archive" class="nav-icon text-warning icon-xs me-2">
                             </i> Arsip
+                        </a>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item">
+                        <div class="navbar-heading text-white">REFERENSI</div>
+                    </li>
+                    <!-- Nav item -->
+                    <li class="nav-item <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'border-4 border-start' : '' ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'active' : '' ?>" href="<?= base_url('/app/referensi/jenis_pensiun') ?>">
+                            <i data-feather="git-merge" class="nav-icon text-info icon-xs me-2">
+                            </i> Jenis Pensiun
                         </a>
                     </li>
                     <?php endif; ?>

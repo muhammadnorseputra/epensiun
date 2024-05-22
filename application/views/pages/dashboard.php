@@ -77,7 +77,7 @@ $stat = json_decode($statistik);
                     <div class="d-flex justify-content-between align-items-center
                     mb-3">
                         <div>
-                            <h4 class="mb-0">Proyeksi Pensiun</h4>
+                            <h4 class="mb-0">Total Pensiun</h4>
                         </div>
                         <div class="icon-shape icon-md bg-light-primary text-primary
                       rounded-2">

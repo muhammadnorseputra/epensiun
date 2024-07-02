@@ -70,6 +70,7 @@ class Pensiun extends CI_Controller
 
 	public function cekusul_proses()
 	{
+		// filter pencarian berdasarkan NIP
 		$nip = $this->input->post('nip');
 		$db = $this->pensiun->getWhere('usul', ['nip' => $nip]);
 		

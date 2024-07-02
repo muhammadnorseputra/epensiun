@@ -29,7 +29,7 @@
                             <td><?= $row->nama ?></td>
                             <td><?= $row->keterangan ?></td>
                             <td><?= $row->kelompok ?></td>
-                            <td class="text-nowrap">Aksi</td>
+                            <td class="text-nowrap">#</td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

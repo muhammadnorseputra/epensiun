@@ -291,6 +291,10 @@
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/js/verifikasi.js"></script>
     <?php endif; ?>
+
+    <?php if ($this->uri->segment(2) === 'referensi') : ?>
+        <script src="<?= base_url('template/') ?>assets/js/ref_jenis_pensiun.js"></script>
+    <?php endif; ?>
 </body>
 
 </html>

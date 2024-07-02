@@ -5,6 +5,7 @@ class ModelPensiun extends CI_Model {
 
     public function getJenisPensiun()
     {
+        $this->db->where('is_aktif', 'Y');
         return $this->db->get('usul_jenis');
     }
 

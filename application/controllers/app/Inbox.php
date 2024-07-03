@@ -17,22 +17,27 @@ class Inbox extends CI_Controller
 
     public function usul()
     {
+        $data = [
+            'title' => 'Inbox | Integrated Pensiun ASN',
+            'content' => 'pages/inbox'
+        ];
+
+        $this->load->view('layouts/app', $data);
+    }
+
+    public function getJumlahUsulByStatus() {
         $jumlah_pengantar = $this->inbox->getJumlah('usul_pengantar', ['is_status' => 'SKPD','created_by_unorid' => $this->session->userdata('unker_id')]);
         $jumlah_usul = $this->inbox->getJumlah('usul', ['is_status' => 'SKPD','created_by_unorid' => $this->session->userdata('unker_id')]);
         $jumlah_verify = $this->inbox->getJumlah('usul', ['is_status' => 'BKPSDM','created_by_unorid' => $this->session->userdata('unker_id')]);
         $jumlah_ttd = $this->inbox->getJumlah('usul', ['is_status' => 'TTD_SK','created_by_unorid' => $this->session->userdata('unker_id')]);
         $data = [
-            'title' => 'Inbox | Integrated Pensiun ASN',
-            'content' => 'pages/inbox',
-            'chart' => [
-                'jumlah_pengantar' => @$jumlah_pengantar->num_rows(),
-                'jumlah_usul' => @$jumlah_usul->num_rows(),
-                'jumlah_verify' => @$jumlah_verify->num_rows(),
-                'jumlah_ttd' => @$jumlah_ttd->num_rows(),
-            ]
+            'jumlah_pengantar' => @$jumlah_pengantar->num_rows(),
+            'jumlah_usul' => @$jumlah_usul->num_rows(),
+            'jumlah_verify' => @$jumlah_verify->num_rows(),
+            'jumlah_ttd' => @$jumlah_ttd->num_rows(),
         ];
-
-        $this->load->view('layouts/app', $data);
+        $this->output->set_header('Content-Type: Application/json');
+        echo json_encode($data);
     }
 
     public function ajax()

@@ -1,3 +1,7 @@
+$(window).on("load", function() {
+	getJumlahUsulByStatus();
+})
+
 var TabelUsulPesiun = $("#table-inbox").DataTable({
 	processing: true,
 	serverSide: true,
@@ -41,6 +45,15 @@ var TabelUsulPesiun = $("#table-inbox").DataTable({
 	},
 });
 
+function loadEffect(isLoading = true) {
+	return `<span class="placeholder col-12 rounded"></span>`;
+}
+
+function refresh () {
+	TabelUsulPesiun.ajax.reload();
+	getJumlahUsulByStatus();
+}
+
 function DetailNotApprove(token) {
 	$.confirm({
 		title: 'Catatan',
@@ -57,6 +70,27 @@ function DetailNotApprove(token) {
 				
 			}
 		}
+	});
+}
+
+function getJumlahUsulByStatus() {
+	// GET ATTERIBUTE
+	let jumlah_pengantar = $("h1#jumlah_pengantar"),
+	jumlah_usul = $("h1#jumlah_usul"),
+	jumlah_verify = $("h1#jumlah_verify"),
+	jumlah_ttd = $("h1#jumlah_ttd");
+
+	jumlah_pengantar.html(loadEffect)
+	jumlah_usul.html(loadEffect)
+	jumlah_verify.html(loadEffect)
+	jumlah_ttd.html(loadEffect)
+	$.getJSON(`${_uri}/app/inbox/getJumlahUsulByStatus`, function(res){
+		
+		// PARSE KE HTML
+		jumlah_pengantar.text(res.jumlah_pengantar)
+		jumlah_usul.text(res.jumlah_usul)
+		jumlah_verify.text(res.jumlah_verify)
+		jumlah_ttd.text(res.jumlah_ttd)
 	});
 }
 
@@ -84,7 +118,7 @@ function Hapus(token) {
 									transitionOut: 'fadeOutDown',
 									pauseOnHover: false,
 								});
-								TabelUsulPesiun.ajax.reload();
+								refresh()
 							}
 						},
 						"json"
@@ -94,7 +128,7 @@ function Hapus(token) {
 			batal: {
 				text: '<i class="bi bi-x-lg me-2"></i> Batal',
 				action: function() {
-					TabelUsulPesiun.ajax.reload();
+					refresh()
 				}
 			},
 		}

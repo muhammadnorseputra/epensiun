@@ -23,7 +23,14 @@
         min-vh-100">
             <img class="position-fixed z-n1 opacity-25" src="<?= base_url('template/assets/images/background/login_2x.jpg') ?>" alt="Background">
             <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
+            <!-- Logo ICON -->
             <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
+            <!-- Logo IMAGE -->
+            <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/640px-Lambang_Kabupaten_Balangan.png" alt="Logo Kab. Balangan" width="50">
+                <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan" width="150">
+                <img src="https://www.iosys.co.uk/images/ssl-security-encryption.png" alt="Logo Kab. Balangan" width="100">
+            </div>
                 <div id="message"></div>
                 <!-- Card -->
                 <div class="card smooth-shadow-sm border">
@@ -31,7 +38,7 @@
                     <div class="card-body p-6">
                         <div class="mb-4">
                             <a href="<?= base_url() ?>">
-                                <h2><span class="text-primary">e</span>Pensiun ASN Integrated</h2>
+                                <h3 class="font-bold"><span class="text-primary">e</span>Pensiun ASN Terintegrasi</h3>
                             </a>
                             <p class="mb-4">Silahkan masukan akun yang terdaftar pada SIMPEG Balangan (SILKa Online)</p>
                         </div>
@@ -68,6 +75,7 @@
                                 </div>
                             </div> -->
                         <!-- Chose user type login v2 -->
+                        <div class="fw-bold text-dark mb-2">Login as :</div>
                         <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off" value="PERSONAL" checked required="">
                             <label class="btn btn-outline-primary w-100" for="type1">

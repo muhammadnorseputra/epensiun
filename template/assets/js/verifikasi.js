@@ -483,6 +483,7 @@ $formUbahStatus.on("submit", function (e) {
 	let _ = $(this),
 		$url = _.attr("action"),
 		$data = _.serialize();
+	
 	if (_.parsley().isValid()) {
 		$.post(
 			$url,

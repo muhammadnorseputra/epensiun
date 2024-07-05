@@ -435,3 +435,44 @@ function DetailNotApprove(token) {
 		},
 	});
 }
+
+function Hapus(token) {
+	$.confirm({
+		title: 'Hapus ?',
+		content: 'Apakah anda yakin akan menghapus usulan ini ?',
+		type: 'orange',
+		theme: 'material',
+		buttons: {
+			hapus: {
+				text: '<i class="bi bi-trash me-2"></i> Hapus',
+				btnClass: 'btn-lg btn-danger',
+				action: function () {
+					$.post(
+						`${_uri}/app/inbox/hapus`,
+						{ token: token },
+						function (res) {
+							if (res.status === true) {
+								iziToast.success({
+									timeout: 2000,
+									title: 'Berhasil',
+									position: 'topCenter',
+									message: 'Usulan telah dihapus',
+									transitionOut: 'fadeOutDown',
+									pauseOnHover: false,
+								});
+								window.location.href = `${_uri}/app/inbox/usul`;
+							}
+						},
+						"json"
+					);
+				}
+			},
+			batal: {
+				text: '<i class="bi bi-x-lg me-2"></i> Batal',
+				action: function() {
+					// return false;
+				}
+			},
+		}
+	});
+}

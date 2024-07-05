@@ -99,12 +99,13 @@
                 <div class="card-body px-lg-12">
                     <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
                         <!-- Primary alert -->
-                        <div class="alert alert-warning d-flex align-items-center justify-content-between mb-8" role="alert">
+                        <div class="alert alert-warning d-flex align-items-center justify-content-between mb-3" role="alert">
                             <div>
                                 Waduh sepertinya usulan kamu <strong><?= @$detail->is_status ?></strong>, silahkan perbaiki usulan sesuai catatan yang diberikan.
                             </div>
                             <button onclick="DetailNotApprove('<?= @$detail->token ?>')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill text-danger me-2"></i> Lihat catatan</button>
                         </div>
+
                     <?php endif; ?>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade <?= $is_show_step1 ?> <?= $step1 ?>" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
@@ -217,9 +218,9 @@
                             <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM' || @$usul->is_status === 'SELESAI_TMS' || @$usul->is_status === 'SELESAI_BTL') : ?>
                                 <div class="row">
                                     <div class="col-md-6">
-                                    <div class="avatar avatar-xxl mb-8">
-                                        <img src="<?= @$usul->url_photo ?>" alt="<?= @$usul->nama ?>" class="rounded-circle"/>
-                                    </div>
+                                        <div class="avatar avatar-xxl mb-8">
+                                            <img src="<?= @$usul->url_photo ?>" alt="<?= @$usul->nama ?>" class="rounded-circle" />
+                                        </div>
                                         <ul class="row row-cols-1 row-cols-sm-2 list-unstyled px-3">
                                             <li class="pb-3 ps-0 mb-3 border-bottom">
                                                 <div class="fs-sm fw-bold lh-1">NOMOR USUL</div>
@@ -270,7 +271,7 @@
                                                 <div><?= @$usul->alamat ?></div>
                                             </li>
                                         </ul>
-                                        
+
                                         <?= form_open(base_url('/app/pensiun/kirimusulan'), ['id' => 'FormKirimUsulan', 'class' => 'needs-validation was-validated', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
                                         <input type="hidden" name="token" value="<?= @$usul->token ?>">
                                         <input type="hidden" name="jns_pensiun" value="<?= @$detail->fid_jenis_usul ?>">
@@ -278,10 +279,15 @@
                                         <!-- Textarea -->
                                         <div class="mb-3">
                                             <label for="textarea-input" class="form-label fw-bold">Tempel Link Eviden <span class="text-danger ms-1">*</span></label>
-                                            <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5"  maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
+                                            <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
                                         <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
+                                        
+                                        <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
+                                            <button type="button" onclick="Hapus('<?= @$detail->token ?>')" class="btn btn-danger btn-lg float-end me-2"><i class="bi bi-trash"></i></button>
+                                        <?php endif; ?>
+
                                         <?= form_close() ?>
                                     </div>
                                     <div class="col-md-6">

@@ -23,7 +23,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
         $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK','SELESAI_TMS','SELESAI_BTL']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
-        $this->db->where('up.created_by', $this->session->userdata('nip'));
+        // $this->db->where('up.created_by', $this->session->userdata('nip'));
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 
@@ -78,7 +78,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
         $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
-        $this->db->where('up.created_by', $this->session->userdata('nip'));
+        // $this->db->where('up.created_by', $this->session->userdata('nip'));
         return $this->db->count_all_results();
     }
     // -------------------------------- end-datatable --------------------------//

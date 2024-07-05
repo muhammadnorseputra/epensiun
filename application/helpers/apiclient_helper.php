@@ -70,6 +70,7 @@ if (! function_exists('postApi'))
 		$post = $arr;
 		// set headers
 		$request_headers = [
+            'Authorization: Basic QmFsYW5nYW5rYWI6Ymtwc2RtQDIwMjI=',
 			'apiKey:bkpsdm6811',
 			'Content-Type:multipart/form-data',
 			'Accept:application/json'
@@ -128,6 +129,7 @@ if (! function_exists('Upload'))
 		$post = $arr;
 
 		$request_headers = [
+            'Authorization: Basic QmFsYW5nYW5rYWI6Ymtwc2RtQDIwMjI=',
 			'apiKey:bkpsdm6811',
 			'Content-Type:multipart/form-data',
 			'Accept:application/json'

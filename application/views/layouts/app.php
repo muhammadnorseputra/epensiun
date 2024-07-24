@@ -16,13 +16,15 @@
     <link href="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.min.css" rel="stylesheet">
-    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
-    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
+        rel="stylesheet">
+    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+        rel="stylesheet">
     <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) === 'verifikasi' || $this->uri->segment(2) === 'arsip') : ?>
-    <link href="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.css" rel="stylesheet">
+        <link href="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.css" rel="stylesheet">
     <?php endif; ?>
     <?php if ($this->uri->segment(3) === 'cekusul') : ?>
-    <link href="<?= base_url('template/') ?>assets/css/timeline.css" rel="stylesheet">
+        <link href="<?= base_url('template/') ?>assets/css/timeline.css" rel="stylesheet">
     <?php endif; ?>
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?= base_url('template/') ?>assets/css/theme.min.css">
@@ -38,12 +40,13 @@
             <div class="nav-scroller">
                 <!-- Brand logo -->
                 <a class="navbar-brand text-white fw-bold" href="<?= base_url() ?>">
-                    <span class="text-primary">e</span>Pensiun ASN
+                    🚀 <span class="text-primary">SIMPUN</span> Pegawai
                 </a>
                 <!-- Navbar nav -->
                 <ul class="navbar-nav flex-column" id="sideNavbar">
                     <li class="nav-item">
-                        <a class="nav-link has-arrow <?= $this->uri->segment(2) === 'dashboard' ? 'active' : '' ?>" href="<?= base_url('/app/dashboard') ?>">
+                        <a class="nav-link has-arrow <?= $this->uri->segment(2) === 'dashboard' ? 'active' : '' ?>"
+                            href="<?= base_url('/app/dashboard') ?>">
                             <i data-feather="home" class="nav-icon icon-xs me-2 rounded "></i> Dashboard
                         </a>
                     </li>
@@ -52,61 +55,68 @@
                     <li class="nav-item">
                         <div class="navbar-heading text-white">MENU UTAMA</div>
                     </li>
-                    <?php if($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
-                    <!-- Nav item -->
-                    <li class="nav-item <?= $this->uri->segment(3) === 'buatusul' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow <?= $this->uri->segment(3) === 'buatusul' ? 'active' : '' ?>" href="<?= base_url('/app/pensiun/buatusul') ?>">
-                            <i data-feather="user-plus" class="nav-icon icon-xs me-2 text-primary">
-                            </i> Buat Usul
-                        </a>
-                    </li>
+                    <?php if ($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
+                        <!-- Nav item -->
+                        <li class="nav-item <?= $this->uri->segment(3) === 'buatusul' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow <?= $this->uri->segment(3) === 'buatusul' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/pensiun/buatusul') ?>">
+                                <i data-feather="user-plus" class="nav-icon icon-xs me-2 text-primary">
+                                </i> Buat Usul
+                            </a>
+                        </li>
 
-                    <!-- Nav item -->
-                    <li class="nav-item <?= $this->uri->segment(2) === 'inbox' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'inbox' ? 'active' : '' ?>" href="<?= base_url('/app/inbox/usul') ?>">
-                            <i data-feather="inbox" class="nav-icon icon-xs me-2 text-info">
-                            </i> Inbox
-                        </a>
-                    </li>
+                        <!-- Nav item -->
+                        <li class="nav-item <?= $this->uri->segment(2) === 'inbox' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'inbox' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/inbox/usul') ?>">
+                                <i data-feather="inbox" class="nav-icon icon-xs me-2 text-info">
+                                </i> Inbox
+                            </a>
+                        </li>
                     <?php endif; ?>
                     <!-- Nav item -->
                     <li class="nav-item <?= $this->uri->segment(3) === 'cekusul' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'cekusul' ? 'active' : '' ?>" href="<?= base_url('/app/pensiun/cekusul') ?>">
+                        <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'cekusul' ? 'active' : '' ?>"
+                            href="<?= base_url('/app/pensiun/cekusul') ?>">
                             <i data-feather="check-circle" class="nav-icon icon-xs me-2 text-danger">
                             </i> Monitoring Usulan
                         </a>
                     </li>
-                    <?php if($this->session->userdata('username') === 'putra' || $this->session->userdata('nip') === '199412242019032007'): ?>
-                    <!-- Nav item -->
-                    <li class="nav-item">
-                        <div class="navbar-heading text-white">VERIFIKATOR</div>
-                    </li>
-                    <!-- Nav item -->
-                    <li class="nav-item <?= $this->uri->segment(2) === 'verifikasi' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'verifikasi' ? 'active' : '' ?>" href="<?= base_url('/app/verifikasi/list') ?>">
-                            <i class="nav-icon bi bi-patch-check-fill text-primary me-2">
-                            </i> Verifikasi Usul
-                        </a>
-                    </li>
+                    <?php if ($this->session->userdata('username') === 'putra' || $this->session->userdata('nip') === '199412242019032007'): ?>
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <div class="navbar-heading text-white">VERIFIKATOR</div>
+                        </li>
+                        <!-- Nav item -->
+                        <li class="nav-item <?= $this->uri->segment(2) === 'verifikasi' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'verifikasi' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/verifikasi/list') ?>">
+                                <i class="nav-icon bi bi-patch-check-fill text-primary me-2">
+                                </i> Verifikasi Usul
+                            </a>
+                        </li>
 
-                    <!-- Nav item -->
-                    <li class="nav-item <?= $this->uri->segment(2) === 'arsip' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'arsip' ? 'active' : '' ?>" href="<?= base_url('/app/arsip/list') ?>">
-                            <i data-feather="archive" class="nav-icon text-warning icon-xs me-2">
-                            </i> Arsip
-                        </a>
-                    </li>
-                    <!-- Nav item -->
-                    <li class="nav-item">
-                        <div class="navbar-heading text-white">REFERENSI</div>
-                    </li>
-                    <!-- Nav item -->
-                    <li class="nav-item <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'border-4 border-start' : '' ?>">
-                        <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'active' : '' ?>" href="<?= base_url('/app/referensi/jenis_pensiun') ?>">
-                            <i data-feather="git-merge" class="nav-icon text-info icon-xs me-2">
-                            </i> Jenis Pensiun
-                        </a>
-                    </li>
+                        <!-- Nav item -->
+                        <li class="nav-item <?= $this->uri->segment(2) === 'arsip' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow  <?= $this->uri->segment(2) === 'arsip' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/arsip/list') ?>">
+                                <i data-feather="archive" class="nav-icon text-warning icon-xs me-2">
+                                </i> Arsip
+                            </a>
+                        </li>
+                        <!-- Nav item -->
+                        <li class="nav-item">
+                            <div class="navbar-heading text-white">REFERENSI</div>
+                        </li>
+                        <!-- Nav item -->
+                        <li
+                            class="nav-item <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/referensi/jenis_pensiun') ?>">
+                                <i data-feather="git-merge" class="nav-icon text-info icon-xs me-2">
+                                </i> Jenis Pensiun
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
 
@@ -122,10 +132,12 @@
                     <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
                         <li class="dropdown stopevent">
                             <a class="btn btn-light btn-icon rounded-circle indicator
-          indicator-primary text-muted" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          indicator-primary text-muted" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <i class="icon-xs" data-feather="bell"></i>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end" aria-labelledby="dropdownNotification">
+                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end"
+                                aria-labelledby="dropdownNotification">
                                 <div>
                                     <div class="border-bottom px-3 pt-2 pb-3 d-flex
               justify-content-between align-items-center">
@@ -143,7 +155,10 @@
                                             <a href="#" class="text-muted">
                                                 <h5 class=" mb-1">Admin</h5>
                                                 <p class="mb-0">
-                                                    Halo, <strong><?= $this->session->userdata('nama_lengkap'); ?></strong> selamat datang di ePensiun BKPSDM.
+                                                    Halo,
+                                                    <strong><?= $this->session->userdata('nama_lengkap'); ?></strong>
+                                                    selamat datang di aplikasi SIMPUN Pegawai (Sistem Informasi
+                                                    Pengelolaan Usulan Pensiun) by BKPSDM Kab. Balangan
                                                 </p>
                                             </a>
                                         </li>
@@ -158,16 +173,20 @@
                         </li>
                         <!-- List -->
                         <li class="dropdown ms-2">
-                            <a class="rounded-circle" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="rounded-circle" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <div class="avatar avatar-md avatar-indicators avatar-online">
-                                    <img alt="avatar" src="<?= $this->session->userdata('picture'); ?>" class="rounded-circle" />
+                                    <img alt="avatar" src="<?= $this->session->userdata('picture'); ?>"
+                                        class="rounded-circle" />
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
                                 <div class="px-4 pb-0 pt-2">
                                     <div class="lh-1">
                                         <h5 class="mb-1"> <?= $this->session->userdata('nama_lengkap'); ?></h5>
-                                        <button type="button" class="btn btn-sm btn-primary text-inherit fs-6" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">View my profile</button>
+                                        <button type="button" class="btn btn-sm btn-primary text-inherit fs-6"
+                                            data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                                            aria-controls="offcanvasRight">View my profile</button>
                                     </div>
                                     <div class=" dropdown-divider mt-3 mb-2"></div>
                                 </div>
@@ -245,7 +264,9 @@
     <script src="<?= base_url('template/') ?>assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/dropzone/dist/min/dropzone.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="<?= base_url('template/') ?>assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script
+        src="<?= base_url('template/') ?>assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js">
+    </script>
     <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
 
     <!-- Theme JS -->
@@ -288,7 +309,8 @@
         <script src="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/moment-with-locales.js"></script>
         <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-        <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js">
+        </script>
         <script src="<?= base_url('template/') ?>assets/js/verifikasi.js"></script>
     <?php endif; ?>
 

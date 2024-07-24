@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Dashboard extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -19,18 +20,25 @@ class Dashboard extends CI_Controller {
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
 	public function __construct()
-    {
-        parent::__construct();
+	{
+		parent::__construct();
 		cek_session();
-		$this->load->model(['ModelPensiun' => 'pensiun', 'ModelPensiunInbox' => 'inbox']);
-    }
+		$this->load->model([
+			'ModelPensiun' => 'pensiun',
+			'ModelPensiunInbox' => 'inbox',
+			'ModelApi' => 'api'
+		]);
+	}
 
-    public function index()
-    {
+	public function index()
+	{
 		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
 		$jumlah_usulan = $this->pensiun->JmlByUsulInbox();
 		$jumlah_selesai = $this->pensiun->JmlByUsulSelesai();
 
+		$tms = $this->api->jmlUsulByStatus('SELESAI_TMS')->num_rows();
+		$btl = $this->api->jmlUsulByStatus('SELESAI_BTL')->num_rows();
+		$catatan = $this->api->catatanByKesalahan()->result();
 		// Charts
 		$charts = [
 			'bup' => $this->pensiun->JmlByJenis(1)->num_rows(),
@@ -38,6 +46,10 @@ class Dashboard extends CI_Controller {
 			'aps' => $this->pensiun->JmlByJenis(3)->num_rows(),
 			'udzur' => $this->pensiun->JmlByJenis(4)->num_rows(),
 			'mpp' => $this->pensiun->JmlByJenis(5)->num_rows(),
+			'tms' => $tms,
+			'btl' => $btl,
+			'total_kesalahan' => ($tms + $btl),
+			'catatan' => $catatan
 		];
 		$data = [
 			'title' => 'Dashboard | Integrated Pensiun ASN',
@@ -48,7 +60,12 @@ class Dashboard extends CI_Controller {
 			'charts' => $charts
 		];
 
-        $this->load->view('layouts/app', $data);
-    }
+		$this->load->view('layouts/app', $data);
+	}
 
+	public function chartUsulPensiunByStatus()
+	{
+		$db = $this->api->jmlUsulByStatus()->result();
+		$this->output->set_content_type('application/json')->set_output(json_encode($db));
+	}
 }

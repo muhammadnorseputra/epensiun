@@ -63,7 +63,7 @@ if (! function_exists('api_curl'))
 }
 if (! function_exists('postApi'))
 {
- 	function postApi($url, $arr)
+ 	function postApi($url, $arr, $method='POST')
 	{
 		 
 		// set post fields
@@ -77,7 +77,7 @@ if (! function_exists('postApi'))
 		];
 		
 		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
@@ -143,6 +143,8 @@ if (! function_exists('Upload'))
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		$result = curl_exec($ch);	
+        
+		header("Content-Type: application/json");
 		return $result;
 		 
 	}
@@ -183,6 +185,7 @@ if (!function_exists('httpclient')) {
             CURLOPT_ENCODING => 'utf-8',
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
+            CURLOPT_SSL_VERIFYHOST => FALSE,
             CURLOPT_SSL_VERIFYPEER => FALSE,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $method,

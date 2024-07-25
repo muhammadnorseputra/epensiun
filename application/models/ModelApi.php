@@ -30,4 +30,22 @@ class ModelApi extends CI_Model
         $this->db->where_in('is_status', ['SELESAI_TMS', 'SELESAI_BTL']);
         return $this->db->get();
     }
+
+    public function jmlUsulByUnor($unorid)
+    {
+        $this->db->select('id,id_unit_kerja,nama_unit_kerja,MONTH(created_at) as usul_bulan,YEAR(created_at) as usul_tahun', false);
+        $this->db->from('usul');
+            $this->db->where('id_unit_kerja', $unorid);
+
+        return $this->db->get();
+    }
+
+    public function jmlUsulByBulan($unorid,$bulan)
+    {
+        $this->db->select('id,id_unit_kerja,nama_unit_kerja,MONTH(created_at) as usul_bulan,YEAR(created_at) as usul_tahun', false);
+        $this->db->from('usul');
+            $this->db->where('id_unit_kerja', $unorid);
+        $this->db->where('MONTH(created_at)', $bulan);
+        return $this->db->get();
+    }
 }

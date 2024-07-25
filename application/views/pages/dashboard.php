@@ -306,10 +306,19 @@ $stat = json_decode($statistik);
         <div class="col-md-12">
             <div class="card h-100">
                 <div class="card-header pt-4 pb-2">
-                    <h4>Trend Usulan Periode</h4>
+                    <h4>Trend Usulan Berdasarkan Periode</h4>
                 </div>
                 <div class="card-body">
-                    <div id="PensiunChartUsulanPeriode"></div>
+                    <div class="col-md-12">
+
+                        <select class="form-select" id="single-select-clear-field" data-placeholder="Pilih Unit Organisasi/SKPD/SOPD">
+                            <option></option>
+                            <?php foreach(json_decode($listunor) as $unor): ?>
+                                <option value="<?= $unor->id_unit_kerja ?>"><?= $unor->nama_unit_kerja ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <div id="PensiunChartUsulanPeriode" data-unorid="<?= $this->session->userdata('unker_id') ?>"></div>
                 </div>
             </div>
         </div>

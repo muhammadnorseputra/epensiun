@@ -15,6 +15,7 @@
     <link href="<?= base_url('template/') ?>assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
     <link href="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.min.css" rel="stylesheet">
     <link href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
         rel="stylesheet">
@@ -290,6 +291,7 @@
 
     <?php if ($this->uri->segment(2) === 'dashboard') : ?>
         <script src="<?= base_url('template/') ?>assets/js/dashboard.js"></script>
+        <script src="<?= base_url('template/') ?>assets/libs/select2/select2.full.min.js"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'inbox') : ?>

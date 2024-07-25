@@ -43,6 +43,7 @@ if ($("#PensiunChartByKesalahan").length) {
 			height: 320,
 			type: "pie",
 		},
+		colors: ["#ef233c", "#ffc107"],
 		labels: [`TMS (Tidak Memenuhi Syarat)`, "BTL (Berkas Tidak Lengkap)"],
 		responsive: [
 			{
@@ -66,12 +67,14 @@ if ($("#PensiunChartByKesalahan").length) {
 	chart.render();
 }
 
+
+
 if ($("#PensiunChartUsulanPeriode").length) {
 	var options = {
 		series: [
 			{
-				name: "Inflation",
-				data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2],
+				name: "Pensiun Total",
+				data: [],
 			},
 		],
 		chart: {
@@ -89,7 +92,7 @@ if ($("#PensiunChartUsulanPeriode").length) {
 		dataLabels: {
 			enabled: true,
 			formatter: function (val) {
-				return val + "%";
+				return val;
 			},
 			offsetY: -20,
 			style: {
@@ -146,12 +149,12 @@ if ($("#PensiunChartUsulanPeriode").length) {
 			labels: {
 				show: false,
 				formatter: function (val) {
-					return val + "%";
+					return val;
 				},
 			},
 		},
 		title: {
-			text: "Monthly Inflation in Argentina, 2002",
+			text: null,
 			floating: true,
 			offsetY: 330,
 			align: "center",
@@ -160,10 +163,44 @@ if ($("#PensiunChartUsulanPeriode").length) {
 			},
 		},
 	};
-
 	var chart = new ApexCharts(
 		document.querySelector("#PensiunChartUsulanPeriode"),
 		options
 	);
 	chart.render();
+	
 }
+
+function updateChartPeriode(unorid) {
+	$.ajax({
+		url: `${_uri}/app/dashboard/chartUsulPensiunByPeriode`,
+		method: "post",
+		data: {
+			unorid: unorid
+		},
+		success: function (res) {
+			chart.updateSeries([{
+				data: Object.values(res.row)
+			}])
+			chart.updateOptions({
+				title: {
+					text: res.nama_unit_kerja
+				} 
+			})
+		},
+	});
+}
+
+$(document).ready(function () {
+	// getListUnor
+	$("#single-select-clear-field").select2({
+		width: "100%",
+		placeholder: $(this).data("placeholder"),
+		allowClear: true,
+	});
+	updateChartPeriode($("#PensiunChartUsulanPeriode").attr('data-unorid'));
+	$('#single-select-clear-field').on('change', function(e) {
+        const selectedValue = $(this).val();
+		updateChartPeriode(selectedValue);
+    });
+});

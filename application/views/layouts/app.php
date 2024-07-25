@@ -291,7 +291,7 @@
 
     <?php if ($this->uri->segment(2) === 'dashboard') : ?>
         <script src="<?= base_url('template/') ?>assets/js/dashboard.js"></script>
-        <script src="<?= base_url('template/') ?>assets/libs/select2/select2.full.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <?php endif; ?>
 
     <?php if ($this->uri->segment(2) === 'inbox') : ?>

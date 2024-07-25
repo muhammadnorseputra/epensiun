@@ -15,11 +15,11 @@ if ($("#PensiunChart").length) {
 	let total = bup + jadu + aps + udzur + mpp;
 	new ApexCharts(document.querySelector("#PensiunChart"), {
 		series: [
-			hitungPersentase(bup, total),
-			hitungPersentase(jadu, total),
-			hitungPersentase(aps, total),
-			hitungPersentase(udzur, total),
-			hitungPersentase(mpp, total),
+			bup,
+			jadu,
+			aps,
+			udzur,
+			mpp,
 		],
 		chart: { height: 320, type: "radialBar" },
 		colors: ["#28a745", "#ffc107", "#e5e5e5", "#ef233c", "#4361ee"],

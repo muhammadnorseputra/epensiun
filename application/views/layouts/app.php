@@ -33,8 +33,7 @@
 </head>
 
 <body class="bg-light">
-    <?php $toggled = $this->uri->segment(3) === 'buatusul' || $this->uri->segment(3) === 'usul' ? 'toggled' : ''; ?>
-    <div id="db-wrapper">
+    <div id="db-wrapper" class="<?= get_cookie('navbarStatus'); ?>">
         <!-- navbar vertical -->
         <!-- Sidebar -->
         <nav class="navbar-vertical navbar nav-dashboard">

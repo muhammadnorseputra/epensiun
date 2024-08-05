@@ -99,7 +99,7 @@ class Pensiun extends CI_Controller
 			$detail = $this->pensiun->getWhere('usul_pengantar', ['token' => $_GET['token']])->row();
 			$usul = $this->pensiun->getWhere('usul', ['token' => $_GET['token']])->row();
 		}
-
+		
 		$data = [
 			'title' => 'Buat Usul Pensiun | Integrated Pensiun ASN',
 			'content' => 'pages/buatusul',
@@ -202,15 +202,17 @@ class Pensiun extends CI_Controller
 		$cekusul = $this->pensiun->cekusulasn('usul', $post['nip'], $post['jns_pensiun']);
 
 		// jika nip sudah ada pada database dan token tidak kosong
-		if (($cekusul->num_rows() > 0 && $cekusul->row()->token !== $post['token'])) {
+		if (($cekusul->num_rows() > 0 && @$cekusul->row()->token != $post['token'])) {
 			$msg = [
 				'status' => false,
-				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun ' . $cekusul->row()->jenis_usul . '!',
+				'message' => 'ASN Yang Bersangkutan Sudah Pernah Diusulkan Pensiun ' . @$cekusul->row()->jenis_usul . '!',
 				'rediract' => null
 			];
 			echo json_encode($msg);
 			return false;
 		}
+
+		
 
 		$cektoken = $this->pensiun->getWhere('usul', ['token' => $post['token']]);
 		if ($cektoken->num_rows() > 0) {

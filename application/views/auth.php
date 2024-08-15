@@ -32,10 +32,10 @@
                 <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/640px-Lambang_Kabupaten_Balangan.png"
                         alt="Logo Kab. Balangan" width="50">
-                    <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan"
+                    <!-- <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan"
                         width="150">
                     <img src="https://www.iosys.co.uk/images/ssl-security-encryption.png" alt="Logo Kab. Balangan"
-                        width="100">
+                        width="100"> -->
                 </div>
                 <div id="message"></div>
                 <!-- Card -->
@@ -82,8 +82,8 @@
                                 </div>
                             </div> -->
                         <!-- Chose user type login v2 -->
-                        <div class="fw-bold text-dark mb-2">Login as :</div>
-                        <!-- <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
+                        <!-- <div class="fw-bold text-dark mb-2">Login as :</div>
+                        <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off"
                                 value="PERSONAL" checked required="">
                             <label class="btn btn-outline-primary w-100" for="type1">

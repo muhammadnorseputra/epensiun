@@ -83,7 +83,7 @@
                             </div> -->
                         <!-- Chose user type login v2 -->
                         <div class="fw-bold text-dark mb-2">Login as :</div>
-                        <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
+                        <!-- <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off"
                                 value="PERSONAL" checked required="">
                             <label class="btn btn-outline-primary w-100" for="type1">
@@ -99,7 +99,7 @@
                                 <b>UMPEG</b>
                                 <p class="small">Masuk dengan akun pengelola kepegawaian</p>
                             </label>
-                        </div>
+                        </div> -->
 
                         <!-- Username -->
                         <div class="mb-3">

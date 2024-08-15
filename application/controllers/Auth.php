@@ -51,7 +51,8 @@ class Auth extends CI_Controller {
         $password = trim($this->security->xss_clean($this->input->post('password', true)));
 
 		$post = [
-			'type' => $this->input->post('type'),
+			// 'type' => $this->input->post('type'),
+			'type' => 'UMPEG', // hanya admin atau umpeg yg bisa login
 			'username' => $username,
 			'password' => $password
 		];

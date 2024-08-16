@@ -70,9 +70,9 @@ class Pensiun extends CI_Controller
 
 	public function cekusul_proses()
 	{
-		// filter pencarian berdasarkan NIP
+		// filter pencarian berdasarkan NIP dan Kewenangan Akun UMPEG
 		$nip = $this->input->post('nip');
-		$db = $this->pensiun->getWhere('usul', ['nip' => $nip]);
+		$db = $this->pensiun->getWhere('usul', ['nip' => $nip, 'created_by_unorid' => $this->session->userdata('unker_id')]);
 		
 		if ($db->num_rows() > 0) {
 			$usul = $db->row();

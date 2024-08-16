@@ -154,7 +154,7 @@
                             <p class="help-block-jp"></p>
                             <div class="form-group mb-4">
                                 <label class="form-label fw-bold" for="nomor_usul">Nomor Usul <span class="text-danger ms-1">*</span></label>
-                                <input type="text" id="nomor_usul" name="nomor_usul" class="form-control form-control-lg" minlength="6" maxlength="70" value="<?= @$detail->nomor ?>" <?= $disabled ?> required="">
+                                <input type="text" id="nomor_usul" name="nomor_usul" class="form-control form-control-lg" minlength="6" maxlength="100" value="<?= @$detail->nomor ?>" <?= $disabled ?> required="">
                             </div>
                             <div class="mb-4 col-12 col-md-4">
                                 <label class="form-label fw-bold" for="nomor_usul">Tanggal Usul <span class="text-danger ms-1">*</span></label>

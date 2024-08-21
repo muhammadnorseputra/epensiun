@@ -117,6 +117,90 @@
                                 </i> Jenis Pensiun
                             </a>
                         </li>
+						<!-- Nav item -->
+                        <li class="nav-item">
+                            <div class="navbar-heading text-white">REPORT APLIKASI</div>
+                        </li>
+                        <!-- Nav item -->
+						 <!-- Nav item -->
+             <li class="nav-item">
+                <a class="nav-link has-arrow  collapsed " href="#!" data-bs-toggle="collapse" data-bs-target="#navPages" aria-expanded="false" aria-controls="navPages">
+                    <i
+                    data-feather="layers"
+
+                    class="nav-icon icon-xs me-2">
+                </i> Laporan
+                </a>
+
+                <div id="navPages" class="collapse " data-bs-parent="#sideNavbar">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/usul_pensiun') ?>">
+                                Usul Pensiun
+                </a>
+				 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/pengantar_usul') ?>">
+                                Pengantar Usul
+                </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link has-arrow   "  href="<?= base_url('/app/laporan/verifikasi_usul') ?>" >
+                                Verifikasi Usul
+                                </a>
+
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/approve_usul') ?>">
+                                Approve Usul
+                </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/trend_kesalahan_usulan') ?>">
+                               Trend Kesalahan Usulan
+                </a>
+                     
+                        </li>
+						 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/tanda_terima_sk_pensiun') ?>">
+                               Tanda Terima SK Pensiun
+                </a>
+                        </li>
+						 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/trend_jenis_usulan') ?>">
+                                Trend Jenis Usulan
+                </a>
+                        </li>
+						 </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="<?= base_url('/app/laporan/trend_periode_usulan') ?>">
+                                Trend Periode Usulan
+                </a>
+                        </li>
+                    </ul>
+                </div>
+
+                </li>
+
+
+                        <li
+                            class="nav-item <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'border-4 border-start' : '' ?>">
+                            <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'active' : '' ?>"
+                                href="<?= base_url('/app/referensi/jenis_pensiun') ?>">
+                                <i data-feather="git-merge" class="nav-icon text-info icon-xs me-2">
+                                </i> Jenis Pensiun
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
 

@@ -193,14 +193,7 @@
                 </li>
 
 
-                        <li
-                            class="nav-item <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'border-4 border-start' : '' ?>">
-                            <a class="nav-link has-arrow  <?= $this->uri->segment(3) === 'jenis_pensiun' ? 'active' : '' ?>"
-                                href="<?= base_url('/app/referensi/jenis_pensiun') ?>">
-                                <i data-feather="git-merge" class="nav-icon text-info icon-xs me-2">
-                                </i> Jenis Pensiun
-                            </a>
-                        </li>
+                       
                     <?php endif; ?>
                 </ul>
 

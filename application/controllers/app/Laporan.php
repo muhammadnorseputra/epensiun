@@ -9,13 +9,14 @@ class Laporan extends CI_Controller
     {
         parent::__construct();
         cek_session();
-        $this->load->model(['ModelArsip' => 'arsip', 'ModelPensiun' => 'pensiun']);
+        $this->load->model(['ModelLaporan' => 'laporan']);
     }
 	public function usul_pensiun()
 	{
 		$data = [
             'title' => 'Laporan Usul Pensiun | Integrated Pensiun ASN',
             'content' => 'pages/laporan/usul_pensiun',
+            'data' => $this->laporan->getDaftarUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -26,6 +27,7 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Pengantar Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/pengantar_usul',
+            'data' => $this->laporan->getDaftarPengantarUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -36,6 +38,7 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Verifikasi Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/verifikasi_usul',
+            'data' => $this->laporan->getDaftarVerifikasiUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -45,6 +48,7 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Approve Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/approve_usul',
+            'data' => $this->laporan->getDaftarApproveUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -54,6 +58,7 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Trend Kesalahan Usulan | Integrated Pensiun ASN',
             'content' => 'pages/laporan/trend_kesalahan_usulan',
+            'data' => $this->laporan->getTrendKesalahanUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);

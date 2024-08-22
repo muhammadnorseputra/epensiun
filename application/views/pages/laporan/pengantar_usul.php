@@ -6,54 +6,42 @@
             <!-- card header  -->
             <div class="card-header bg-white pt-4 d-flex justify-content-between align-items-start">
                 <div class="d-flex gap-4">
-                    <i data-feather="git-merge" class="icon-sm"></i>
+                    <i data-feather="table" class="icon-sm"></i>
                     <h4 class="mb-0">Laporan Pengantar Usul Pensiun</h4>.
                 </div>
             </div>
-           
+            <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-condensed table-small table-bordered">
+                <thead class="bg-light">
+                  <tr valign="middle">
+                    <th width="5%">Nomor</th>
+                    <th>Nomor Pengantar</th>
+                    <th>Instansi Pengusul</th>
+                    <th>Tanggal Usul</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no=1;
+                  if($data->num_rows() > 0):
+                  foreach($data->result() as $r): ?>
+                  <tr>
+                    <td class="text-center"><?= $no ?></td>
+                    <td><?= $r->nomor ?></td>
+                    <td><?= $r->created_by_unorid ?></td>
+                    <td><?= longdate_indo($r->tanggal) ?></td>
+                  </tr>
+                  <?php $no++; endforeach; ?>
+                  <?php else: ?>
+                  <tr>
+                    <td colspan="5"> Data Usul Tidak Ada</td>
+                  </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
+           </div>
         </div>
     </div>
-</div>
-
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel"><b>UPDATE JENIS PENSIUN</b></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div id="loading"></div>
-    <?= 
-    form_open(base_url('app/referensi/updateJenisPensiun'), ['id' => 'FormUpdateJenisPensiun'], ['id' => '']);
-     ?>
-            <div class="form-floating mb-3">
-            <input type="text" name="nama" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Judul</label>
-            </div>
-            <div class="form-floating mb-3">
-            <textarea class="form-control" name="keterangan" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-            <label for="floatingTextarea">Keterangan</label>
-            </div>
-            <div class="form-floating mb-3">
-  <select class="form-select" name="kelompok" id="floatingSelect" aria-label="Floating label select example">
-    <option value="BUP">BUP</option>
-    <option value="NONBUP">NONBUP</option>
-  </select>
-  <label for="floatingSelect">KELOMPOK</label>
-</div>
-<div class="form-floating mb-3">
-  <select class="form-select" name="is_aktif" id="floatingSelect" aria-label="Floating label select example">
-    <option value="Y">AKTIF</option>
-    <option value="N">NON AKTIF</option>
-  </select>
-  <label for="floatingSelect">Status Aktif</label>
-</div>
-
-<div class="d-grid gap-2">
-  <button type="submit" class="btn btn-block btn-primary">Simpan</button>
-</div>
-            
-     <?= 
-     form_close();
-     ?>
-  </div>
 </div>

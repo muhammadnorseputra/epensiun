@@ -59,8 +59,8 @@ class Inbox extends CI_Controller
                 $status = '<span class="badge bg-info px-3 py-2"><i class="bi bi-printer-fill"></i> CETAK USUL</span>';
                 $button = '<a class="btn btn-info btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             } elseif($r->is_status === 'KIRIM_USUL') {
-                $status = '<span class="badge bg-info px-3 py-2"><i class="bi bi-send-check"></i> KIRIM USUL</span>';
-                $button = '<a class="btn btn-info btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
+                $status = '<span class="badge bg-dark px-3 py-2"><i class="bi bi-send-check"></i> KIRIM USUL</span>';
+                $button = '<a class="btn btn-dark btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             } elseif($r->is_status === 'BKPSDM') {
                 $status = '<span class="badge bg-primary px-3 py-2"><i class="bi bi-lock-fill"></i> VERIFIKASI BKPSDM</span>';
                 $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';

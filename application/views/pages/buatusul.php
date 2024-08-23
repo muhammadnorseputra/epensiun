@@ -295,7 +295,7 @@
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
                                         
                                         <?php if(@$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'SKPD'): ?>
-                                            <button type="button" onclick="CetakUsul('<?= @$detail->token ?>')" class="btn btn-info btn-lg float-end"><i class="bi bi-printer me-2"></i> Cetak Usulan</button>
+                                            <button type="button" onclick="CetakUsul('<?= @$detail->token ?>')" class="btn btn-dark btn-lg float-end"><i class="bi bi-printer me-2"></i> Cetak Usulan</button>
                                         <?php elseif(@$detail->is_status === 'KIRIM_USUL' || @$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL'): ?>
                                             <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
                                         <?php endif; ?>

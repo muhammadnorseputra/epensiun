@@ -51,6 +51,8 @@
                     <select class="form-select" name="status" id="floatingSelect" aria-label="Floating label select example" required="">
                         <option value="" selected>-- Pilih Status Usulan --</option>
                         <option value="SKPD">SKPD</option>
+                        <option value="CETAK_USUL">SKPD CETAK USUL</option>
+                        <option value="KIRIM_USUL">SKPD KIRIM USUL</option>
                         <option value="TTD_SK">TANDA TANGAN SK</option>
                         <option value="SELESAI_TMS">TMS</option>
                         <option value="SELESAI_BTL">BTL</option>

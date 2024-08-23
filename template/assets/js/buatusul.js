@@ -451,21 +451,21 @@ function CetakUsul(token) {
 						`${_uri}/app/inbox/cetakusul`,
 						{ token: token },
 						function (res) {
-							if(res.status === true) {
-								return window.location.href = res.url;
+							iziToast.success({
+								timeout: 1000,
+								title: 'Berhasil',
+								position: 'topCenter',
+								message: 'Usulan telah dicetak',
+								transitionOut: 'fadeOutDown',
+								pauseOnHover: false,
+								onClosed: () => {
+									window.location.reload();
+								}
+							});
+							if (res.status === true) {
+								window.location.href = res.url;
 							}
-							alert(res.msg)
-							// if (res.status === true) {
-							// 	iziToast.success({
-							// 		timeout: 2000,
-							// 		title: 'Berhasil',
-							// 		position: 'topCenter',
-							// 		message: 'Usulan telah dicetak',
-							// 		transitionOut: 'fadeOutDown',
-							// 		pauseOnHover: false,
-							// 	});
-							// 	window.location.href = `${_uri}/app/inbox/usul`;
-							// }
+
 						},
 						"json"
 					);

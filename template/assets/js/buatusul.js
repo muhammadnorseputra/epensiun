@@ -12,7 +12,7 @@ $(function () {
 		threshold: 30,
 		warningClass: "badge bg-success rounded-sm mt-2",
 		limitReachedClass: "badge bg-danger rounded-sm mt-2",
-		placement: 'bottom-right-inside',
+		placement: "bottom-right-inside",
 		// preText: '<i class="bi bi-arrow-up-right-circle-fill text-white me-1"></i>',
 		postText: '<i class="bi bi-check-circle-fill text-white ms-1"></i>',
 	});
@@ -438,14 +438,14 @@ function DetailNotApprove(token) {
 
 function CetakUsul(token) {
 	$.confirm({
-		title: 'Cetak Usul',
-		content: 'Apakah data usulan sudah benar ?',
-		type: 'orange',
-		theme: 'material',
+		title: "Cetak Usul",
+		content: "Apakah data usulan sudah benar ?",
+		type: "orange",
+		theme: "material",
 		buttons: {
 			ya: {
 				text: '<i class="bi bi-printer me-2"></i> Cetak',
-				btnClass: 'btn-lg btn-info',
+				btnClass: "btn-lg btn-info",
 				action: function () {
 					$.post(
 						`${_uri}/app/inbox/cetakusul`,
@@ -453,44 +453,43 @@ function CetakUsul(token) {
 						function (res) {
 							iziToast.success({
 								timeout: 1000,
-								title: 'Berhasil',
-								position: 'topCenter',
-								message: 'Usulan telah dicetak',
-								transitionOut: 'fadeOutDown',
+								title: "Berhasil",
+								position: "topCenter",
+								message: "Usulan telah dicetak",
+								transitionOut: "fadeOutDown",
 								pauseOnHover: false,
 								onClosed: () => {
 									window.location.reload();
-								}
+								},
 							});
 							if (res.status === true) {
 								window.location.href = res.url;
 							}
-
 						},
 						"json"
 					);
-				}
+				},
 			},
 			batal: {
 				text: '<i class="bi bi-x-lg me-2"></i> Batal',
-				action: function() {
+				action: function () {
 					// return false;
-				}
+				},
 			},
-		}
+		},
 	});
 }
 
 function Hapus(token) {
 	$.confirm({
-		title: 'Hapus ?',
-		content: 'Apakah anda yakin akan menghapus usulan ini ?',
-		type: 'orange',
-		theme: 'material',
+		title: "Hapus ?",
+		content: "Apakah anda yakin akan menghapus usulan ini ?",
+		type: "orange",
+		theme: "material",
 		buttons: {
 			hapus: {
 				text: '<i class="bi bi-trash me-2"></i> Hapus',
-				btnClass: 'btn-lg btn-danger',
+				btnClass: "btn-lg btn-danger",
 				action: function () {
 					$.post(
 						`${_uri}/app/inbox/hapus`,
@@ -499,10 +498,10 @@ function Hapus(token) {
 							if (res.status === true) {
 								iziToast.success({
 									timeout: 2000,
-									title: 'Berhasil',
-									position: 'topCenter',
-									message: 'Usulan telah dihapus',
-									transitionOut: 'fadeOutDown',
+									title: "Berhasil",
+									position: "topCenter",
+									message: "Usulan telah dihapus",
+									transitionOut: "fadeOutDown",
 									pauseOnHover: false,
 								});
 								window.location.href = `${_uri}/app/inbox/usul`;
@@ -510,14 +509,14 @@ function Hapus(token) {
 						},
 						"json"
 					);
-				}
+				},
 			},
 			batal: {
 				text: '<i class="bi bi-x-lg me-2"></i> Batal',
-				action: function() {
+				action: function () {
 					// return false;
-				}
+				},
 			},
-		}
+		},
 	});
 }

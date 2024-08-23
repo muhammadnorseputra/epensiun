@@ -138,22 +138,14 @@ class Inbox extends CI_Controller
 			'TGL_CETAK' => date_indo(date('Y-m-d')),
             // 'TMT_PENSIUN' => mediumdate_indo($data->tmt_pensiun)
 		]);
-        
-        // $fileTemp = $templateProcessor->saveAs('template/words/output.docx');
-        // Settings::setPdfRendererPath('vendor/tecnickcom/tcpdf');
-        // Settings::setPdfRendererName('TCPDF');
 
-        // $temp = IOFactory::load('template/words/output.docx');
-        // $xmlWriter = IOFactory::createWriter($temp , 'PDF');
-        // $xmlWriter->save('template/pdf/output.pdf', TRUE);
-        
-        // header('Content-type: application/pdf');
-        // header("Content-Disposition: inline; filename:output.pdf");
-        // header('Content-Transfer-Encoding: binary');
-        // header('Accept-Ranges: bytes');
-        // @readfile('template/pdf/output.pdf');
-
-        header("Content-Disposition: attachment; filename=USULPEN-".$data->nip."-".$data->nama.".docx");
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/octet-stream');
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header("Content-Disposition: attachment; filename='USULPEN-".$data->nip."-".$data->nama.".docx'");
 		$templateProcessor->saveAs('php://output');
     }
 

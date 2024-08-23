@@ -145,7 +145,7 @@ class Inbox extends CI_Controller
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
-        header("Content-Disposition: attachment; filename='USULPEN-".$data->nip."-".$data->nama.".docx'");
+        header("Content-Disposition: attachment; filename=USULPEN-".$data->nip."-".$data->nama.".docx");
 		$templateProcessor->saveAs('php://output');
     }
 

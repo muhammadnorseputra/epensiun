@@ -300,7 +300,7 @@
                                             <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
                                         <?php endif; ?>
                                         
-                                        <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
+                                        <?php if (@$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'KIRIM_USUL' || @$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
                                             <button type="button" onclick="Hapus('<?= @$detail->token ?>')" class="btn btn-danger btn-lg float-end me-2"><i class="bi bi-trash"></i></button>
                                         <?php endif; ?>
 

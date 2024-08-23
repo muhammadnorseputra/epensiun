@@ -10,50 +10,44 @@
                     <h4 class="mb-0">Laporan Trend Kesalahan Usulan Pensiun</h4>.
                 </div>
             </div>
-           
+            <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-condensed table-sm table-bordered">
+                <thead class="bg-light">
+                  <tr valign="middle">
+                    <th width="5%">Nomor</th>
+                    <th>Nama</th>
+                    <th>Nomor Induk Pegawai</th>
+                    <th>Jenis Kesalahan</th>
+                    <th>Tanggal Proses</th>
+                    <th>Catatan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no=1;
+                  if($data->num_rows() > 0):
+                  foreach($data->result() as $r): 
+                    $isTMS = $r->is_status === 'SELESAI_TMS' ? '<label class="p-2 text-white bg-danger">TMS (Tidak Memenuhi Syarat)</label>' : '<label class="p-2 text-dark bg-warning">BTL (Berkas Tidak Lengkap)</label>';
+                  ?>
+                  <tr>
+                    <td class="text-center"><?= $no ?></td>
+                    <td><?= $r->gelar_depan ?> <?= $r->nama ?> <?= $r->gelar_belakang ?></td>
+                    <td><?= $r->nip ?></td>
+                    <td><?= $isTMS ?></td>
+                    <td><?= longdate_indo(substr($r->verify_at,0,10)) ?></td>
+                    <td><?= $r->catatan ?></td>
+                  </tr>
+                  <?php $no++; endforeach; ?>
+                  <?php else: ?>
+                  <tr>
+                    <td colspan="6" class="text-center"> Data Usul TMS/BTL Tidak Ada</td>
+                  </tr>
+                  <?php endif; ?>
+                </tbody>
+              </table>
+            </div>
+           </div>
         </div>
     </div>
-</div>
-
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel"><b>UPDATE JENIS PENSIUN</b></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div id="loading"></div>
-    <?= 
-    form_open(base_url('app/referensi/updateJenisPensiun'), ['id' => 'FormUpdateJenisPensiun'], ['id' => '']);
-     ?>
-            <div class="form-floating mb-3">
-            <input type="text" name="nama" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Judul</label>
-            </div>
-            <div class="form-floating mb-3">
-            <textarea class="form-control" name="keterangan" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-            <label for="floatingTextarea">Keterangan</label>
-            </div>
-            <div class="form-floating mb-3">
-  <select class="form-select" name="kelompok" id="floatingSelect" aria-label="Floating label select example">
-    <option value="BUP">BUP</option>
-    <option value="NONBUP">NONBUP</option>
-  </select>
-  <label for="floatingSelect">KELOMPOK</label>
-</div>
-<div class="form-floating mb-3">
-  <select class="form-select" name="is_aktif" id="floatingSelect" aria-label="Floating label select example">
-    <option value="Y">AKTIF</option>
-    <option value="N">NON AKTIF</option>
-  </select>
-  <label for="floatingSelect">Status Aktif</label>
-</div>
-
-<div class="d-grid gap-2">
-  <button type="submit" class="btn btn-block btn-primary">Simpan</button>
-</div>
-            
-     <?= 
-     form_close();
-     ?>
-  </div>
 </div>

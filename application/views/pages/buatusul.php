@@ -49,10 +49,21 @@
     }
 
     // Disabled form apabila status sedang di proses
-    $disabled = @$detail->is_status === 'BKPSDM' || @$detail->is_status === 'TTD_SK' ? 'disabled' : '';
+    $disabled = @$detail->is_status === 'BKPSDM' || @$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'TTD_SK' ? 'disabled' : '';
     ?>
     <div class="row">
         <div class="col-md-12">
+             <?php if (@$detail->is_status === 'CETAK_USUL') : ?>
+                <!-- Primary alert -->
+                <div class="alert alert-warning d-flex align-items-center mb-8" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle-fill me-2" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                    </svg>
+                    <div>
+                        Silahkan cetak usulan pensiun
+                    </div>
+                </div>
+            <?php endif; ?>
             <?php if (@$detail->is_status === 'BKPSDM') : ?>
                 <!-- Primary alert -->
                 <div class="alert alert-warning d-flex align-items-center mb-8" role="alert">
@@ -215,7 +226,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="tab-pane fade <?= $is_show_step3 ?> <?= $step3 ?>" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-                            <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'BKPSDM' || @$usul->is_status === 'SELESAI_TMS' || @$usul->is_status === 'SELESAI_BTL') : ?>
+                            <?php if (@$detail->token && @$usul->is_status === 'SKPD' || @$usul->is_status === 'CETAK_USUL' || @$usul->is_status === 'KIRIM_USUL' || @$usul->is_status === 'BKPSDM' || @$usul->is_status === 'SELESAI_TMS' || @$usul->is_status === 'SELESAI_BTL') : ?>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="avatar avatar-xxl mb-8">
@@ -282,7 +293,12 @@
                                             <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
-                                        <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
+                                        
+                                        <?php if(@$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'SKPD'): ?>
+                                            <button type="button" onclick="CetakUsul('<?= @$detail->token ?>')" class="btn btn-info btn-lg float-end"><i class="bi bi-printer me-2"></i> Cetak Usulan</button>
+                                        <?php elseif(@$detail->is_status === 'KIRIM_USUL' || @$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL'): ?>
+                                            <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
+                                        <?php endif; ?>
                                         
                                         <?php if (@$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL') : ?>
                                             <button type="button" onclick="Hapus('<?= @$detail->token ?>')" class="btn btn-danger btn-lg float-end me-2"><i class="bi bi-trash"></i></button>

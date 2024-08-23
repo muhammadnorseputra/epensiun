@@ -9,13 +9,14 @@ class Laporan extends CI_Controller
     {
         parent::__construct();
         cek_session();
-        $this->load->model(['ModelArsip' => 'arsip', 'ModelPensiun' => 'pensiun']);
+        $this->load->model(['ModelLaporan' => 'laporan']);
     }
 	public function usul_pensiun()
 	{
 		$data = [
             'title' => 'Laporan Usul Pensiun | Integrated Pensiun ASN',
             'content' => 'pages/laporan/usul_pensiun',
+            'data' => $this->laporan->getDaftarUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -26,25 +27,28 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Pengantar Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/pengantar_usul',
+            'data' => $this->laporan->getDaftarPengantarUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
 	}
    
-   public function verifikasi_usul()
+   public function verval_usul()
 	{
 		$data = [
-            'title' => 'Laporan Verifikasi Usul | Integrated Pensiun ASN',
-            'content' => 'pages/laporan/verifikasi_usul',
+            'title' => 'Laporan Verifikasi dan Validasi Usul | Integrated Pensiun ASN',
+            'content' => 'pages/laporan/verval_usul',
+            'data' => $this->laporan->getDaftarVervalUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
 	}
-	public function approve_usul()
+	public function tanda_terima_sk_pensiun()
 	{
 		$data = [
-            'title' => 'Laporan Approve Usul | Integrated Pensiun ASN',
-            'content' => 'pages/laporan/approve_usul',
+            'title' => 'Laporan Tanda Terima Usul | Integrated Pensiun ASN',
+            'content' => 'pages/laporan/tanda_terima_sk_pensiun',
+            'data' => $this->laporan->getDaftarTandaTerimaUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
@@ -54,38 +58,13 @@ class Laporan extends CI_Controller
 		$data = [
             'title' => 'Laporan Trend Kesalahan Usulan | Integrated Pensiun ASN',
             'content' => 'pages/laporan/trend_kesalahan_usulan',
+            'data' => $this->laporan->getTrendKesalahanUsulPensiun()
         ];
 
         $this->load->view('layouts/app', $data);
 	}
-	public function tanda_terima_sk_pensiun()
-	{
-		$data = [
-            'title' => 'Laporan Tanda Terima SK Pensiun | Integrated Pensiun ASN',
-            'content' => 'pages/laporan/tanda_terima_sk_pensiun',
-        ];
 
-        $this->load->view('layouts/app', $data);
-	}
-	public function trend_jenis_usulan()
-	{
-		$data = [
-            'title' => 'Laporan Trend Jenis Usulan Pensiun | Integrated Pensiun ASN',
-            'content' => 'pages/laporan/trend_jenis_usulan',
-        ];
 
-        $this->load->view('layouts/app', $data);
-	}
-	public function trend_periode_usulan()
-	{
-		$data = [
-            'title' => 'Laporan Trend Periode Usulan Pensiun | Integrated Pensiun ASN',
-            'content' => 'pages/laporan/trend_periode_usulan',
-        ];
-
-        $this->load->view('layouts/app', $data);
-	}
-	
 }
         
     /* End of file  app/Arsip.php */

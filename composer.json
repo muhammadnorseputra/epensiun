@@ -12,7 +12,9 @@
 	},
 	"require": {
 		"php": ">=5.2.7",
-		"chriskacerguis/codeigniter-restserver": "*"
+		"chriskacerguis/codeigniter-restserver": "*",
+		"phpoffice/phpword": "^1.2",
+		"tecnickcom/tcpdf": "^6.7"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

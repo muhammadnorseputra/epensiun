@@ -436,6 +436,51 @@ function DetailNotApprove(token) {
 	});
 }
 
+function CetakUsul(token) {
+	$.confirm({
+		title: 'Cetak Usul',
+		content: 'Apakah data usulan sudah benar ?',
+		type: 'orange',
+		theme: 'material',
+		buttons: {
+			ya: {
+				text: '<i class="bi bi-printer me-2"></i> Cetak',
+				btnClass: 'btn-lg btn-info',
+				action: function () {
+					$.post(
+						`${_uri}/app/inbox/cetakusul`,
+						{ token: token },
+						function (res) {
+							if(res.status === true) {
+								return window.location.href = res.url;
+							}
+							alert(res.msg)
+							// if (res.status === true) {
+							// 	iziToast.success({
+							// 		timeout: 2000,
+							// 		title: 'Berhasil',
+							// 		position: 'topCenter',
+							// 		message: 'Usulan telah dicetak',
+							// 		transitionOut: 'fadeOutDown',
+							// 		pauseOnHover: false,
+							// 	});
+							// 	window.location.href = `${_uri}/app/inbox/usul`;
+							// }
+						},
+						"json"
+					);
+				}
+			},
+			batal: {
+				text: '<i class="bi bi-x-lg me-2"></i> Batal',
+				action: function() {
+					// return false;
+				}
+			},
+		}
+	});
+}
+
 function Hapus(token) {
 	$.confirm({
 		title: 'Hapus ?',

@@ -21,7 +21,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK','SELESAI_TMS','SELESAI_BTL']);
+        $this->db->where_in('up.is_status', ['SKPD','CETAK_USUL','KIRIM_USUL','BKPSDM','TTD_SK','SELESAI_TMS','SELESAI_BTL']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         // $this->db->where('up.created_by', $this->session->userdata('nip'));
         $i = 0;
@@ -96,9 +96,23 @@ class ModelPensiunInbox extends CI_Model
         return $this->db->get();
     }
 
+    public function getUsulanPensiun($token) {
+        $this->db->select('u.*,uj.nama as jenis_nama,uj.keterangan as jenis_keterangan');
+        $this->db->from('usul as u');
+        $this->db->join('usul_pengantar as up', 'u.token=up.token');
+        $this->db->join('usul_jenis as uj', 'up.fid_jenis_usul=uj.id');
+        $this->db->where('u.token', $token);
+        return $this->db->get()->row();
+    }
+
     public function getJumlah($tbl, $whr)
     {
         return $this->db->get_where($tbl, $whr);
+    }
+
+    public function update($tbl, $data, $whr) {
+        $this->db->where($whr);
+        return $this->db->update($tbl, $data);
     }
 
     public function getCatatan($tbl, $whr)

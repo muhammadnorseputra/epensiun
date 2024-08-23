@@ -2,6 +2,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use \PhpOffice\PhpWord\TemplateProcessor;
+
 class Inbox extends CI_Controller
 {
 
@@ -53,6 +55,9 @@ class Inbox extends CI_Controller
                 $status = '<span class="badge bg-secondary px-3 py-2"><i class="bi bi-check-circle-fill me-2"></i>DIUSULKAN</span>';
                 $button = '<a class="btn btn-secondary btn-sm" href="'.base_url('/app/pensiun/buatusul?step=1&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-pencil"></i> <br> EDIT</a>
                 <button type="button" class="btn btn-danger btn-sm" onclick="Hapus(\''.$r->token_pengantar.'\')"><i class="bi bi-trash"></i> <br> HAPUS</button>';
+            } elseif($r->is_status === 'CETAK_USUL') {
+                $status = '<span class="badge bg-info px-3 py-2"><i class="bi bi-printer-fill"></i> CETAK USUL</span>';
+                $button = '<a class="btn btn-info btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             } elseif($r->is_status === 'BKPSDM') {
                 $status = '<span class="badge bg-primary px-3 py-2"><i class="bi bi-lock-fill"></i> VERIFIKASI BKPSDM</span>';
                 $button = '<a class="btn btn-success btn-sm" href="'.base_url('/app/pensiun/buatusul?step=3&nip='.$r->nip.'&token='.$r->token_pengantar.'&jenis='.$r->fid_jenis_usul).'"><i class="bi bi-eye me-2"></i> DETAIL</a>';
@@ -102,6 +107,54 @@ class Inbox extends CI_Controller
         );
         //output to json format
         echo json_encode($output);
+    }
+
+    public function cetakusul()
+    {
+        $token = $this->input->post('token');
+        $db = $this->inbox->update('usul', ['is_status' => 'KIRIM_USUL'], ['token' => $token]);
+        if($db) {
+            $this->inbox->update('usul_pengantar', ['is_status' => 'KIRIM_USUL'], ['token' => $token]);
+            echo json_encode(['url' => base_url("/app/inbox/print/".$token), 'status' => true, 'msg' => 'Success Created']);
+        } else {
+            echo json_encode(['url' => base_url("/app/inbox/usul"), 'status' => false, 'msg' => 'Proses Cetak Gagal']);
+        }
+    }
+
+    public function print($token) {
+        $data = $this->inbox->getUsulanPensiun($token);
+        $templateProcessor = new TemplateProcessor('template/words/surat-permohonan-pensiun.docx');
+        $templateProcessor->setValues([
+			'NAMA_UNIT_SATKER' => ucwords(strtolower($this->session->userdata('unker'))),
+            'NAMA' => namagelar($data->gelar_depan,$data->nama,$data->gelar_belakang),
+            'TEMPAT_TANGGAL_LAHIR' => $data->tmp_lahir.", ".date_indo($data->tgl_lahir),
+            'NIP' => polanip($data->nip),
+            'PANGKAT' => $data->nama_pangkat." (". $data->nama_golru .")",
+            'JABATAN' => $data->nama_jabatan,
+            'NAMA_UNIT_KERJA' => $data->nama_unit_kerja,
+			'ALAMAT' => $data->alamat,
+            'JENIS_PENSIUN' => $data->jenis_keterangan." (". $data->jenis_nama .")",
+			'USIA_PENSIUN' => $data->usia_pensiun,
+			'TGL_CETAK' => date_indo(date('Y-m-d')),
+            // 'TMT_PENSIUN' => mediumdate_indo($data->tmt_pensiun)
+		]);
+        
+        // $fileTemp = $templateProcessor->saveAs('template/words/output.docx');
+        // Settings::setPdfRendererPath('vendor/tecnickcom/tcpdf');
+        // Settings::setPdfRendererName('TCPDF');
+
+        // $temp = IOFactory::load('template/words/output.docx');
+        // $xmlWriter = IOFactory::createWriter($temp , 'PDF');
+        // $xmlWriter->save('template/pdf/output.pdf', TRUE);
+        
+        // header('Content-type: application/pdf');
+        // header("Content-Disposition: inline; filename:output.pdf");
+        // header('Content-Transfer-Encoding: binary');
+        // header('Accept-Ranges: bytes');
+        // @readfile('template/pdf/output.pdf');
+
+        header("Content-Disposition: attachment; filename=USULPEN-".$data->nip."-".$data->nama.".docx");
+		$templateProcessor->saveAs('php://output');
     }
 
     public function hapus()

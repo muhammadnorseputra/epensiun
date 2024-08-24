@@ -55,7 +55,7 @@ if ($usul->is_status === 'SKPD') {
                     <div class="card-body d-flex flex-column align-items-center gap-3">
                         <i class="bi bi-bookmark-check-fill text-success fs-1 mb-0 pb-0"></i>
                         <img src="' . base_url('template/assets/images/arsip.png') . '" class="w-50"/>
-                        <div>SK telah <strong class="text-dark">DI-SERAHKAN</strong> dan <strong class="text-dark">DI-TERIMA</strong> oleh Pensiunan yang bersangkutan <br> pada tanggal <strong>' . @date_indo(substr($usul->arsip_at, 0, 10)) . '</strong> jam <strong>' . substr($usul->arsip_at, 10, 6) . '</strong></div>
+                        <div>SK telah <strong class="text-dark">DI-SERAHKAN</strong> dan <strong class="text-dark">DI-TERIMA</strong> oleh <strong class="text-success">'.$usul->diterima_oleh.'</strong> <br> pada tanggal <strong>' . @date_indo(substr($usul->arsip_at, 0, 10)) . '</strong> jam <strong>' . substr($usul->arsip_at, 10, 6) . '</strong></div>
                     </div>
                 </div>';
 } else {

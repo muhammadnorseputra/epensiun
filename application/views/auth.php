@@ -18,8 +18,34 @@
 </head>
 
 <body>
+<noscript>
+    <style>
+        #main-login {
+            display: none;
+        }
+        .disabled-js {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            left:0;
+            top:0;
+            z-index: 9999;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{ /* even if this h1 is inside head tags it will be first hidden, so we have to display it again after all body elements are hidden*/
+            display: block;
+            color: red;
+        }
+    </style>
+    <div class="disabled-js">
+        <h1>JavaScript is not enabled, please check your browser settings.</h1>
+    </div>
+</noscript>
     <!-- container -->
-    <div class="container d-flex flex-column">
+    <div id="main-login" class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center g-0
         min-vh-100">
             <img class="position-fixed z-n1 opacity-25"

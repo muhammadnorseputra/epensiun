@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <noscript>
+        <meta http-equiv="refresh" runat="server" id="mtaJSCheck" content="0;<?= base_url("auth/logout") ?>" />
+    </noscript>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -73,6 +76,17 @@
   </head>
 
   <body class="bg-light">
+  <noscript>
+    <style>
+        body, html, *{ /*hides all elements inside the body*/
+            display: none;
+        }
+        h1{ /* even if this h1 is inside head tags it will be first hidden, so we have to display it again after all body elements are hidden*/
+            display: block;
+        }
+    </style>
+    <h1>JavaScript is not enabled, please check your browser settings.</h1>
+</noscript>
     <div id="db-wrapper" class="<?= get_cookie('navbarStatus'); ?>">
       <!-- navbar vertical -->
       <!-- Sidebar -->

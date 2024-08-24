@@ -34,6 +34,7 @@ class Dashboard extends CI_Controller
 	{
 		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
 		$jumlah_usulan = $this->pensiun->JmlByUsulInbox();
+		$jumlah_selesai_skpd = $this->pensiun->JmlByUsulSelesaiBySKPD();
 		$jumlah_selesai = $this->pensiun->JmlByUsulSelesai();
 
 		$tms = $this->api->jmlUsulByStatus('SELESAI_TMS')->num_rows();
@@ -59,6 +60,7 @@ class Dashboard extends CI_Controller
 			'statistik' => $statistik,
 			'jumlah_usulan' => $jumlah_usulan->num_rows(),
 			'jumlah_selesai' => $jumlah_selesai->num_rows(),
+			'jumlah_selesai_skpd' => $jumlah_selesai_skpd->num_rows(),
 			'charts' => $charts,
 			'listunor' => $listunor,
 		];

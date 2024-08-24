@@ -99,6 +99,7 @@ $(function () {
 				button
 					.prop("disabled", false)
 					.html(`<i class="bi bi-search me-2"></i>Cari`);
+
 				if (res.status === true) {
 					$formSaveASN.find("input[name='nip']").val(res.data.nip);
 					$formSaveASN.find("input[name='nama']").val(res.data.nama);
@@ -196,11 +197,15 @@ $(function () {
 				}
 
 				$container.html(
-					`<i class="bi bi-exclamation-circle-fill me-2"></i> ${res.message}`
+					`<i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> ${res.message}`
 				);
 			},
 			"json"
-		);
+		).fail(function (err) {
+			$container.html(
+				`<i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> Server sedang bermasalah`
+			);
+		});
 	}
 	$formCariNip.on("submit", function (e) {
 		e.preventDefault();

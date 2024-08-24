@@ -11,9 +11,9 @@
                         <p class="text-white lead">Masukan Nomor Induk Pegawai untuk cek status usulan.</p>
                     </div>
                 </div>
-                <?= form_open(base_url('/app/pensiun/cekusul_proses'), ['id' => 'FormCekUsul']) ?>
+                <?= form_open(base_url('/app/pensiun/cekusul_proses'), ['id' => 'FormCekUsul', 'class' => 'col-lg-6']) ?>
                 <div class="input-group mb-4">
-                <span class="input-group-text" id="nip"><i class="bi bi-person-bounding-box fs-3 p-0 m-0"></i></span>
+                    <span class="input-group-text" id="nip"><i class="bi bi-person-bounding-box fs-3 p-0 m-0"></i></span>
                     <div class="form-floating">
                         <input type="search" name="nip" id="nip" placeholder="Masukan NIP anda disini ..." class="form-control form-control-lg shadow-lg">
                         <label for="nip">Masukan Nomor Induk Pegawai</label>
@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="row my-6">
-        <div class="col-sm-10 mx-auto text-center">
+        <div class="col-sm-10 col-lg-9 mx-auto text-center">
             <div id="loadDataAsn"></div>
         </div>
     </div>

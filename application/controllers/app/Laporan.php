@@ -8,7 +8,12 @@ class Laporan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        cek_session();
+        // cek session login
+		cek_session();	
+		// cek session level
+		if($this->session->userdata('level') !== 'ADMIN') {
+			return show_404();
+		}
         $this->load->model(['ModelLaporan' => 'laporan']);
     }
 	public function usul_pensiun()

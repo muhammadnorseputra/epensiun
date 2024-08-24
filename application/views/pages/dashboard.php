@@ -63,7 +63,7 @@ $stat = json_decode($statistik);
                     </div>
                     <!-- project number -->
                     <div>
-                        <h1 class="fw-bold"><?= $jumlah_selesai ?></h1>
+                        <h1 class="fw-bold"><?= $jumlah_selesai_skpd ?></h1>
                         <p class="mb-0">Total Usulan Approval</p>
                     </div>
                 </div>
@@ -87,7 +87,7 @@ $stat = json_decode($statistik);
                     </div>
                     <!-- project number -->
                     <div>
-                        <h1 class="fw-bold"><?= $stat->proyeksi_pensiun ?></h1>
+                        <h1 class="fw-bold"><?= $stat->proyeksi_pensiun ?? "-" ?></h1>
                         <p class="mb-0">Total ASN Pensiun Tahun <?= date('Y') ?></p>
                     </div>
                 </div>
@@ -112,9 +112,9 @@ $stat = json_decode($statistik);
                     </div>
                     <!-- project number -->
                     <div>
-                        <h1 class="fw-bold"><?= $jumlah_selesai ?>/<?= $stat->proyeksi_pensiun ?></h1>
+                        <h1 class="fw-bold"><?= $jumlah_selesai ?>/<?= $stat->proyeksi_pensiun ?? 0 ?></h1>
                         <p class="mb-0"><span
-                                class="text-success me-2"><?= number_format(($jumlah_selesai / $stat->proyeksi_pensiun) * 100, 2) ?>%</span>Completed
+                                class="text-success me-2"><?= @number_format(($jumlah_selesai / $stat->proyeksi_pensiun) * 100, 2) ?>%</span>Completed
                         </p>
                     </div>
                 </div>
@@ -259,6 +259,9 @@ $stat = json_decode($statistik);
             </div>
         </div>
     </div>
+
+    <?php endif; ?>
+    <?php if ($this->session->userdata('level') === 'ADMIN'): ?>
     <!-- row -->
     <div class="row mb-6">
         <div class="col-md-12">
@@ -323,4 +326,5 @@ $stat = json_decode($statistik);
             </div>
         </div>
     </div>
+
     <?php endif; ?>

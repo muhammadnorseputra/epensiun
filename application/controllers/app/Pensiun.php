@@ -26,11 +26,11 @@ class Pensiun extends CI_Controller
 		$this->load->model(['ModelPensiun' => 'pensiun']);
 	}
 
-	public function apitest()
-	{
-		$req = postApi('http://silka.balangankab.go.id/services/pensiun/profile', ['nip' => '197812042005012009']);
-		echo $req;
-	}
+	// public function apitest()
+	// {
+	// 	$req = postApi('http://silka.balangankab.go.id/services/pensiun/profile', ['nip' => '197812042005012009']);
+	// 	echo $req;
+	// }
 
 	public function syarat()
 	{
@@ -80,7 +80,7 @@ class Pensiun extends CI_Controller
 			return false;
 		}
 
-		$template = 'Usulan "<strong>' . $nip . '</strong>" Tidak Ditemukan !';
+		$template = '<i class="bi bi-x-circle-fill text-danger me-2"></i> Usulan "<strong>' . $nip . '</strong>" Tidak Ditemukan !';
 
 		echo json_encode($template);
 	}
@@ -89,7 +89,16 @@ class Pensiun extends CI_Controller
 	{
 		$nip = $this->input->post('nip');
 		$req = postApi('http://silka.balangankab.go.id/services/pensiun/profile', ['nip' => $nip, 'session' => $this->session->userdata('nip')]);
-		echo $req;
+		if($req) {
+			$response =  $req;
+		} else {
+			$response = json_encode([
+				'status' => false,
+				'httpcode' => 500,
+				'message' => 'Gagal Koneksi Ke Server'
+			]);
+		}
+		echo $response;
 	}
 
 	public function buatusul()

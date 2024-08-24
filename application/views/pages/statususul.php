@@ -17,7 +17,7 @@ if ($usul->is_status === 'SKPD') {
                         <div class="d-flex flex-column justify-content-center align-items-center gap-3">
                         <i class="bi bi-bookmark-check-fill text-primary fs-1 mb-8"></i>
                         <img src="' . base_url('template/assets/images/svg/verify.svg') . '" class="w-75 w-md-50 rounded mb-6" alt="Verify Status">
-                        <h3>TAHAP VERIFIKASI</h3>
+                        <h2>TAHAP VERIFIKASI</h2>
                         <span>Usulan masih dalam tahap "<strong>VERIFIKASI BKPSDM</strong>"</span>
                         </div>
                     </div>

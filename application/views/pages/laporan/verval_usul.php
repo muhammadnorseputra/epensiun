@@ -3,14 +3,20 @@
     <div class="col-md-12 col-12">
         <!-- card  -->
         <div class="card p-0">
-            <!-- card header  -->
-            <div class="card-header bg-white pt-4 d-flex justify-content-between align-items-start">
-                <div class="d-flex gap-4">
-                    <i data-feather="table" class="icon-sm"></i>
-                    <h4 class="mb-0">Laporan Verifikasi & Validasi Usul Pensiun</h4>.
-                </div>
+        <div class="card-body">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center" style="width: 100%">
+              <div class="p-3">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/640px-Lambang_Kabupaten_Balangan.png"
+              alt="Logo Kab. Balangan" width="60">
+              </div>
+              <div class="d-inline-flex flex-column align-items-center text-center">
+                        <h3 style="margin:0; padding:2px; font-weight: bold">PEMERINTAH KABUPATEN BALANGAN</h3>
+                        <h4 style="margin:0; padding:2px; font-weight: bold">BADAN KEPEGAWAIAN DAN PENGEMBANGAN SUMBER DAYA MANUSIA</h4>
+                        Alamat: Jln. Jend Ahmad Yani No. 1 Paringin 71462 Telp. 0526-2028060
+              </div>
             </div>
-            <div class="card-body">
+            <hr>
+            <h4 class="text-center">Laporan Verifikasi & Validasi Usul Pensiun</h4>
             <div class="table-responsive">
               <table class="table table-condensed table-sm table-bordered">
                 <thead class="bg-light">
@@ -70,6 +76,18 @@
                   <?php endif; ?>
                 </tbody>
               </table>
+            </div>
+            <!-- Kepala Badan -->
+            <div class="d-flex flex-column justify-content-end align-items-end" style="width: 100%">
+                <div class="text-center">
+                  <div>Paringin, <?= date_indo(date('Y-m-d')) ?></div>
+                  <p class="fw-bold">Kepala Badan Kepegawaian dan Pengembangan <br> Sumber Daya Manusia</p>
+                  <br>
+                  <br>
+                  <p class="fw-bold m-0 p-0"><u>H. Sufriannor, S.Sos., M.AP</u></p>
+                  <div class="small">	PEMBINA UTAMA MUDA (IV/C)</div>
+                  <div class="small">NIP. <?= polanip("196810121989031009") ?></div>
+                </div>
             </div>
            </div>
         </div>

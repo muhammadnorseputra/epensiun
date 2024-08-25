@@ -277,7 +277,6 @@ if (!function_exists('httpclient')) {
         }
 
         // Selesai.
-		header("Content-Type: application/json");
         return $return;
     }
 }

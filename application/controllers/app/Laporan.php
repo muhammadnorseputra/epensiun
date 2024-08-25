@@ -29,10 +29,21 @@ class Laporan extends CI_Controller
    
    public function pengantar_usul()
 	{
+        $req = [
+            'url' => 'http://silka.balangankab.go.id/services/PegawaiWithBasicAuth/getSKPD?nip=199204072015032002&role=ADMIN',
+            'headers' => [
+                'apiKey' => 'bkpsdm6811',
+                'Authorization' => 'Basic QmFsYW5nYW5rYWI6Ymtwc2RtQDIwMjI='
+            ]
+           ];
+  
+        $skpd = httpclient($req);
+
 		$data = [
             'title' => 'Laporan Pengantar Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/pengantar_usul',
-            'data' => $this->laporan->getDaftarPengantarUsulPensiun()
+            'data' => $this->laporan->getDaftarPengantarUsulPensiun(),
+            'skpd' => json_decode($skpd['body'], true)
         ];
 
         $this->load->view('layouts/app', $data);

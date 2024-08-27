@@ -18,6 +18,19 @@
               </div>
               <hr>
               <h4 class="text-center">Laporan Tanda Terima SK Pensiun</h4>
+              <div class="col-md-4">
+            <form action="#" method="post" class="d-flex gap-3">
+              <div class="w-100">
+              <label for="nip">Masukan Nomor Induk Pegawai:</label>
+              <input type="text" name="nip" id="nip" class="form-control">
+              </div>
+              <div>
+                &nbsp;
+                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
+            <hr/>
               <!-- Table -->
               <div class="table-responsive">
                   <table class="table table-condensed table-sm table-bordered">

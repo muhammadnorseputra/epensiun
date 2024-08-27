@@ -17,6 +17,23 @@
             </div>
             <hr>
             <h4 class="text-center">Laporan Verifikasi & Validasi Usul Pensiun</h4>
+            <div class="col-md-4">
+            <form action="#" method="post" class="d-flex gap-3">
+              <div class="w-100">
+              <label for="status">Pilih Status Verval:</label>
+              <select id="status" name="status" class="form-control">
+                <option value="2024">VERIFIKASI</option>
+                <option value="2024">TTD_SK</option>
+                <option value="2024">APPROVE</option>
+              </select>
+              </div>
+              <div>
+                &nbsp;
+                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
+            <hr/>
             <div class="table-responsive">
               <table class="table table-condensed table-sm table-bordered">
                 <thead class="bg-light">

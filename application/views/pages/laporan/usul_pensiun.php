@@ -18,6 +18,38 @@
             </div>
             <hr>
             <h4 class="text-center">Laporan Usul Pensiun</h4>
+            <div class="col-md-4">
+            <form action="#" method="post" class="d-flex gap-3">
+              <div class="w-100">
+              <label for="bulan">Pilih Bulan:</label>
+              <select id="bulan" name="bulan" class="form-control">
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+              </select>
+              </div>
+              <div class="w-100">
+              <label for="tahun">Pilih Tahun:</label>
+              <select id="tahun" name="tahun" class="form-control">
+                <option value="2024">2024</option>
+              </select>
+              </div>
+              <div>
+                &nbsp;
+                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
+            <hr/>
             <!-- Table -->
             <div class="table-responsive">
               <table class="table table-condensed table-sm table-bordered">

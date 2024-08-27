@@ -30,7 +30,7 @@
               </div>
             </div>
             <hr>
-            <h4 class="text-center">Laporan Pengantar Usul Pensiun</h4>
+            <h4 class="text-center text-uppercase">Laporan Pengantar Usul Pensiun</h4>
             <div class="col-md-4">
             <form action="#" method="post" class="d-flex gap-3">
               <div class="w-100">

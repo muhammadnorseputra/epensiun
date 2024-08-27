@@ -17,21 +17,21 @@
                 </div>
               </div>
               <hr>
-              <h4 class="text-center">Laporan Trend Kesalahan Usul Pensiun</h4>
+              <h4 class="text-center uppercase">Laporan Trend Kesalahan Usul Pensiun</h4>
               <div class="col-md-4">
-            <form action="#" method="post" class="d-flex gap-3">
-              <div class="w-100">
-              <label for="jenis_kesalahan">Pilih Jenis Kesalahan:</label>
-              <select id="jenis_kesalahan" name="jenis_kesalahan" class="form-control">
-                <option value="2024">BTL (Berkas Tidak Lengkap)</option>
-                <option value="2024">TMS (Tidak Memenuhi Syarat)</option>
-              </select>
-              </div>
-              <div>
-                &nbsp;
-                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
+              <form action="#" method="post" class="d-flex gap-3">
+                <div class="w-100">
+                <label for="jenis_kesalahan">Pilih Jenis Kesalahan:</label>
+                <select id="jenis_kesalahan" name="jenis_kesalahan" class="form-control">
+                  <option value="2024">BTL (Berkas Tidak Lengkap)</option>
+                  <option value="2024">TMS (Tidak Memenuhi Syarat)</option>
+                </select>
+                </div>
+                <div>
+                  &nbsp;
+                  <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
             </div>
             <hr/>
               <div class="table-responsive">

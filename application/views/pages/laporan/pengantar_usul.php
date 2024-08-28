@@ -31,36 +31,46 @@
             </div>
             <hr>
             <h4 class="text-center text-uppercase">Laporan Pengantar Usul Pensiun</h4>
-            <div class="col-md-4">
-            <form action="#" method="post" class="d-flex gap-3">
-              <div class="w-100">
-              <label for="bulan">Pilih Bulan:</label>
-              <select id="bulan" name="bulan" class="form-control">
-                <option value="01">Januari</option>
-                <option value="02">Februari</option>
-                <option value="03">Maret</option>
-                <option value="04">April</option>
-                <option value="05">Mei</option>
-                <option value="06">Juni</option>
-                <option value="07">Juli</option>
-                <option value="08">Agustus</option>
-                <option value="09">September</option>
-                <option value="10">Oktober</option>
-                <option value="11">November</option>
-                <option value="12">Desember</option>
-              </select>
+            <div class="row">
+              <div class="col-md-4">
+                <form action="" method="get" class="d-flex gap-3">
+                  <div class="w-100">
+                  <label for="bulan">Pilih Bulan:</label>
+                  <select id="bulan" name="bulan" class="form-control">
+                    <?php  
+                    foreach (listBulan() as $key => $bulan) {
+                        $getBulan = @$_GET['bulan'] ?? date('m');
+                        $selected = intval($getBulan) === $key ? 'selected' : '';
+                        echo "<option value='$key' $selected>$bulan</option>";
+                    }
+                    ?>
+                  </select>
+                  </div>
+                  <div class="w-100">
+                  <?php  
+                  $tahun_sekarang = date('Y'); // Ambil tahun saat ini
+                  $range_tahun = range($tahun_sekarang - 5, $tahun_sekarang + 5); // Membuat array range dari 5 tahun lalu sampai 5 tahun depan
+                  ?>
+                  <label for="tahun">Pilih Tahun:</label>
+                  <select id="tahun" name="tahun" class="form-control">
+                    <?php  
+                    foreach ($range_tahun as $tahun) {
+                      $getTahun = @$_GET['tahun'] ?? date('Y');
+                      $selected = intval($getTahun) === $tahun ? 'selected' : '';
+                      echo "<option value='$tahun' $selected>$tahun</option>";
+                  }
+                    ?>
+                  </select>
+                  </div>
+                  <div>
+                    &nbsp;
+                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
               </div>
-              <div class="w-100">
-              <label for="tahun">Pilih Tahun:</label>
-              <select id="tahun" name="tahun" class="form-control">
-                <option value="2024">2024</option>
-              </select>
+              <div class="col-md-8 d-flex justify-content-end align-items-end">
+                <?php if($data->num_rows() > 0): ?><span><b>Total : </b><?= $data->num_rows() ?><?php endif; ?>
               </div>
-              <div>
-                &nbsp;
-                <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
             </div>
             <hr/>
             <div class="table-responsive">
@@ -89,7 +99,7 @@
                   <?php $no++; endforeach; ?>
                   <?php else: ?>
                   <tr>
-                    <td colspan="5"> Data Usul Tidak Ada</td>
+                    <td colspan="5" class="text-center"> Data Usul Tidak Ada</td>
                   </tr>
                   <?php endif; ?>
                 </tbody>

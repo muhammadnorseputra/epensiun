@@ -19,7 +19,7 @@
               <hr>
               <h4 class="text-center text-uppercase">Laporan Tanda Terima SK Pensiun</h4>
               <div class="col-md-4">
-            <form action="#" method="post" class="d-flex gap-3">
+            <form action="" method="get" class="d-flex gap-3">
               <div class="w-100">
               <label for="nip">Masukan Nomor Induk Pegawai:</label>
               <input type="text" name="nip" id="nip" class="form-control">
@@ -62,7 +62,7 @@
                       <?php $no++; endforeach; ?>
                       <?php else: ?>
                       <tr>
-                        <td colspan="5"> Data SK Tidak Ada</td>
+                        <td colspan="7" class="text-center"> Data SK Tidak Ada</td>
                       </tr>
                       <?php endif; ?>
                     </tbody>

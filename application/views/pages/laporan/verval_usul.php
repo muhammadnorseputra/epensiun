@@ -18,13 +18,14 @@
             <hr>
             <h4 class="text-center text-uppercase">Laporan Verifikasi & Validasi Usul Pensiun</h4>
             <div class="col-md-4">
-            <form action="#" method="post" class="d-flex gap-3">
+            <form action="" method="get" class="d-flex gap-3">
               <div class="w-100">
               <label for="status">Pilih Status Verval:</label>
               <select id="status" name="status" class="form-control">
-                <option value="2024">VERIFIKASI</option>
-                <option value="2024">TTD_SK</option>
-                <option value="2024">APPROVE</option>
+                <option value="">Silahkan pilih status usulan </option>
+                <option value="BKPSDM" <?= @$_GET['status'] === 'BKPSDM' ? 'selected' : '' ?>>VERIFIKASI</option>
+                <option value="TTD_SK" <?= @$_GET['status'] === 'TTD_SK' ? 'selected' : '' ?>>TTD_SK</option>
+                <option value="APPROVE" <?= @$_GET['status'] === 'APPROVE' ? 'selected' : '' ?>>APPROVE</option>
               </select>
               </div>
               <div>

@@ -17,14 +17,14 @@
                 </div>
               </div>
               <hr>
-              <h4 class="text-center uppercase">Laporan Trend Kesalahan Usul Pensiun</h4>
+              <h4 class="text-center text-uppercase">Laporan Trend Kesalahan Usul Pensiun</h4>
               <div class="col-md-4">
-              <form action="#" method="post" class="d-flex gap-3">
+              <form action="" method="get" class="d-flex gap-3">
                 <div class="w-100">
-                <label for="jenis_kesalahan">Pilih Jenis Kesalahan:</label>
-                <select id="jenis_kesalahan" name="jenis_kesalahan" class="form-control">
-                  <option value="2024">BTL (Berkas Tidak Lengkap)</option>
-                  <option value="2024">TMS (Tidak Memenuhi Syarat)</option>
+                <label for="jns_kesalahan">Pilih Jenis Kesalahan:</label>
+                <select id="jns_kesalahan" name="jns_kesalahan" class="form-control">
+                  <option value="SELESAI_BTL" <?= @$_GET['jns_kesalahan'] === 'SELESAI_BTL' ? 'selected' : '' ?>>BTL (Berkas Tidak Lengkap)</option>
+                  <option value="SELESAI_TMS" <?= @$_GET['jns_kesalahan'] === 'SELESAI_TMS' ? 'selected' : '' ?>>TMS (Tidak Memenuhi Syarat)</option>
                 </select>
                 </div>
                 <div>

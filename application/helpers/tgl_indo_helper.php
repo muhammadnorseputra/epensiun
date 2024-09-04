@@ -251,6 +251,24 @@
         }
     }   
 
+    function listBulan() {
+        $bulan_indonesia = [
+            1 => 'Januari',
+            2 => 'Februari',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+        return $bulan_indonesia;
+    }
+
 // RUN
 // echo shortdate_indo('2017-09-5');
 // echo "<br/>";

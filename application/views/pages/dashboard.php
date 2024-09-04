@@ -261,7 +261,7 @@ $stat = json_decode($statistik);
     </div>
 
     <?php endif; ?>
-    <?php if ($this->session->userdata('level') === 'ADMIN'): ?>
+    <?php if ($this->session->userdata('level') === 'ADMIN' || $this->session->userdata('level') === 'USER'): ?>
     <!-- row -->
     <div class="row mb-6">
         <div class="col-md-12">

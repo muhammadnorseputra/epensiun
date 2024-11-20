@@ -99,7 +99,7 @@ class Verifikasi extends CI_Controller
 				</div>
 			</div>';
 
-			$path_picture = !empty($r->url_photo) ? $r->url_photo : base_url('template/assets/images/avatar/avatar.jpg');
+			$path_picture = $r->url_photo ?? base_url('template/assets/images/avatar/user-pns.png');
 
 			$no++;
 			$row = array();

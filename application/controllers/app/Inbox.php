@@ -76,7 +76,7 @@ class Inbox extends CI_Controller
                 <button type="button" class="btn btn-danger btn-sm" onclick="Hapus(\''.$r->token_pengantar.'\')"><i class="bi bi-trash"></i> <br> HAPUS</button>';
             }
 
-            $path_picture = !empty($r->url_photo) ? $r->url_photo : base_url('template/assets/images/avatar/avatar.jpg');
+            $path_picture = $r->url_photo ?? base_url('template/assets/images/avatar/user-pns.png');
 
             $no++;
             $row = array();

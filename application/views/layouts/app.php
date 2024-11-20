@@ -383,7 +383,7 @@
                   <div class="avatar avatar-md avatar-indicators avatar-online">
                     <img
                       alt="avatar"
-                      src="<?= $this->session->userdata('picture'); ?>"
+                      src="<?= $this->session->userdata('picture') ?? base_url('template/assets/images/avatar/user-empty.png');; ?>"
                       class="rounded-circle"
                     />
                   </div>
@@ -452,7 +452,7 @@
         <div class="avatar avatar-xl avatar-indicators avatar-online">
           <img
             alt="avatar"
-            src="<?= $this->session->userdata('picture'); ?>"
+            src="<?= $this->session->userdata('picture') ?? base_url('template/assets/images/avatar/user-empty.png'); ?>"
             class="rounded-circle"
           />
         </div>

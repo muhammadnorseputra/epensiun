@@ -68,7 +68,7 @@ if ( ! function_exists('cek_session'))
       {
           $ci = get_instance();
         //   CEK SESSION UID
-          if($ci->session->userdata('nip') == '' || !$ci->session->csrf_token):
+          if($ci->session->userdata('nip') === '' || !$ci->session->csrf_token):
             return redirect(base_url('/'));
           endif;
       }

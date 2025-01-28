@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use \Firebase\JWT\JWT;
+use \Firebase\JWT\Key;
+use \Firebase\JWT\SignatureInvalidException;
+use \Firebase\JWT\BeforeValidException;
+
 class Auth extends CI_Controller {
 
 	/**
@@ -51,39 +56,102 @@ class Auth extends CI_Controller {
         $password = trim($this->security->xss_clean($this->input->post('password', true)));
 
 		$post = [
-			// 'type' => $this->input->post('type'),
-			'type' => 'UMPEG', // hanya admin atau umpeg yg bisa login
 			'username' => $username,
-			'password' => $password
+			'password' => $password,
+			'type' => $this->input->post('type', true),
 		];
 
-		$req = postApi('http://silka.balangankab.go.id/services/auth/basic', $post);
-		$res = json_decode($req);
+		$client = new \GuzzleHttp\Client([
+			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+		]);
 
-		if($res->http_code === 200) {
-			echo json_encode([
-				'status' => true,
-				'message' => $res->message,
-				'redirect' => base_url('/app/dashboard')
-			]);
-			$data = [
-				'nip' => $res->data->nip,
-				'nama_lengkap' => $res->data->nama_lengkap,
-				'username' => $res->data->user_nama,
-				'level' => $res->data->level,
-				'picture' => $res->data->picture,
-				'tmtbup' => $res->data->tmtbup,
-				'pangkat' => $res->data->pegawai->nama_pangkat,
-				'jabatan' => $res->data->pegawai->nama_jabatan,
-				'tgl_lahir' => $res->data->pegawai->tgl_lahir,
-				'jenkel' => $res->data->pegawai->jenis_kelamin,
-				'unker' => $res->data->pegawai->unker,
-				'unker_id' => $res->data->pegawai->unker_id,
-			];
-			$this->session->set_userdata($data);
-			return false;
+		$options = [
+			'headers' => [
+				'apiKey' => $this->config->item('X-API-KEY'),
+				'Content-Type' => 'application/x-www-form-urlencoded'
+			],
+			'form_params' => $post
+		];
+
+		try {
+			$request = $client->request('POST', 'auth', $options);
+			$result = $request->getBody();
+			$raw = json_decode($result);
+
+			$access_token = $raw->data->token;
+
+			JWT::$leeway = 60; // $leeway in seconds
+			$decoded = JWT::decode($access_token, new Key("bkpsdm@6811", 'HS256'));
+
+			if($raw->status) {
+				echo json_encode([
+					'status' => true,
+					'message' => $raw->message,
+					'redirect' => base_url('/app/dashboard')
+				]);
+				$data = [
+					'nip' => $decoded->data->nip,
+					'nama_lengkap' => $decoded->data->nama_lengkap,
+					'username' => $decoded->data->user_nama,
+					'level' => $decoded->data->level,
+					'picture' => $decoded->data->picture,
+					'tmtbup' => $decoded->data->tmtbup,
+					'pangkat' => $decoded->data->pegawai->nama_pangkat,
+					'jabatan' => $decoded->data->pegawai->nama_jabatan,
+					'tgl_lahir' => $decoded->data->pegawai->tgl_lahir,
+					'jenkel' => $decoded->data->pegawai->jenis_kelamin,
+					'unker' => $decoded->data->pegawai->unker,
+					'unker_id' => $decoded->data->pegawai->unker_id,
+					'access_token' => $access_token
+				];
+				$this->session->set_userdata($data);
+				return false;
+			}
+			
+			echo $result;
+
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->output->set_header('Content-Type: application/json; charset=utf-8');
+			// Menangkap error jika ada
+			$err = $e->getResponse()->getBody()->getContents();
+			echo $err;
 		}
-		echo $req;
+
+		// $req = postApi('http://silka.balangankab.go.id/services/v2/auth', $post);
+		// $res = json_decode($req);
+		
+		// $access_token = $res->data->token;
+
+		// JWT::$leeway = 60; // $leeway in seconds
+		// $decoded = JWT::decode($access_token, new Key("bkpsdm@6811", 'HS256'));
+
+		// if($res->status) {
+		// 	echo json_encode([
+		// 		'status' => true,
+		// 		'message' => $res->message,
+		// 		'redirect' => base_url('/app/dashboard')
+		// 	]);
+		// 	$data = [
+		// 		'nip' => $decoded->data->nip,
+		// 		'nama_lengkap' => $decoded->data->nama_lengkap,
+		// 		'username' => $decoded->data->user_nama,
+		// 		'level' => $decoded->data->level,
+		// 		'picture' => $decoded->data->picture,
+		// 		'tmtbup' => $decoded->data->tmtbup,
+		// 		'pangkat' => $decoded->data->pegawai->nama_pangkat,
+		// 		'jabatan' => $decoded->data->pegawai->nama_jabatan,
+		// 		'tgl_lahir' => $decoded->data->pegawai->tgl_lahir,
+		// 		'jenkel' => $decoded->data->pegawai->jenis_kelamin,
+		// 		'unker' => $decoded->data->pegawai->unker,
+		// 		'unker_id' => $decoded->data->pegawai->unker_id,
+		// 		'access_token' => $access_token
+		// 	];
+		// 	$this->session->set_userdata($data);
+		// 	return false;
+		// }
+
+		// echo $req;
 	}
 
 	public function forget()

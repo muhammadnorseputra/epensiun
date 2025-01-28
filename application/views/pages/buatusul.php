@@ -241,46 +241,6 @@
                                                 <div class="fs-sm fw-bold lh-1">TANGGAL USUL</div>
                                                 <div><?= date_indo(@$detail->tanggal) ?></div>
                                             </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">NIP</div>
-                                                <div><?= @$usul->nip ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">NAMA</div>
-                                                <div><?= @$usul->nama ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">GELAR DEPAN</div>
-                                                <div><?= @$usul->gelar_depan ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">GELAR BELAKANG</div>
-                                                <div><?= @$usul->gelar_belakang ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">PANGKAT</div>
-                                                <div> <?= @$usul->nama_pangkat ?> (<?= @$usul->nama_golru ?>)</div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">JABATAN</div>
-                                                <div><?= @$usul->nama_jabatan ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold col-12 lh-1">UNIT KERJA</div>
-                                                <div><?= @$usul->nama_unit_kerja ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold col-12 lh-1">USIA PENSIUN</div>
-                                                <div><?= @$usul->usia_pensiun ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">TEMPAT TANGGAL LAHIR</div>
-                                                <div><?= @$usul->tmp_lahir ?>, <?= @date_indo(@$usul->tgl_lahir) ?></div>
-                                            </li>
-                                            <li class="pb-3 ps-0 mb-3 border-bottom">
-                                                <div class="fs-sm fw-bold lh-1">ALAMAT</div>
-                                                <div><?= @$usul->alamat ?></div>
-                                            </li>
                                         </ul>
 
                                         <?= form_open(base_url('/app/pensiun/kirimusulan'), ['id' => 'FormKirimUsulan', 'class' => 'needs-validation was-validated', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
@@ -289,7 +249,8 @@
                                         <input type="hidden" name="nip" value="<?= @$usul->nip ?>">
                                         <!-- Textarea -->
                                         <div class="mb-3">
-                                            <label for="textarea-input" class="form-label fw-bold">Tempel Link Eviden <span class="text-danger ms-1">*</span></label>
+                                            <label for="textarea-input" class="form-label fw-bold">Tempel Link Berkas <span class="text-danger ms-1">*</span></label>
+                                            <p class="text-mutted small">Pastikan link dapat diakses oleh publik </p>
                                             <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>

@@ -1,21 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-// import library dari RestController
-use chriskacerguis\RestServer\RestController;
+  // import library dari RestController
+  use chriskacerguis\RestServer\RestController;
 
-class Usul extends RestController
-{
-  public function __construct()
+  class TrackingUsul extends RestController
   {
-    parent::__construct();
-    $this->load->model(['ModelApi' => 'api']);
-  }
+    public function __construct()
+    {
+      parent::__construct();
+      $this->load->model(['ModelApi' => 'api']);
+    }
 
   private function cekValue($val) {
-    return !empty($val) || $val !== null || $val !== "" ? $val : null;
-}
+      return !empty($val) || $val !== null || $val !== "" ? $val : null;
+  }
 
-  public function detail_post() {
+  public function index_get() {
     $nip = $this->query('nip');
 
     // cek apakah ada params nip pada query atau params request
@@ -24,7 +24,7 @@ class Usul extends RestController
         [
           'status' => false,
           'status_color' => 'danger',
-          'message' => 'Params NIP wajib ditambahkan !',
+          'message' => 'Parameter `nip` wajib ditambahkan !',
           'data' => null
         ],
         RestController::HTTP_BAD_REQUEST
@@ -68,7 +68,8 @@ class Usul extends RestController
             'tgl_lahir_penerima' => $row->tgl_lahir_penerima,
             'hubungan_keluarga' => strtolower($row->hub_keluarga),
             'alamat_pensiun' => $row->alamat_pensiun,
-            'catatan' => $row->catatan
+            'catatan' => $row->catatan,
+            'berkas' => 'http://silka.balangankab.go.id/fileskpensiun/'.$row->nip.'.pdf'
           ],
           'user' => [
             'created_at' => $row->created_at,
@@ -97,7 +98,7 @@ class Usul extends RestController
           'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> ditemukan pada database tetapi masih dalam tahap ("'.$row->is_status.'") pada aplikasi epensiun.',
           'data' => null
         ];
-        return $this->response($response, RestController::HTTP_BAD_REQUEST);
+        return $this->response($response, RestController::HTTP_OK);
       endif;
     }
 

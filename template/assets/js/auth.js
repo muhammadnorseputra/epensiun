@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 	var $containerMsg = $("#message");
 	$("input[name='username']").focus();
@@ -10,7 +9,7 @@ $(document).ready(function () {
 		modules: "security, html5, sanitize",
 		// modules: "security, html5, sanitize, toggleDisabled",
 		// disabledFormFilter: 'form.toggle-disabled',
-        validateOnEvent: true,
+		validateOnEvent: true,
 		onError: function ($form) {
 			$containerMsg.html(`
 			<div class="alert alert-danger shadow-sm mt-4" role="alert">
@@ -19,7 +18,9 @@ $(document).ready(function () {
 			`);
 			$("input[name='username']").prop("disabled", false);
 			$("input[name='password']").prop("disabled", false);
-			$('button[type="submit"]').prop("disabled", false).html(`<i class="bi bi-unlock-fill"></i> Masuk`);
+			$('button[type="submit"]')
+				.prop("disabled", false)
+				.html(`<i class="bi bi-unlock-fill"></i> Masuk`);
 		},
 		onSuccess: function ($form) {
 			var _action = $form.attr("action");
@@ -31,14 +32,15 @@ $(document).ready(function () {
 				data: _data,
 				dataType: "json",
 				beforeSend: function () {
-					$('button[type="submit"]').prop("disabled", true).html(
-						`<div class="d-flex justify-content-center align-items-center"><span class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Processing ...</span></div>`
-					);
+					$('button[type="submit"]')
+						.prop("disabled", true)
+						.html(
+							`<div class="d-flex justify-content-center align-items-center"><span class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Processing ...</span></div>`
+						);
 					$("input[name='username']").prop("disabled", true);
 					$("input[name='password']").prop("disabled", true);
 				},
-				success: function(response) {
-					console.log(response);
+				success: function (response) {
 					if (response.status === true) {
 						$containerMsg.html(`
 						<div class="alert alert-success shadow-sm mt-4 d-flex justify-content-between align-items-center" role="alert">
@@ -51,7 +53,7 @@ $(document).ready(function () {
 						`);
 						setTimeout(() => {
 							window.location.replace(response.redirect);
-						}, 2000)
+						}, 2000);
 						$form.get(0).reset();
 						return false;
 					}
@@ -62,9 +64,11 @@ $(document).ready(function () {
 					`);
 					$("input[name='username']").prop("disabled", false);
 					$("input[name='password']").prop("disabled", false);
-					$('button[type="submit"]').prop("disabled", false).html(`<i class="bi bi-unlock-fill"></i> Masuk`);
+					$('button[type="submit"]')
+						.prop("disabled", false)
+						.html(`<i class="bi bi-unlock-fill"></i> Masuk`);
 				},
-				error: function(err) {
+				error: function (err) {
 					$containerMsg.html(`
 					<div class="alert alert-danger shadow-sm mt-4" role="alert">
 						<i class="bi bi-bug-fill me-2"></i> ${err.status} (${err.statusText}
@@ -72,7 +76,9 @@ $(document).ready(function () {
 					`);
 					$("input[name='username']").prop("disabled", false);
 					$("input[name='password']").prop("disabled", false);
-					$('button[type="submit"]').prop("disabled", false).html(`<i class="bi bi-unlock-fill"></i> Masuk`);
+					$('button[type="submit"]')
+						.prop("disabled", false)
+						.html(`<i class="bi bi-unlock-fill"></i> Masuk`);
 				},
 			});
 			return false; // Will stop the submission of the form
@@ -81,14 +87,14 @@ $(document).ready(function () {
 	});
 
 	$(".toggle-password").click(function () {
-        var passwordInput = $(".password-input");
-        var icon = $(this);
-        if (passwordInput.attr("type") == "password") {
-            passwordInput.attr("type", "text");
-            icon.removeClass("bi-eye-fill").addClass("bi-eye-slash-fill");
-        } else {
-            passwordInput.attr("type", "password");
-            icon.removeClass("bi-eye-slash-fill").addClass("bi-eye-fill");
-        }
-    });
+		var passwordInput = $(".password-input");
+		var icon = $(this);
+		if (passwordInput.attr("type") == "password") {
+			passwordInput.attr("type", "text");
+			icon.removeClass("bi-eye-fill").addClass("bi-eye-slash-fill");
+		} else {
+			passwordInput.attr("type", "password");
+			icon.removeClass("bi-eye-slash-fill").addClass("bi-eye-fill");
+		}
+	});
 });

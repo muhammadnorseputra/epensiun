@@ -63,17 +63,13 @@ if (! function_exists('api_curl'))
 }
 if (! function_exists('postApi'))
 {
- 	function postApi($url, $arr, $method='POST')
+ 	function postApi($url, $post, $method='POST')
 	{
 		 
-		// set post fields
-		$post = $arr;
 		// set headers
 		$request_headers = [
-            'Authorization: Basic QmFsYW5nYW5rYWI6Ymtwc2RtQDIwMjI=',
-			'apiKey:bkpsdm6811',
-			'Content-Type:multipart/form-data',
-			'Accept:application/json'
+			'apiKey:0194a702-307a-7406-ac0d-f5bcbc41b991',
+            'Content-Type: multipart/form-data'
 		];
 		
 		$ch = curl_init($url);
@@ -83,6 +79,9 @@ if (! function_exists('postApi'))
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
 
 		// execute!
 		$response = curl_exec($ch);

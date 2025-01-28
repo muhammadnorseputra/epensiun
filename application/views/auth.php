@@ -49,8 +49,8 @@
         <div class="row align-items-center justify-content-center g-0
         min-vh-100">
             <img class="position-fixed z-n1 opacity-25"
-                src="<?= base_url('template/assets/images/background/loginv2.jpg') ?>" alt="Background"
-                style="height: 100vh;">
+                src="https://png.pngtree.com/thumb_back/fw800/background/20240430/pngtree-tree-planting-on-black-soil-in-forest-background-image_15722421.jpg" alt="Background"
+                style="height: 100vh;margin:0;padding:0;top:0;left:0">
             <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
                 <!-- Logo ICON -->
                 <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
@@ -63,17 +63,16 @@
                     <img src="https://www.iosys.co.uk/images/ssl-security-encryption.png" alt="Logo Kab. Balangan"
                         width="100"> -->
                 </div>
-                <div id="message"></div>
                 <!-- Card -->
-                <div class="card smooth-shadow border">
+                <div class="card rounded-lg">
                     <!-- Card body -->
                     <div class="card-body p-6">
-                        <div class="mb-4">
+                        <div class="mb-4 text-center">
                             <a href="<?= base_url() ?>">
-                                <h3 class="font-bold"><span class="text-primary">SIMPUN</span> Pegawai Terintegrasi
-                                </h3>
+                                <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
+                                <h3>Layanan Pegawai Terintegrasi</h3>
                             </a>
-                            <p class="mb-4">Silahkan masukan akun yang terdaftar pada SIMPEG Balangan (SILKa Online)</p>
+                            <p class="mb-4">Silahkan masukan akun yang terdaftar dan aktif pada SILka Online</p>
                         </div>
                         <?php
                         $urlRef = isset($_GET['continue']) ? $_GET['continue'] : '';
@@ -108,7 +107,7 @@
                                 </div>
                             </div> -->
                         <!-- Chose user type login v2 -->
-                        <!-- <div class="fw-bold text-dark mb-2">Login as :</div>
+                        <div class="fw-bold text-dark mb-2">Pilih type akun :</div>
                         <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
                             <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off"
                                 value="PERSONAL" checked required="">
@@ -125,8 +124,9 @@
                                 <b>UMPEG</b>
                                 <p class="small">Masuk dengan akun pengelola kepegawaian</p>
                             </label>
-                        </div> -->
+                        </div>
 
+                        <div id="message"></div>
                         <!-- Username -->
                         <div class="mb-3">
                             <label for="username" class="form-label fw-bold">Username</label>
@@ -188,8 +188,7 @@
                         <?= form_close() ?>
                     </div>
                 </div>
-                <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Integrated Pensiun ASN by
-                    BKPSDM Balangan.</p>
+                <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>
             </div>
         </div>
     </div>

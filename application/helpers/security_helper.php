@@ -101,3 +101,10 @@ if ( ! function_exists('cek_session'))
      }
 }
 
+function calculatePercentage($numerator, $denominator) {
+  // Added a check for zero denominator to prevent DivisionByZeroError
+  if ($denominator == 0) {
+      return 0; // Or handle the scenario appropriately based on application logic
+  }
+  return ($numerator / $denominator) * 100;
+}

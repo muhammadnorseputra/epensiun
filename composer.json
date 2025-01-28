@@ -15,8 +15,9 @@
 		"chriskacerguis/codeigniter-restserver": "*",
 		"phpoffice/phpword": "^1.2",
 		"tecnickcom/tcpdf": "^6.7",
-		"firebase/php-jwt": "^5.5",
-		"guzzlehttp/guzzle": "^6.0"
+		"ramsey/uuid": "^4.7",
+		"guzzlehttp/guzzle": "^7.9",
+		"firebase/php-jwt": "^6.11"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

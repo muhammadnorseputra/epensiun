@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use UUID\UUID;
+use Ramsey\Uuid\Uuid;
 
 class Pensiun extends CI_Controller
 {
@@ -197,7 +197,7 @@ class Pensiun extends CI_Controller
 			$isToken = $token;
 		} else {
 			$data = [
-				'token' => Uuid::uuid4()->toString(),
+				'token' => Uuid::uuid7()->toString(),
 				'fid_jenis_usul' => $post['jenis_pensiun'],
 				'nomor' => $post['nomor_usul'],
 				'tanggal' => formatToSQL($post['tgl_usul']),

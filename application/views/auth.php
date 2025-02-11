@@ -70,9 +70,9 @@
                         <div class="mb-4 text-center">
                             <a href="<?= base_url() ?>">
                                 <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
-                                <h3>Layanan Pegawai Terintegrasi</h3>
+                                <h4>Sistem Informasi Pengusulan Pensiun</h4>
                             </a>
-                            <p class="mb-4">Silahkan masukan akun yang terdaftar dan aktif pada SILka Online</p>
+                            <p class="mb-4">Layanan SILKa Integrasi, silahkan masuk menggukana akun sso anda.</p>
                         </div>
                         <?php
                         $urlRef = isset($_GET['continue']) ? $_GET['continue'] : '';
@@ -80,102 +80,12 @@
                             $this->session->csrf_token = hash('sha1', time());
                         }
                         ?>
-                        <!-- Form -->
-                        <?= form_open(base_url('auth/cek_akun'), ['autocomplete' => 'off', 'id' => 'f_login', 'class' => 'toggle-disabled', 'novalidate' => ''], ['token' => $this->session->csrf_token, 'continue' => $urlRef]) ?>
-                        <!-- Chose user type login v1 -->
-                        <!-- <div class="mb-4 d-flex justify-content-between gap-3">
-                                <div class="border rounded p-2 w-100 cursor-pointer">
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label ms-2" for="flexRadioDefault1">
-                                            <h1><i class="bi bi-person-badge"></i></h1>
-                                            <b>PERSONAL</b>
-                                            <p class="small">Masuk dengan akun personal ASN</p>
-                                        </label>
-                                        <input class="form-check-input p-2 cursor-pointer" type="radio" value="PERSONAL" name="type" id="flexRadioDefault1" required="">
-                                    </div>
-                                </div>
 
-                                <div class="border p-2 rounded w-100">
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label ms-2" for="flexRadioDefault2">
-                                            <h1><i class="bi bi-person-vcard"></i></h1>
-                                            <b>UMPEG</b>
-                                            <p class="small">Masuk dengan akun pengelola kepegawaian</p>
-                                        </label>
-                                        <input class="form-check-input p-2" type="radio" value="UMPEG" data-sanitize="trim" name="type" id="flexRadioDefault2" required="">
-                                    </div>
-                                </div>
-                            </div> -->
-                        <!-- Chose user type login v2 -->
-                        <div class="fw-bold text-dark mb-2">Pilih type akun :</div>
-                        <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="type" id="type1" autocomplete="off"
-                                value="PERSONAL" checked required="">
-                            <label class="btn btn-outline-primary w-100" for="type1">
-                                <h1><i class="bi bi-person-badge text-warning"></i></h1>
-                                <b>PERSONAL</b>
-                                <p class="small">Masuk dengan akun personal ASN</p>
-                            </label>
-
-                            <input type="radio" class="btn-check" name="type" id="type2" autocomplete="off"
-                                value="UMPEG" required="">
-                            <label class="btn btn-outline-primary w-100" for="type2">
-                                <h1><i class="bi bi-person-vcard text-info"></i></h1>
-                                <b>UMPEG</b>
-                                <p class="small">Masuk dengan akun pengelola kepegawaian</p>
-                            </label>
-                        </div>
-
-                        <div id="message"></div>
-                        <!-- Username -->
-                        <div class="mb-3">
-                            <label for="username" class="form-label fw-bold">Username</label>
-                            <div class="input-group">
-                                <span class="input-group-text" id="basic-addon1"><i
-                                        class="bi bi-person-circle"></i></span>
-                                <input type="text" id="username" class="form-control" name="username"
-                                    data-sanitize="trim" placeholder="Username on SILKa Online" required="">
-                            </div>
-                        </div>
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label fw-bold">Password</label>
-                            <div class="input-group">
-                                <span class="input-group-text" id="basic-addon"><i class="bi bi-lock-fill"></i></span>
-                                <input type="password" id="password" class="form-control password-input" name="password"
-                                    placeholder="**************" required="">
-                                <span class="input-group-text" id="basic-addon-append"><button
-                                        class="btn btn-sm btn-default border-0 p-0 m-0" type="button"><i
-                                            class="bi bi-eye-fill toggle-password fs-5"></i></button></span>
-                            </div>
-
-                        </div>
-
-
-                        <!-- Username v2 -->
-                        <!--<div class="form-floating mb-3">
-                            <input type="text" id="username" class="form-control" name="username" data-sanitize="trim" placeholder="Username on SILKa Online" required="">
-                            <label for="username">Username</label>
-                        </div>-->
-                        <!-- Password v2 -->
-                        <!-- <div class="form-floating mb-3 position-relative">
-                            <input type="password" id="password" class="form-control password-input" name="password" placeholder="**************" required="">
-                            <button class="btn btn-sm btn-default border-0 position-absolute end-0 top-50 translate-middle-y" type="button"><i class="bi bi-eye-fill toggle-password fs-4"></i></button>
-                            <label for="password">Password</label>
-                        </div> -->
-                        <!-- Checkbox -->
-                        <div class="d-lg-flex justify-content-between align-items-center mb-4">
-                            <div class="form-check custom-checkbox">
-                                <input type="checkbox" class="form-check-input" id="rememberme">
-                                <label class="form-check-label" for="rememberme">Remember
-                                    me</label>
-                            </div>
-                        </div>
                         <div>
-                            <!-- Button -->
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-lg btn-primary"><i class="bi bi-unlock-fill"></i>
-                                    Masuk</button>
+
+                            <div class="d-grid mt-3">
+                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-success">
+                                    Login with SSO</a>
                             </div>
 
                             <div class="d-md-flex justify-content-between mt-4">
@@ -185,7 +95,6 @@
                                 </div>
                             </div>
                         </div>
-                        <?= form_close() ?>
                     </div>
                 </div>
                 <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>

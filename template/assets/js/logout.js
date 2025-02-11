@@ -14,7 +14,7 @@ function Logout() {
 				"<button><b>YES</b></button>",
 				function (instance, toast) {
 					instance.hide({ transitionOut: "fadeOut" }, toast, "button");
-                    window.location.replace(`${_uri}/auth/logout`);
+					window.location.replace(`${_uri}/oauth/sso/logout`);
 				},
 				true,
 			],
@@ -24,6 +24,6 @@ function Logout() {
 					instance.hide({ transitionOut: "fadeOut" }, toast, "button");
 				},
 			],
-		]
+		],
 	});
 }

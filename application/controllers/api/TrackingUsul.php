@@ -5,18 +5,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   class TrackingUsul extends RestController
   {
-    public function __construct()
-    {
-      parent::__construct();
-      $this->load->model(['ModelApi' => 'api']);
-    }
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model(['ModelApi' => 'api']);
+  }
 
   private function cekValue($val) {
       return !empty($val) || $val !== null || $val !== "" ? $val : null;
   }
 
-  public function index_get() {
-    $nip = $this->query('nip');
+  public function index_get($nip=null) {
 
     // cek apakah ada params nip pada query atau params request
     if($nip === null) {
@@ -24,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         [
           'status' => false,
           'status_color' => 'danger',
-          'message' => 'Parameter `nip` wajib ditambahkan !',
+          'message' => 'Required {{nip}} parameter',
           'data' => null
         ],
         RestController::HTTP_BAD_REQUEST
@@ -38,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         [
           'status' => false,
           'status_color' => 'danger',
-          'message' => 'NIP yang dimasukan tidak valid !',
+          'message' => 'Invalid {{nip}}',
           'data' => null
         ],
         RestController::HTTP_BAD_REQUEST

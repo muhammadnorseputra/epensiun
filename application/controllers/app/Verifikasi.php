@@ -22,8 +22,6 @@ class Verifikasi extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// cek session login
-		cek_session();	
 		// cek session level
 		if($this->session->userdata('level') !== 'ADMIN') {
 			return show_404();
@@ -136,6 +134,36 @@ class Verifikasi extends CI_Controller
 		);
 		//output to json format
 		echo json_encode($output);
+	}
+
+	public function geteviden()
+	{
+		$client = new \GuzzleHttp\Client([
+			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+		]);
+
+		$nip = $this->input->get('nip');
+		$endpoint = "pns/".$nip."/pensiun/cek-file";
+		
+		$headers = [
+			'headers' => [
+				'apiKey' => $this->config->item('X-API-KEY'),
+				'Authorization' => 'Bearer '.$this->session->userdata('access_token'),
+				'Accept' => 'application/json',
+				'Content-Type' => 'multipart/form-data'
+			]
+		];
+
+		try {
+			$result = $client->request('GET', $endpoint, $headers);
+			echo $result->getBody();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->output->set_header('Content-Type: application/json; charset=utf-8');
+			// Menangkap error jika ada
+			$err = $e->getResponse()->getBody()->getContents();
+			echo $err;
+		}
 	}
 
 	public function getprofileasn()

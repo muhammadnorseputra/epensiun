@@ -12,8 +12,8 @@ $(document).ready(function () {
 		validateOnEvent: true,
 		onError: function ($form) {
 			$containerMsg.html(`
-			<div class="alert alert-danger shadow-sm mt-4" role="alert">
-				<i class="bi bi-x-circle-fill me-2"></i> Auth access akun failed, please check form !
+			<div class="alert alert-danger border-0" role="alert">
+				<i class="bi bi-x-circle-fill me-2"></i> Failed, please check form !
 			</div>
 			`);
 			$("input[name='username']").prop("disabled", false);
@@ -35,7 +35,7 @@ $(document).ready(function () {
 					$('button[type="submit"]')
 						.prop("disabled", true)
 						.html(
-							`<div class="d-flex justify-content-center align-items-center"><span class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <span>Processing ...</span></div>`
+							`<div class="d-flex justify-content-center align-items-center"><span class="mr-2"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></div>`
 						);
 					$("input[name='username']").prop("disabled", true);
 					$("input[name='password']").prop("disabled", true);

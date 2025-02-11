@@ -22,7 +22,6 @@ class Dashboard extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		cek_session();
 		$this->load->model([
 			'ModelPensiun' => 'pensiun',
 			'ModelPensiunInbox' => 'inbox',

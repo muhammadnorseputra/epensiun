@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
-if($_SERVER['HTTP_HOST'] == '127.0.0.1:8000' || $_SERVER['HTTP_HOST'] == '192.168.0.112'):
+if($_SERVER['HTTP_HOST'] == 'localhost:8000' || $_SERVER['HTTP_HOST'] == '192.168.2.102'):
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '127.0.0.1',
@@ -97,7 +97,7 @@ $db['default'] = array(
 else:
 	$db['default'] = array(
 		'dsn'	=> '',
-		'hostname' => '127.0.0.1',
+		'hostname' => 'localhost',
 		'username' => 'bkpsdm_epensiun',
 		'password' => 'bkpsdm_epensiun',
 		'database' => 'bkpsdm_epensiun',

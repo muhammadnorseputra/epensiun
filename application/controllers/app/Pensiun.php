@@ -24,7 +24,6 @@ class Pensiun extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		cek_session();
 		$this->load->model(['ModelPensiun' => 'pensiun']);
 	}
 
@@ -117,14 +116,14 @@ class Pensiun extends CI_Controller
 		}
 	}
 
-	protected function CekGreenItem($nip)
+	protected function CekBlueItem($nip)
 	{
 		$client = new \GuzzleHttp\Client([
 			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
     		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
 		]);
 
-		$endpoint = "pns/".$nip."pensiun/cek-file";
+		$endpoint = "pns/".$nip."/pensiun/cek-file";
 		
 		$headers = [
 			'headers' => [
@@ -137,7 +136,7 @@ class Pensiun extends CI_Controller
 
 		try {
 			$result = $client->request('GET', $endpoint, $headers);
-			return $result->getBody();
+			return json_decode($result->getBody());
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->output->set_header('Content-Type: application/json; charset=utf-8');
 			// Menangkap error jika ada
@@ -160,6 +159,7 @@ class Pensiun extends CI_Controller
 			'jenis_pensiun' => $this->pensiun->getJenisPensiun(),
 			'detail' => @$detail,
 			'usul' => @$usul,
+			'cek_blue_item' => @$this->CekBlueItem($usul->nip)
 		];
 
 		$this->load->view('layouts/app', $data);

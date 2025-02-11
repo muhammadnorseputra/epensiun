@@ -44,7 +44,10 @@ class Auth extends CI_Controller {
         if($this->input->post('token') != $true_token):
             $this->output->set_status_header('403');
             $this->session->unset_userdata('csrf_token');
-            show_error('This request rejected');
+			echo json_encode([
+				'status' => false,
+				'message' => 'This request rejected'
+			]);
             return false;
         endif;
 

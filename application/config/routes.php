@@ -49,6 +49,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+// sso
+$route['oauth/sso/authorize'] = 'oauth/authorize';
+$route['oauth/sso/callback'] = 'oauth/callback';
+$route['oauth/sso/logout'] = 'oauth/logout';
+
 $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

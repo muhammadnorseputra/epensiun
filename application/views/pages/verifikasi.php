@@ -135,6 +135,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="loadEviden" class="mt-4"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>

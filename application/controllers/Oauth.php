@@ -3,6 +3,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use \GuzzleHttp\Exception\RequestException;
+use Ramsey\Uuid\Uuid;
+
 class Oauth extends CI_Controller
 {
 
@@ -29,26 +31,38 @@ class Oauth extends CI_Controller
 	}
 
     public function authorize() {
+        $state = Uuid::uuid7()->toString();
+        $this->session->set_userdata(['state' => $state]);
+
         $query = [
-            'client_name' => 'epensiun',
+            'client_name' => 'SimpunASN',
             'client_id' => '0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf',
             'redirect_uri' => base_url("/oauth/sso/callback"),
-            'response_type' => 'code'
+            'response_type' => 'code',
+            'state' => $state
         ];
         $query_build = http_build_query($query);
-        redirect("http://localhost:3000/oauth/sso/authorize?".$query_build);
-    }
-
-    public function userinfo()
-    {
-
+        $host = "https://silka-sso.vercel.app";
+        // $host = "http://localhost:3000";
+        redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
 
     public function callback() {
 
+        $state = $this->input->get('state');
+        if(!isset($state) || $state !== $this->session->userdata('state'))
+        {
+            $this->output->set_header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'status' => false,
+                'message' => 'State tidak sesuai'
+            ]);
+            return false;
+            die();
+        }
 
         $post = [
-            'code' => base64_decode($this->input->get('code')),
+            'code' => $this->input->get('code'),
         ];
 
         $client = new Client([

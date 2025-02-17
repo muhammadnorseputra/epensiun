@@ -1,9 +1,13 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
+
+use Ramsey\Uuid\Uuid;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\Utils;
 use \GuzzleHttp\Exception\RequestException;
-use Ramsey\Uuid\Uuid;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+use Firebase\JWT\ExpiredException;
 
 class Oauth extends CI_Controller
 {
@@ -46,19 +50,45 @@ class Oauth extends CI_Controller
         // $host = "http://localhost:3000";
         redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
+    
+    private function getAccessToken(String $code)
+    {
+        $client = new Client([
+			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+		]);
+
+		$options = [
+			'headers' => [
+				'apiKey' => $this->config->item('X-API-KEY'),
+			],
+            'json' => [
+                'code' => $code
+            ]
+		];
+
+        // getAccessToken
+        try {
+            $promise = $client->request('POST', 'oauth/sso/access_token', $options);
+            return json_decode($promise->getBody()->getContents());
+        } catch (RequestException $exception) {
+            $this->output->set_header('Content-Type: application/json');
+            return $exception->getResponse()->getBody()->getContents();
+        }
+        
+    }
 
     public function callback() {
 
         $state = $this->input->get('state');
         if(!isset($state) || $state !== $this->session->userdata('state'))
         {
-            $this->output->set_header('Content-Type: application/json; charset=utf-8');
+            $this->output->set_header('Content-Type: application/json');
             echo json_encode([
                 'status' => false,
                 'message' => 'State tidak sesuai'
             ]);
             return false;
-            die();
         }
 
         $post = [
@@ -82,38 +112,53 @@ class Oauth extends CI_Controller
         $promise->then(
             function ($response) {
                 $raw = json_decode($response->getBody()->getContents());
-                if(empty($code) && !$raw->status) {
-                    return show_error("Unauthorized", 401, $raw->message);
+                if(!isset($code) && !$raw->status) {
+                    return show_error($raw->message, 401, "Unauthorized");
                 }
-                $data = [
-                    'nip' => $raw->data->user->nip,
-                    'nama_lengkap' => $raw->data->user->nama_lengkap,
-                    'username' => $raw->data->user->user_nama,
-                    'level' => $raw->data->user->level,
-                    'picture' => $raw->data->user->picture,
-                    'tmtbup' => $raw->data->user->tmtbup,
-                    'pangkat' => $raw->data->user->pegawai->nama_pangkat,
-                    'jabatan' => $raw->data->user->pegawai->nama_jabatan,
-                    'tgl_lahir' => $raw->data->user->pegawai->tgl_lahir,
-                    'jenkel' => $raw->data->user->pegawai->jenis_kelamin,
-                    'unker' => $raw->data->user->pegawai->unker,
-                    'unker_id' => $raw->data->user->pegawai->unker_id,
-                    'access_token' => $raw->data->access_token
-                ];
-                $this->session->set_userdata($data);
-                return redirect("/");
+                // exchange access_token with code
+                $access_token = $this->getAccessToken($raw->data->code);
+                if(!$access_token->status) {
+                    return show_error($access_token->message, 401, "Unauthorized");
+                }
+
+                // decoded access_token
+                try {
+                    JWT::$leeway = 60; // $leeway in seconds
+                    $decoded = JWT::decode($access_token->access_token, new Key($this->config->item('SECRET_KEY'), 'HS256'));
+
+                    $data = [
+                        'nip' => $decoded->data->nip,
+                        'nama_lengkap' => $decoded->data->nama_lengkap,
+                        'username' => $decoded->data->user_nama,
+                        'level' => $decoded->data->level,
+                        'picture' => $decoded->data->picture,
+                        'tmtbup' => $decoded->data->tmtbup,
+                        'pangkat' => $decoded->data->pegawai->nama_pangkat,
+                        'jabatan' => $decoded->data->pegawai->nama_jabatan,
+                        'tgl_lahir' => $decoded->data->pegawai->tgl_lahir,
+                        'jenkel' => $decoded->data->pegawai->jenis_kelamin,
+                        'unker' => $decoded->data->pegawai->unker,
+                        'unker_id' => $decoded->data->pegawai->unker_id,
+                        'access_token' => $access_token->access_token
+                    ];
+                    $this->session->set_userdata($data);
+                    return redirect("/");
+                } catch (ExpiredException $e) {
+                    // provided JWT is trying to be used after "exp" claim.
+                    $this->output->set_header('Content-Type: application/json; charset=utf-8');
+                    echo json_encode($e);
+                } 
             },
             function (RequestException $exception) {
                 $this->output->set_header('Content-Type: application/json; charset=utf-8');
                 $err = $exception->getResponse()->getBody()->getContents();
-                echo  $err;
+                echo $err;
             }
         );
         
         // Tunggu semua promise selesai (jika dalam konteks multi-request)
         Utils::settle([$promise])->wait();
     }
-
 
     public function logout()
     {

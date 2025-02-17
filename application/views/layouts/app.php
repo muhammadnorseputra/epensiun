@@ -1,9 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <noscript>
-        <meta http-equiv="refresh" runat="server" id="mtaJSCheck" content="0;<?= base_url("auth/logout") ?>" />
-    </noscript>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -15,28 +12,28 @@
     <link
       rel="shortcut icon"
       type="image/png"
-      href="<?= base_url('template/') ?>assets/images/approve.png"
+      href="<?= base_url('template/assets/images/approve.png') ?>"
     />
 
     <!-- Libs CSS -->
     <link
-      href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css"
+      href="<?= base_url('template/assets/libs/bootstrap-icons/font/bootstrap-icons.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/dropzone/dist/dropzone.css"
+      href="<?= base_url('template/assets/libs/dropzone/dist/dropzone.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/@mdi/font/css/materialdesignicons.min.css"
+      href="<?= base_url('template/assets/libs/@mdi/font/css/materialdesignicons.min.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.css"
+      href="<?= base_url('template/assets/libs/jquery-toast/iziToast.min.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/jquery-confirm/jquery-confirm.min.css"
+      href="<?= base_url('template/assets/libs/jquery-confirm/jquery-confirm.min.css') ?>"
       rel="stylesheet"
     />
     <link
@@ -44,33 +41,33 @@
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/prismjs/themes/prism-okaidia.min.css"
+      href="<?= base_url('template/assets/libs/prismjs/themes/prism-okaidia.min.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"
+      href="<?= base_url('template/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') ?>"
       rel="stylesheet"
     />
     <link
-      href="<?= base_url('template/') ?>assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"
+      href="<?= base_url('template/assets/libs/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>"
       rel="stylesheet"
     />
     <?php if ($this->uri->segment(2) === 'inbox' || $this->uri->segment(2) ===
     'verifikasi' || $this->uri->segment(2) === 'arsip') : ?>
     <link
-      href="<?= base_url('template/') ?>assets/libs/DataTables/datatables.min.css"
+      href="<?= base_url('template/assets/libs/DataTables/datatables.min.css') ?>"
       rel="stylesheet"
     />
     <?php endif; ?> <?php if ($this->uri->segment(3) === 'cekusul') : ?>
     <link
-      href="<?= base_url('template/') ?>assets/css/timeline.css"
+      href="<?= base_url('template/assets/css/timeline.css') ?>"
       rel="stylesheet"
     />
     <?php endif; ?>
     <!-- Theme CSS -->
     <link
       rel="stylesheet"
-      href="<?= base_url('template/') ?>assets/css/theme.min.css"
+      href="<?= base_url('template/assets/css/theme.min.css') ?>"
     />
     <title><?= $title ?></title>
   </head>
@@ -90,7 +87,7 @@
     <div id="db-wrapper" class="<?= get_cookie('navbarStatus'); ?>">
       <!-- navbar vertical -->
       <!-- Sidebar -->
-      <nav class="navbar-vertical navbar nav-dashboard">
+      <nav aria-label="navbar" class="navbar-vertical navbar nav-dashboard">
         <div class="nav-scroller">
           <!-- Brand logo -->
           <a class="navbar-brand text-white fw-bold" href="<?= base_url() ?>">
@@ -305,7 +302,7 @@
       <div id="page-content">
         <div class="header @@classList">
           <!-- navbar -->
-          <nav class="navbar-classic navbar navbar-expand-lg">
+          <nav aria-label="navbar" class="navbar-classic navbar navbar-expand-lg">
             <a id="nav-toggle" href="#"
               ><i data-feather="menu" class="nav-icon me-2 icon-xs"></i
             ></a>
@@ -383,7 +380,7 @@
                   <div class="avatar avatar-md avatar-indicators avatar-online">
                     <img
                       alt="avatar"
-                      src="<?= $this->session->userdata('picture') ?? base_url('template/assets/images/avatar/user-empty.png');; ?>"
+                      src="<?= $this->session->userdata('picture') ?? base_url('template/assets/images/avatar/user-empty.png'); ?>"
                       class="rounded-circle"
                     />
                   </div>

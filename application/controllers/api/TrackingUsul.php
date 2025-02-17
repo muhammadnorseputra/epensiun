@@ -57,8 +57,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           'unker' => $row->nama_unit_kerja,
           'tgl_lahir' => $row->tgl_lahir,
           'tgl_meninggal' => $this->cekValue($row->tgl_meninggal),
-          'jenis_pensiun' => $row->nama_jenis, 
-          'keterangan_pensiun' => $row->keterangan_jenis, 
+          'jenis_pensiun' => $row->nama_jenis,
+          'keterangan_pensiun' => $row->keterangan_jenis,
           'sk' => [
             'nomor_sk' => $row->nomor_sk,
             'tanggal_sk' => $row->tanggal_sk,
@@ -113,5 +113,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     );
   }
 }
-
-?>

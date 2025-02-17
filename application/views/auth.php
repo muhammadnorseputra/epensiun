@@ -106,13 +106,9 @@
     <script src="<?= base_url('template/') ?>assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <script
-        src="<?= base_url('template/') ?>assets/libs/jquery-form-validator/form-validator/jquery.form-validator.min.js">
-    </script>
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
-    <script src="<?= base_url('template/') ?>assets/js/auth.js"></script>
 </body>
 
 </html>

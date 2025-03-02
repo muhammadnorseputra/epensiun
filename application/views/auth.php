@@ -69,7 +69,7 @@
                     <div class="card-body p-6">
                         <div class="mb-4 text-center">
                             <a href="<?= base_url() ?>">
-                                <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
+                                <h2 class="font-bold"><span class="text-success text-xl">SIMPUN</span></h2>
                                 <h4>Sistem Informasi Pengusulan Pensiun</h4>
                             </a>
                             <p class="mb-4">Layanan SILKa Integrasi, silahkan masuk menggukana akun sso anda.</p>
@@ -84,16 +84,10 @@
                         <div>
 
                             <div class="d-grid mt-3">
-                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-success">
-                                    Login with SSO</a>
+                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-success">
+                                    Login with SSO <i class="bi bi-fingerprint"></i></a>
                             </div>
 
-                            <div class="d-md-flex justify-content-between mt-4">
-                                <div>
-                                    <a href="<?= base_url('auth/forget') ?>" class="text-inherit fs-5">Forgot your
-                                        password?</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

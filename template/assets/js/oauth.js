@@ -70,26 +70,16 @@ class OAuthPopup {
 	}
 
 	async exchangeCodeForToken(code) {
-		const tokenParams = new URLSearchParams({
-			grant_type: "authorization_code",
-			client_id: this.clientId,
-			redirect_uri: this.redirectUri,
-			code: code,
+		const response = await fetch(`${this.tokenUrl}`, {
+			method: "POST",
+			headers: {
+				apiKey: "0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				code: code,
+			}),
 		});
-
-		const response = await fetch(
-			`${this.tokenUrl}?format=jsonp&callback=result`,
-			{
-				method: "POST",
-				headers: {
-					apiKey: "0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					code: code,
-				}),
-			}
-		);
 
 		if (!response.ok) {
 			throw new Error("Token exchange failed");

@@ -147,7 +147,7 @@ class Oauth extends CI_Controller
                     // provided JWT is trying to be used after "exp" claim.
                     $this->output->set_header('Content-Type: application/json; charset=utf-8');
                     echo json_encode($e);
-                } 
+                }
             },
             function (RequestException $exception) {
                 $this->output->set_header('Content-Type: application/json; charset=utf-8');

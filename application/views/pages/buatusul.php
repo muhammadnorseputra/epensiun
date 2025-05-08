@@ -53,7 +53,7 @@
     ?>
     <div class="row">
         <div class="col-md-12">
-             <?php if (@$detail->is_status === 'CETAK_USUL') : ?>
+            <?php if (@$detail->is_status === 'CETAK_USUL') : ?>
                 <!-- Primary alert -->
                 <div class="alert alert-warning d-flex align-items-center mb-8" role="alert">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle-fill me-2" viewBox="0 0 16 16">
@@ -163,7 +163,7 @@
                                 </div>
                             </div>
                             <p class="help-block-jp"></p>
-                            
+
                             <div class="form-group mb-4">
                                 <label class="form-label fw-bold" for="nomor_usul">Nomor Usul <span class="text-danger ms-1">*</span></label>
                                 <input type="text" id="nomor_usul" name="nomor_usul" class="form-control form-control-lg" minlength="6" maxlength="100" value="<?= @$detail->nomor ?>" <?= $disabled ?> required="">
@@ -231,7 +231,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="avatar avatar-xl mb-8">
-                                            <img src="<?= @$usul->url_photo ?>" alt="<?= @$usul->nama ?>" class="rounded-circle" />
+                                            <img src="<?= base_url('template/assets/images/avatar/user-pns.png') ?>" alt="<?= @$usul->nama ?>" class="rounded-circle" />
                                         </div>
                                         <ul class="row row-cols-1 row-cols-sm-2 list-unstyled px-3">
                                             <li class="pb-3 ps-0 mb-3 border-bottom">
@@ -254,22 +254,22 @@
                                             <p class="text-mutted small">Pastikan link dapat diakses oleh publik</p>
                                             <textarea class="form-control" id="textarea-input" data-parsley-pattern="/^(https?:\/\/)/" data-parsley-pattern-message="Url tidak valid, harus mengandung http:// atau https://" name="eviden" rows="5" maxlength="1000" data-parsley-validate="url" <?= $disabled ?> required><?= @$usul->url_berkas ?></textarea>
                                         </div>
-                                        <?php if($cek_blue_item->status) { ?>
+                                        <?php if ($cek_blue_item->status) { ?>
                                             <div class="form-label fw-bold">2. KELENGKAPAN BERKAS</div>
                                             <div class="alert alert-success" role="alert">
-                                            <p>Bagi PNS yang sudah membuat link berkas usulan (sebagaimana diatas) agar segera melakukan updating data dan mengunggah dokumen berikut ke aplikasi Silka</p>
-                                            <hr>
-                                            <ol class="list-unstyled d-flex flex-column gap-3">
-                                                <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->no_ktp !== null || $cek_blue_item->data->no_npwp !== null  ? '<i class="bi bi-check-circle-fill text-success"></i>': '<i class="bi bi-x-circle-fill text-danger"></i>'?> NIK dan NPWP pada info personal profil PNS </li>
-                                                <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_rekening ? '<i class="bi bi-check-circle-fill text-success"></i>': '<i class="bi bi-x-circle-fill text-danger"></i>'?> Scan Buku Tabungan </li>
-                                                <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_ktp ? '<i class="bi bi-check-circle-fill text-success"></i>': '<i class="bi bi-x-circle-fill text-danger"></i>'?> Scan Kartu Tanda Penduduk (KTP) Asli</li>
-                                                <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_npwp ? '<i class="bi bi-check-circle-fill text-success"></i>': '<i class="bi bi-x-circle-fill text-danger"></i>'?> Scan Nomor Pegawai Wajib Pajak (NPWP) Asli.</li>
-                                                <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_suket_anak ? '<i class="bi bi-check-circle-fill text-success"></i>': '<i class="bi bi-x-circle-fill text-danger"></i>'?> Surat Keterangan Sekolah (bila ada anak yang masih sekolah) di unggah pada dokumen elektronik profil PNS</li>
-                                            </ol>
+                                                <p>Bagi PNS yang sudah membuat link berkas usulan (sebagaimana diatas) agar segera melakukan updating data dan mengunggah dokumen berikut ke aplikasi Silka</p>
+                                                <hr>
+                                                <ol class="list-unstyled d-flex flex-column gap-3">
+                                                    <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->no_ktp !== null || $cek_blue_item->data->no_npwp !== null  ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>' ?> NIK dan NPWP pada info personal profil PNS </li>
+                                                    <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_rekening ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>' ?> Scan Buku Tabungan </li>
+                                                    <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_ktp ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>' ?> Scan Kartu Tanda Penduduk (KTP) Asli</li>
+                                                    <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_npwp ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>' ?> Scan Nomor Pegawai Wajib Pajak (NPWP) Asli.</li>
+                                                    <li class="d-inline-flex justify-content-lg-start gap-3"><?= $cek_blue_item->data->file_suket_anak ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>' ?> Surat Keterangan Sekolah (bila ada anak yang masih sekolah) di unggah pada dokumen elektronik profil PNS</li>
+                                                </ol>
                                             </div>
                                         <?php } ?>
                                         <a href="<?= base_url('/app/pensiun/buatusul?step=2&nip=' . @$usul->nip . '&token=' . @$detail->token) ?>" class="btn btn-secondary btn-lg"><i class="bi bi-arrow-bar-left"></i> Kembali</a>
-                                        <?php  
+                                        <?php
                                         $allowed = [
                                             'no_ktp' => $cek_blue_item->data->no_ktp !== null ? $cek_blue_item->data->no_ktp : null,
                                             'no_npwp' => $cek_blue_item->data->no_npwp !== null ? $cek_blue_item->data->no_npwp : null,
@@ -281,9 +281,9 @@
                                         // var_dump($allowed);die();
                                         if (!in_array($cek_blue_item->data, $allowed)) {
                                         ?>
-                                            <?php if(@$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'SKPD'): ?>
+                                            <?php if (@$detail->is_status === 'CETAK_USUL' || @$detail->is_status === 'SKPD'): ?>
                                                 <button type="button" onclick="CetakUsul('<?= @$detail->token ?>')" class="btn btn-dark btn-lg float-end"><i class="bi bi-printer me-2"></i> Cetak Usulan</button>
-                                            <?php elseif(@$detail->is_status === 'KIRIM_USUL' || @$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL'): ?>
+                                            <?php elseif (@$detail->is_status === 'KIRIM_USUL' || @$detail->is_status === 'SELESAI_TMS' || @$detail->is_status === 'SELESAI_BTL'): ?>
                                                 <button type="submit" class="btn btn-success btn-lg float-end" <?= $disabled ?>><i class="bi bi-send-check-fill me-2"></i> Kirim Usulan</button>
                                             <?php endif; ?>
                                         <?php } ?>

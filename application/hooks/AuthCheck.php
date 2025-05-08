@@ -1,12 +1,14 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class AuthCheck {
+class AuthCheck
+{
 
-    public function check_login() {
+    public function check_login()
+    {
         $ci = get_instance();
         // Daftar controller yang tidak perlu dicek session
-        $allowed_controllers = array('oauth', 'auth', 'welcome', 'trackingusul');
+        $allowed_controllers = array('oauth', 'auth', 'welcome', 'trackingUsul');
 
         // Ambil nama controller yang sedang diakses
         $controller = $ci->router->fetch_class();

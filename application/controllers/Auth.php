@@ -1,12 +1,13 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use \Firebase\JWT\JWT;
 use \Firebase\JWT\Key;
 use \Firebase\JWT\SignatureInvalidException;
 use \Firebase\JWT\BeforeValidException;
 
-class Auth extends CI_Controller {
+class Auth extends CI_Controller
+{
 
 	/**
 	 * Index Page for this controller.
@@ -23,40 +24,49 @@ class Auth extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 **/
-	
-	 public function __construct()
-    {
-        parent::__construct();
-    }
+
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
+	public function login()
+	{
+		if ($this->session->userdata('nip') != ''):
+			redirect(base_url('app/dashboard'));
+			return false;
+		endif;
+		$this->load->view('/authv0');
+	}
 
 	public function index()
 	{
-		if($this->session->userdata('nip') != ''):
-            redirect(base_url('app/dashboard'));
-            return false;
-        endif;
+		if ($this->session->userdata('nip') != ''):
+			redirect(base_url('app/dashboard'));
+			return false;
+		endif;
 		$this->load->view('/auth');
 	}
-	
+
 	public function cek_akun()
 	{
 		$true_token = $this->session->csrf_token;
-        if($this->input->post('token') != $true_token):
-            $this->output->set_status_header('403');
-            $this->session->unset_userdata('csrf_token');
+		if ($this->input->post('token') != $true_token):
+			$this->output->set_status_header('403');
+			$this->session->unset_userdata('csrf_token');
 			echo json_encode([
 				'status' => false,
 				'message' => 'This request rejected'
 			]);
-            return false;
-        endif;
+			return false;
+		endif;
 
-		if(!empty($this->session->userdata('nip'))):
-            return redirect(base_url('app/dashboard'));
-        endif;
+		if (!empty($this->session->userdata('nip'))):
+			return redirect(base_url('app/dashboard'));
+		endif;
 
 		$username = trim($this->security->xss_clean($this->input->post('username', true)));
-        $password = trim($this->security->xss_clean($this->input->post('password', true)));
+		$password = trim($this->security->xss_clean($this->input->post('password', true)));
 
 		$post = [
 			'username' => $username,
@@ -65,8 +75,8 @@ class Auth extends CI_Controller {
 		];
 
 		$client = new \GuzzleHttp\Client([
-			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
-    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+			'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+			'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
 		]);
 
 		$options = [
@@ -87,7 +97,7 @@ class Auth extends CI_Controller {
 			JWT::$leeway = 60; // $leeway in seconds
 			$decoded = JWT::decode($access_token, new Key("bkpsdm@6811", 'HS256'));
 
-			if($raw->status) {
+			if ($raw->status) {
 				echo json_encode([
 					'status' => true,
 					'message' => $raw->message,
@@ -111,9 +121,8 @@ class Auth extends CI_Controller {
 				$this->session->set_userdata($data);
 				return false;
 			}
-			
-			echo $result;
 
+			echo $result;
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->output->set_header('Content-Type: application/json; charset=utf-8');
 			// Menangkap error jika ada
@@ -123,7 +132,7 @@ class Auth extends CI_Controller {
 
 		// $req = postApi('http://silka.balangankab.go.id/services/v2/auth', $post);
 		// $res = json_decode($req);
-		
+
 		// $access_token = $res->data->token;
 
 		// JWT::$leeway = 60; // $leeway in seconds
@@ -163,10 +172,10 @@ class Auth extends CI_Controller {
 	}
 
 	public function logout()
-    {
-        $data = array('nip', 'username','csrf_token');
-        $this->session->unset_userdata($data);
-        $this->session->sess_destroy();
-        redirect(base_url('/'));
-    }
+	{
+		$data = array('nip', 'username', 'csrf_token');
+		$this->session->unset_userdata($data);
+		$this->session->sess_destroy();
+		redirect(base_url('/'));
+	}
 }

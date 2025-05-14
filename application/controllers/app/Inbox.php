@@ -141,6 +141,7 @@ class Inbox extends CI_Controller
             'JENIS_PENSIUN' => $data->jenis_keterangan . " (" . $data->jenis_nama . ")",
             'USIA_PENSIUN' => $data->usia_pensiun,
             'TGL_CETAK' => date_indo(date('Y-m-d')),
+            'NOMOR_USUL' => $data->nomor,
             // 'TMT_PENSIUN' => mediumdate_indo($data->tmt_pensiun)
         ]);
 

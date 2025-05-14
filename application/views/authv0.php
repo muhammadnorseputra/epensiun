@@ -18,32 +18,35 @@
 </head>
 
 <body>
-<noscript>
-    <style>
-        #main-login {
-            display: none;
-        }
-        .disabled-js {
-            position: absolute;
-            width: 100%;
-            height: 100vh;
-            left:0;
-            top:0;
-            z-index: 9999;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        h1{ /* even if this h1 is inside head tags it will be first hidden, so we have to display it again after all body elements are hidden*/
-            display: block;
-            color: red;
-        }
-    </style>
-    <div class="disabled-js">
-        <h1>JavaScript is not enabled, please check your browser settings.</h1>
-    </div>
-</noscript>
+    <noscript>
+        <style>
+            #main-login {
+                display: none;
+            }
+
+            .disabled-js {
+                position: absolute;
+                width: 100%;
+                height: 100vh;
+                left: 0;
+                top: 0;
+                z-index: 9999;
+                background: #fff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            h1 {
+                /* even if this h1 is inside head tags it will be first hidden, so we have to display it again after all body elements are hidden*/
+                display: block;
+                color: red;
+            }
+        </style>
+        <div class="disabled-js">
+            <h1>JavaScript is not enabled, please check your browser settings.</h1>
+        </div>
+    </noscript>
     <!-- container -->
     <div id="main-login" class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center g-0
@@ -177,18 +180,22 @@
                                 <button type="submit" class="btn btn-lg btn-primary"><i class="bi bi-unlock-fill"></i>
                                     Masuk</button>
                             </div>
-
-                            <div class="d-grid mt-3">
-                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-success">
-                                    Login with SSO</a>
-                            </div>
-
                             <div class="d-md-flex justify-content-between mt-4">
                                 <div>
-                                    <a href="<?= base_url('auth/forget') ?>" class="text-inherit fs-5">Forgot your
+                                    <a href="https://silka-sso.vercel.app/lupa-password" class="text-inherit fs-5">Forgot your
                                         password?</a>
                                 </div>
                             </div>
+                            <div style="display: flex; align-items: center; margin: 20px 0;">
+                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                                <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
+                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                            </div>
+                            <div class="d-grid mt-3">
+                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-success">
+                                    Login with SSO <i class="bi bi-fingerprint"></i></a>
+                            </div>
+
                         </div>
                         <?= form_close() ?>
                     </div>

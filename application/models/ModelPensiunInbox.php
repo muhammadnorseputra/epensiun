@@ -8,11 +8,11 @@ class ModelPensiunInbox extends CI_Model
     //set column field database for datatable orderable
     protected $column_order = array(null);
     //set column field database for datatable searchable 
-    protected $column_search = array('u.nip','u.nama');
+    protected $column_search = array('u.nip', 'u.nama');
     // default order 
     protected $order = array('up.id' => 'desc');
     // default select 
-    protected $select_table = array('u.*','up.fid_jenis_usul','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
+    protected $select_table = array('u.*', 'up.fid_jenis_usul', 'up.token AS token_pengantar', 'up.nomor', 'up.tanggal', 'uj.nama AS nama_jenis', 'uj.keterangan');
 
     private function _datatables()
     {
@@ -21,7 +21,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('up.is_status', ['SKPD','CETAK_USUL','KIRIM_USUL','BKPSDM','TTD_SK','SELESAI_TMS','SELESAI_BTL']);
+        $this->db->where_in('up.is_status', ['SKPD', 'CETAK_USUL', 'KIRIM_USUL', 'BKPSDM', 'TTD_SK', 'SELESAI_TMS', 'SELESAI_BTL']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         // $this->db->where('up.created_by', $this->session->userdata('nip'));
         $i = 0;
@@ -76,7 +76,7 @@ class ModelPensiunInbox extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('up.is_status', ['SKPD','BKPSDM','TTD_SK']);
+        $this->db->where_in('up.is_status', ['SKPD', 'BKPSDM', 'TTD_SK']);
         $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         // $this->db->where('up.created_by', $this->session->userdata('nip'));
         return $this->db->count_all_results();
@@ -89,15 +89,16 @@ class ModelPensiunInbox extends CI_Model
         $this->db->from('usul AS u');
         $this->db->join('usul_pengantar AS up', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['SELESAI','SELESAI_ARSIP']);
+        $this->db->where_in('u.is_status', ['SELESAI', 'SELESAI_ARSIP']);
         $this->db->where('u.created_by_unorid', $this->session->userdata('unker_id'));
         $this->db->order_by('u.id', 'desc');
         $this->db->limit(4);
         return $this->db->get();
     }
 
-    public function getUsulanPensiun($token) {
-        $this->db->select('u.*,uj.nama as jenis_nama,uj.keterangan as jenis_keterangan');
+    public function getUsulanPensiun($token)
+    {
+        $this->db->select('u.*,uj.nama as jenis_nama,uj.keterangan as jenis_keterangan, up.nomor');
         $this->db->from('usul as u');
         $this->db->join('usul_pengantar as up', 'u.token=up.token');
         $this->db->join('usul_jenis as uj', 'up.fid_jenis_usul=uj.id');
@@ -110,7 +111,8 @@ class ModelPensiunInbox extends CI_Model
         return $this->db->get_where($tbl, $whr);
     }
 
-    public function update($tbl, $data, $whr) {
+    public function update($tbl, $data, $whr)
+    {
         $this->db->where($whr);
         return $this->db->update($tbl, $data);
     }
@@ -120,14 +122,14 @@ class ModelPensiunInbox extends CI_Model
         $this->db->select('catatan');
         $this->db->from('usul');
         $this->db->where($whr);
-        $this->db->where_in('is_status', ['SELESAI_BTL','SELESAI_TMS']);
+        $this->db->where_in('is_status', ['SELESAI_BTL', 'SELESAI_TMS']);
         return $this->db->get();
     }
 
-    public function hapus($tbl, $whr) {
+    public function hapus($tbl, $whr)
+    {
         $this->db->where($whr);
         return $this->db->delete($tbl);
-        
     }
 }
 

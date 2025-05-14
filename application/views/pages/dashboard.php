@@ -114,7 +114,7 @@ $stat = json_decode($statistik);
                     <div>
                         <h1 class="fw-bold"><?= $jumlah_selesai ?>/<?= $stat->proyeksi_pensiun ?? 0 ?></h1>
                         <p class="mb-0"><span
-                                class="text-success me-2"><?= calculatePercentage($jumlah_selesai, @$stat->proyeksi_pensiun) ?>%</span>Completed
+                                class="text-success me-2"><?= calculatePercentage($jumlah_selesai, @$stat->proyeksi_pensiun) ?></span>Completed
                         </p>
                     </div>
                 </div>
@@ -221,7 +221,7 @@ $stat = json_decode($statistik);
                                                     <div class="d-flex align-items-start">
                                                         <div>
                                                             <img src="<?= base_url("template/assets/images/avatar/avatar.jpg") ?>" alt="<?= $r->nama ?>"
-                                                                class="avatar-md avatar rounded-circle">
+                                                                class="avatar-lg avatar rounded-circle">
                                                         </div>
                                                         <div class="ms-3 lh-1">
                                                             <h5 class="mb-1 text-dark"><?= $r->nama ?></h5>

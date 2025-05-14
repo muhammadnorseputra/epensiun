@@ -232,7 +232,7 @@ $stat = json_decode($statistik);
                                                 </td>
                                                 <td class="align-middle"><span class="fw-bold"><?= $r->nomor_sk ?> </span><br>
                                                     <?= date_indo($r->tanggal_sk) ?></td>
-                                                <td class="align-middle"><?= $arsip_date ?></td>
+                                                <td class="align-middle">Oleh: <?= $r->diterima_oleh; ?><br><?= $arsip_date ?></td>
                                             </tr>
                                         <?php
                                         endforeach;

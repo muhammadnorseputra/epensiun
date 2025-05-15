@@ -85,12 +85,19 @@
                         ?>
 
                         <div>
-
                             <div class="d-grid mt-3">
                                 <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">
                                     Login with SSO <i class="bi bi-fingerprint"></i></a>
                             </div>
-
+                            <div style="display: flex; align-items: center; margin: 20px 0;">
+                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                                <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
+                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                            </div>
+                            <div class="d-grid mt-3">
+                                <a href="https://drive.google.com/file/d/1gvj4zjsTGtNgu2itWgnBTufuyempmRRX/view?usp=sharing" class="btn btn-lg btn-outline-success" target="_blank">
+                                    Buku Manual Simpun <i class="bi bi-book-half"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>

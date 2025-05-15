@@ -73,7 +73,7 @@
                         <div class="mb-4 text-center">
                             <a href="<?= base_url() ?>">
                                 <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
-                                <h4>Sistem Informasi Pengusulan Pensiun</h4>
+                                <h4>Sistem Informasi Pengelolaan Usulan Pensiun</h4>
                             </a>
                             <p class="mb-4">Layanan SILKa Integrasi, silahkan masuk menggukana akun sso anda.</p>
                         </div>

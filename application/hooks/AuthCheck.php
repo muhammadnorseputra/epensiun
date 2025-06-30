@@ -8,7 +8,7 @@ class AuthCheck
     {
         $ci = get_instance();
         // Daftar controller yang tidak perlu dicek session
-        $allowed_controllers = array('oauth', 'auth', 'welcome', 'trackingUsul');
+        $allowed_controllers = array('oauth', 'auth', 'welcome', 'trackingUsul', 'cekstatus');
 
         // Ambil nama controller yang sedang diakses
         $controller = $ci->router->fetch_class();

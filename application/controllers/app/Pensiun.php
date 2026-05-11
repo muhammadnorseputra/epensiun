@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Ramsey\Uuid\Uuid;
+
 class Pensiun extends CI_Controller
 {
 
@@ -22,7 +24,6 @@ class Pensiun extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		cek_session();
 		$this->load->model(['ModelPensiun' => 'pensiun']);
 	}
 
@@ -87,18 +88,61 @@ class Pensiun extends CI_Controller
 
 	public function carinip()
 	{
+		$client = new \GuzzleHttp\Client([
+			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+		]);
+
 		$nip = $this->input->post('nip');
-		$req = postApi('http://silka.balangankab.go.id/services/pensiun/profile', ['nip' => $nip, 'session' => $this->session->userdata('nip')]);
-		if($req) {
-			$response =  $req;
-		} else {
-			$response = json_encode([
-				'status' => false,
-				'httpcode' => 500,
-				'message' => 'Gagal Koneksi Ke Server'
-			]);
+		$endpoint = "pns/".$nip."/pensiun";
+		
+		$headers = [
+			'headers' => [
+				'apiKey' => $this->config->item('X-API-KEY'),
+				'Authorization' => 'Bearer '.$this->session->userdata('access_token'),
+				'Accept' => 'application/json',
+				'Content-Type' => 'multipart/form-data'
+			]
+		];
+
+		try {
+			$result = $client->request('GET', $endpoint, $headers);
+			echo $result->getBody();
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->output->set_header('Content-Type: application/json; charset=utf-8');
+			// Menangkap error jika ada
+			$err = $e->getResponse()->getBody()->getContents();
+			echo $err;
 		}
-		echo $response;
+	}
+
+	protected function CekBlueItem($nip)
+	{
+		$client = new \GuzzleHttp\Client([
+			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+		]);
+
+		$endpoint = "pns/".$nip."/pensiun/cek-file";
+		
+		$headers = [
+			'headers' => [
+				'apiKey' => $this->config->item('X-API-KEY'),
+				'Authorization' => 'Bearer '.$this->session->userdata('access_token'),
+				'Accept' => 'application/json',
+				'Content-Type' => 'application/json'
+			]
+		];
+
+		try {
+			$result = $client->request('GET', $endpoint, $headers);
+			return json_decode($result->getBody());
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
+			$this->output->set_header('Content-Type: application/json; charset=utf-8');
+			// Menangkap error jika ada
+			$err = $e->getResponse()->getBody()->getContents();
+			return $err;
+		}
 	}
 
 	public function buatusul()
@@ -115,6 +159,7 @@ class Pensiun extends CI_Controller
 			'jenis_pensiun' => $this->pensiun->getJenisPensiun(),
 			'detail' => @$detail,
 			'usul' => @$usul,
+			'cek_blue_item' => @$this->CekBlueItem($usul->nip)
 		];
 
 		$this->load->view('layouts/app', $data);
@@ -152,7 +197,7 @@ class Pensiun extends CI_Controller
 			$isToken = $token;
 		} else {
 			$data = [
-				'token' => generateRandomString(18),
+				'token' => Uuid::uuid7()->toString(),
 				'fid_jenis_usul' => $post['jenis_pensiun'],
 				'nomor' => $post['nomor_usul'],
 				'tanggal' => formatToSQL($post['tgl_usul']),

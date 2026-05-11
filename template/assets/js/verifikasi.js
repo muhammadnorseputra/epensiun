@@ -87,7 +87,17 @@ $modalArchive.on("hidden.bs.modal", (event) => {
 	$formArchive[0].reset();
 });
 
-function loadEffect(isLoading = true) {
+function loadEffect(isLoading = true, type = 0) {
+	if (type === 1) {
+		return `<div class="d-flex justify-content-start gap-5">
+				<div class="w-100">
+					<span class="placeholder mb-2 w-100"></span>
+					<span class="placeholder mb-2 w-100"></span>
+					<span class="placeholder mb-2 w-100"></span>
+					<span class="placeholder mb-2 w-100"></span>
+				</div>
+			</div>`;
+	}
 	return `<div class="d-flex justify-content-start gap-5">
 				<div class="placeholder avatar avatar-lg col-12 rounded-circle"></div>
 				<div class="w-100">
@@ -96,6 +106,29 @@ function loadEffect(isLoading = true) {
 					<span class="placeholder mb-4" style="width: 35%;"></span>
 				</div>
 			</div>`;
+}
+
+function loadEveden(nip, url_berkas) {
+	const container = $("#loadEviden");
+	container.html(loadEffect(true, 1));
+	$.getJSON(`${_uri}/app/verifikasi/geteviden`, { nip }, (res) => {
+		let suket_anak_sekolah = res.data.file_suket_anak
+			? `<a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_suket_anak}">${res.data.file_suket_anak}</a>`
+			: "-";
+		container.html(`
+			<ul class="list-group mb-4">
+				<li class="list-group-item fw-bold">1. BERKAS USULAN</li>
+				<li class="list-group-item"><a target="_blank" href="${url_berkas}">${url_berkas}</a></li>
+			</ul>
+			<ul class="list-group">
+				<li class="list-group-item fw-bold">2. BERKAS UPDATE & UPLOAD SILKa</li>
+				<li class="list-group-item">KTP : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_ktp}">${res.data.file_ktp}</a> (${res.data.no_ktp})</li>
+				<li class="list-group-item">NPWP : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_npwp}">${res.data.file_npwp}</a> (${res.data.no_npwp})</li>
+				<li class="list-group-item">BUKU REKENING : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_rekening}">${res.data.file_rekening}</a></li>
+				<li class="list-group-item">SUKET ANAK SEKOLAH : ${suket_anak_sekolah}</li>
+			</ul>
+		`);
+	});
 }
 
 function changeStatus($val) {
@@ -235,6 +268,7 @@ function UbahStatus(token) {
 		{ token: token },
 		function (res) {
 			if (res.status === true) {
+				loadEveden(res.data.nip, res.data.url_berkas);
 				// Cek is_status
 				changeStatus(res.data.is_status);
 				if (
@@ -348,10 +382,13 @@ function Arsip(token) {
 		{ token: token },
 		function (res) {
 			if (res.status === true) {
-				$formArchive.find("input[name='tanda_penerima']").val(res.data.diterima_oleh);
-				if(res.data.arsip_at !== null) {
-					$formArchive.find("input[name='tanggal_archive']").val(formatDateTimeSQLToIndo(res.data.arsip_at));
-
+				$formArchive
+					.find("input[name='tanda_penerima']")
+					.val(res.data.diterima_oleh);
+				if (res.data.arsip_at !== null) {
+					$formArchive
+						.find("input[name='tanggal_archive']")
+						.val(formatDateTimeSQLToIndo(res.data.arsip_at));
 				}
 				setTimeout(() => {
 					$container.html(`
@@ -483,7 +520,7 @@ $formUbahStatus.on("submit", function (e) {
 	let _ = $(this),
 		$url = _.attr("action"),
 		$data = _.serialize();
-	
+
 	if (_.parsley().isValid()) {
 		$.post(
 			$url,

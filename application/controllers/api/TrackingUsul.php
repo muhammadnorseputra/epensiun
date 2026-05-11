@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-// import library dari RestController
-use chriskacerguis\RestServer\RestController;
+  // import library dari RestController
+  use chriskacerguis\RestServer\RestController;
 
-class Usul extends RestController
-{
+  class TrackingUsul extends RestController
+  {
   public function __construct()
   {
     parent::__construct();
@@ -12,11 +12,10 @@ class Usul extends RestController
   }
 
   private function cekValue($val) {
-    return !empty($val) || $val !== null || $val !== "" ? $val : null;
-}
+      return !empty($val) || $val !== null || $val !== "" ? $val : null;
+  }
 
-  public function detail_post() {
-    $nip = $this->query('nip');
+  public function index_get($nip=null) {
 
     // cek apakah ada params nip pada query atau params request
     if($nip === null) {
@@ -24,7 +23,7 @@ class Usul extends RestController
         [
           'status' => false,
           'status_color' => 'danger',
-          'message' => 'Params NIP wajib ditambahkan !',
+          'message' => 'Required {{nip}} parameter',
           'data' => null
         ],
         RestController::HTTP_BAD_REQUEST
@@ -38,7 +37,7 @@ class Usul extends RestController
         [
           'status' => false,
           'status_color' => 'danger',
-          'message' => 'NIP yang dimasukan tidak valid !',
+          'message' => 'Invalid {{nip}}',
           'data' => null
         ],
         RestController::HTTP_BAD_REQUEST
@@ -58,8 +57,8 @@ class Usul extends RestController
           'unker' => $row->nama_unit_kerja,
           'tgl_lahir' => $row->tgl_lahir,
           'tgl_meninggal' => $this->cekValue($row->tgl_meninggal),
-          'jenis_pensiun' => $row->nama_jenis, 
-          'keterangan_pensiun' => $row->keterangan_jenis, 
+          'jenis_pensiun' => $row->nama_jenis,
+          'keterangan_pensiun' => $row->keterangan_jenis,
           'sk' => [
             'nomor_sk' => $row->nomor_sk,
             'tanggal_sk' => $row->tanggal_sk,
@@ -68,7 +67,8 @@ class Usul extends RestController
             'tgl_lahir_penerima' => $row->tgl_lahir_penerima,
             'hubungan_keluarga' => strtolower($row->hub_keluarga),
             'alamat_pensiun' => $row->alamat_pensiun,
-            'catatan' => $row->catatan
+            'catatan' => $row->catatan,
+            'berkas' => 'http://silka.balangankab.go.id/fileskpensiun/'.$row->nip.'.pdf'
           ],
           'user' => [
             'created_at' => $row->created_at,
@@ -97,7 +97,7 @@ class Usul extends RestController
           'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> ditemukan pada database tetapi masih dalam tahap ("'.$row->is_status.'") pada aplikasi epensiun.',
           'data' => null
         ];
-        return $this->response($response, RestController::HTTP_BAD_REQUEST);
+        return $this->response($response, RestController::HTTP_OK);
       endif;
     }
 
@@ -113,5 +113,3 @@ class Usul extends RestController
     );
   }
 }
-
-?>

@@ -103,7 +103,7 @@ $autoload['helper'] = array('pegawai','html','nominal','url','form','number','tg
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('api');
 
 /*
 | -------------------------------------------------------------------

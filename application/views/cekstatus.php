@@ -14,7 +14,7 @@
     <link href="<?= base_url('template/') ?>assets/libs/jquery-form-validator/form-validator/theme-default.css"
         rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('template/') ?>assets/css/theme.min.css">
-    <title>Sign In | SIMPUN (Sistem Informasi Pengelolaan Usulan Pensiun)</title>
+    <title>CEK STATUS USULAN PENSIUN | SIMPUN (Sistem Informasi Pengelolaan Usulan Pensiun)</title>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
             <img class="position-fixed z-n1 opacity-25"
                 src="https://png.pngtree.com/thumb_back/fw800/background/20240430/pngtree-tree-planting-on-black-soil-in-forest-background-image_15722421.jpg" alt="Background"
                 style="height: 100vh;margin:0;padding:0;top:0;left:0">
-            <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
+            <div class="col-12 col-md-8 col-lg-6 col-xxl-5 py-8 py-xl-0 z-1">
                 <!-- Logo ICON -->
                 <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
                 <!-- Logo IMAGE -->
@@ -71,36 +71,58 @@
                     <!-- Card body -->
                     <div class="card-body p-6">
                         <div class="mb-4 text-center">
-                            <a href="<?= base_url() ?>">
-                                <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
-                                <h4>Sistem Informasi Pengelolaan Usulan Pensiun</h4>
-                            </a>
-                            <p class="mb-4">Layanan SILKa Integrasi, silahkan masuk menggukana akun sso anda.</p>
+                            <h2 class="font-bold"><span class="text-primary text-xl">PENGECEKAN STATUS USULAN</span></h2>
+                            <h4>Masukkan NIP Anda untuk melakukan pengecekan status usulan pensiun melalui sistem kami.</h4>
                         </div>
                         <?php
                         $urlRef = isset($_GET['continue']) ? $_GET['continue'] : '';
                         if (!$this->session->csrf_token) {
                             $this->session->csrf_token = hash('sha1', time());
                         }
+                        if ($this->session->flashdata('success') && $this->session->userdata('usul')) {
+                            $usul = $this->session->userdata('usul');
+                            echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
+                            echo 'Data usulan ditemukan: <strong>' . $usul->nip . '</strong>';
+                            echo '</div>';
+                            echo TrackingUsulan($usul);
+                            echo '<div class="d-grid mt-3"><button type="button" class="btn btn-danger" aria-label="Close" onclick="window.location.reload()">OKE</button></div>';
+                            return false;
+                        }
+                        if ($this->session->flashdata('error')) {
+                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+                            echo $this->session->flashdata('error');
+                            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+                            echo '</div>';
+                        }
                         ?>
 
-                        <div>
-                            <div class="d-grid mt-3">
-                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">
-                                    Login with SSO <i class="bi bi-fingerprint"></i></a>
-                            </div>
-                            <div style="display: flex; align-items: center; margin: 20px 0;">
-                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
-                                <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
-                                <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
-                            </div>
-                            <div class="d-grid mt-3 gap-4">
-                                <a href="<?= base_url("/cekstatus") ?>" class="btn btn-lg btn-outline-info">
-                                    Cek Status Usulan <i class="bi bi-app-indicator"></i></a>
-                                <a href="https://drive.google.com/file/d/1gvj4zjsTGtNgu2itWgnBTufuyempmRRX/view?usp=sharing" class="btn btn-lg btn-outline-success" target="_blank">
-                                    Buku Panduan <i class="bi bi-book-half"></i></a>
-                            </div>
+                        <?= form_open(base_url("cekstatus/docek")); ?>
+                        <!-- Search input -->
+                        <div class="mb-3">
+                            <label for="search-input" class="form-label fw-bold">Nomor Induk Pegawai (NIP)</label>
+                            <input class="form-control form-control-lg" type="search" id="search-input" placeholder="Masukan NIP" name="nip" maxlength="18" minlength="18" value="<?= set_value('nip'); ?>" required>
+                            <small id="emailHelp" class="form-text text-muted">Pastikan NIP yang Anda masukkan benar.</small>
                         </div>
+                        <div class="mb-3 d-flex flex-column">
+                            <label for="captcha" class="form-label fw-bold">Kode Keamanan (CAPTCHA)</label>
+                            <div>
+                                <img src="<?= base_url('cekstatus/getImageCaptcha') ?>" alt="Captcha" class="img-fluid" width="200" height="50">
+                                <button type="button" class="btn btn-link btn-outline-info" onclick="refreshCaptcha()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                            </div>
+                            <input type="text" class="form-control form-control-lg mt-2 w-50" id="captcha" name="captcha"
+                                placeholder="Masukkan kode" required>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-lg btn-outline-primary">
+                                Submit <i class="bi bi-search"></i></button>
+                        </div>
+                        <?= form_close(); ?>
+                        <div style="display: flex; align-items: center; margin: 20px 0;">
+                            <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                            <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
+                            <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
+                        </div>
+                        <a href="<?= base_url('/') ?>" class="btn btn-link"><i class="bi bi-arrow-left"></i> Kembali Login</a>
                     </div>
                 </div>
                 <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>
@@ -115,6 +137,12 @@
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
+    <script>
+        function refreshCaptcha() {
+            const captchaImage = document.querySelector('img[alt="Captcha"]');
+            captchaImage.src = '<?= base_url('cekstatus/getImageCaptcha') ?>?' + new Date().getTime();
+        }
+    </script>
 </body>
 
 </html>

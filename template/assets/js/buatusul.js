@@ -145,7 +145,7 @@ $(function () {
 						<div class="col-12 col-lg-2 text-center">
 							<img src="${res.data.picture}" alt="${
 						res.data.nama
-					}" class="p-3 border bg-light" width="140">
+					}" class="p-2 border bg-light" width="140">
 						</div>
 						<div class="col-12 col-lg-10">
 							<ul class="row row-cols-1 row-cols-sm-2 list-unstyled">
@@ -197,13 +197,13 @@ $(function () {
 				}
 
 				$container.html(
-					`<i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> ${res.message}`
+					`<div class="alert alert-warning"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> ${res.message}</div>`
 				);
 			},
 			"json"
 		).fail(function (err) {
 			$container.html(
-				`<i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> Server sedang bermasalah`
+				`<div class="alert alert-danger"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> Internal Server Errors !</div>`
 			);
 		});
 	}

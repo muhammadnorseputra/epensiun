@@ -12,7 +12,7 @@ class Welcome extends RestController
 
   public function example_post()
   {
-   echo "Called is called by Post method"; 
+   echo "Called is called by Post method";
   }
 }
 

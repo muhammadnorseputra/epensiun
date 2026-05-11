@@ -1,6 +1,8 @@
 <div class="sticky-top pt-3 bg-white">
 <h3><strong>PERSYARATAN USUL MPP (MASA PERSIAPAN PENSIUN)</strong></h3>
 <hr>
+<div class="alert alert-warning">Perhatian : pastikan semua berkas berbentuk file format <code>pdf</code> kecuali photo format gambar jpg. Pastikan terbaca jelas, tidak miring dan dimasukan ke dalam 1 folder</div>
+
 </div>
 <ol class="list-unstyled d-flex flex-column gap-3">
 <li class="d-inline-flex justify-content-lg-start gap-3"><i class="bi bi-check-circle-fill text-success"></i>Surat Pengantar dari Instansi/SKPD</li>

@@ -49,9 +49,9 @@
                     ?>
                   </select>
                   </div>
-                  <div>
-                    &nbsp;
+                  <div class="d-flex gap-3">
                     <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
                   </div>
                 </form>
               </div>

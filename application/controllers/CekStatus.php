@@ -32,7 +32,7 @@ class CekStatus extends CI_Controller
 
 	public function index()
 	{
-		$this->load->view('/cekstatus');
+		$this->load->view('cekstatus');
 	}
 
 	public function getImageCaptcha()

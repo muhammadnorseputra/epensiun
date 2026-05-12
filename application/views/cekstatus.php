@@ -7,13 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="<?= base_url('template/') ?>assets/images/approve.png">
+    <link rel="shortcut icon" type="image/png" href="<?= base_url('template/assets/images/approve.png') ?>">
 
     <!-- Theme CSS -->
-    <link href="<?= base_url('template/') ?>assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="<?= base_url('template/') ?>assets/libs/jquery-form-validator/form-validator/theme-default.css"
+    <link href="<?= base_url('template/assets/libs/bootstrap-icons/font/bootstrap-icons.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/theme-default.css') ?>"
         rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('template/') ?>assets/css/theme.min.css">
+    <link rel="stylesheet" href="<?= base_url('template/assets/css/theme.min.css') ?>">
     <title>CEK STATUS USULAN PENSIUN | SIMPUN (Sistem Informasi Pengelolaan Usulan Pensiun)</title>
 </head>
 
@@ -59,8 +59,8 @@
                 <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
                 <!-- Logo IMAGE -->
                 <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/640px-Lambang_Kabupaten_Balangan.png"
-                        alt="Logo Kab. Balangan" width="50">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/500px-Lambang_Kabupaten_Balangan.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
+                        alt="Logo Kab. Balangan" width="80">
                     <!-- <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan"
                         width="150">
                     <img src="https://www.iosys.co.uk/images/ssl-security-encryption.png" alt="Logo Kab. Balangan"

@@ -197,7 +197,7 @@ class Oauth extends CI_Controller
             return show_error($revoke->message ?? 'Sesi Anda Pada Aplikasi Telah Berakhir', 400, 'Logout');
         }
 
-        $data = array('nip', 'username', 'csrf_token', 'access_token', 'level');
+        $data = array('username', 'csrf_token', 'access_token', 'level');
         $this->session->unset_userdata($data);
         // $this->session->sess_destroy();
 

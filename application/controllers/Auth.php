@@ -32,7 +32,7 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
-		if ($this->session->userdata('nip') != ''):
+		if ($this->session->userdata('access_token') != ''):
 			redirect(base_url('app/dashboard'));
 			return false;
 		endif;
@@ -41,7 +41,7 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		if ($this->session->userdata('nip') != ''):
+		if ($this->session->userdata('access_token') != ''):
 			redirect(base_url('app/dashboard'));
 			return false;
 		endif;
@@ -61,7 +61,7 @@ class Auth extends CI_Controller
 			return false;
 		endif;
 
-		if (!empty($this->session->userdata('nip'))):
+		if (!empty($this->session->userdata('access_token'))):
 			return redirect(base_url('app/dashboard'));
 		endif;
 
@@ -173,7 +173,7 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$data = array('nip', 'username', 'csrf_token');
+		$data = array('access_token', 'username', 'csrf_token');
 		$this->session->unset_userdata($data);
 		$this->session->sess_destroy();
 		redirect(base_url('/'));

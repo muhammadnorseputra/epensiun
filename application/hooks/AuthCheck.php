@@ -49,9 +49,8 @@ class AuthCheck
             $user = $this->userInfo();
 
             if ($user->status === false || !$ci->session->csrf_token || $ci->session->userdata('nip') === null || $ci->session->userdata('nip') === '') {
-                $data = array('nip', 'username', 'csrf_token', 'access_token', 'level');
+                $data = array('username', 'csrf_token', 'access_token', 'level');
                 $ci->session->unset_userdata($data);
-                // $ci->session->sess_destroy();
 
                 $ci->session->set_tempdata([
                     'logout_title' => 'Logout',

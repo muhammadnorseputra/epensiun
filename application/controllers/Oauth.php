@@ -12,29 +12,30 @@ use Firebase\JWT\ExpiredException;
 class Oauth extends CI_Controller
 {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/userguide3/general/urls.html
-	 */
-	public function __construct()
-	{
-		parent::__construct();
+    /**
+     * Index Page for this controller.
+     *
+     * Maps to the following URL
+     * 		http://example.com/index.php/welcome
+     *	- or -
+     * 		http://example.com/index.php/welcome/index
+     *	- or -
+     * Since this controller is set as the default controller in
+     * config/routes.php, it's displayed at http://example.com/
+     *
+     * So any other public methods not prefixed with an underscore will
+     * map to /index.php/welcome/<method_name>
+     * @see https://codeigniter.com/userguide3/general/urls.html
+     */
+    public function __construct()
+    {
+        parent::__construct();
 
         $this->load->helper('cookie');
-	}
+    }
 
-    public function authorize() {
+    public function authorize()
+    {
         $state = Uuid::uuid7()->toString();
         $this->session->set_userdata(['state' => $state]);
 
@@ -46,26 +47,26 @@ class Oauth extends CI_Controller
             'state' => $state
         ];
         $query_build = http_build_query($query);
-        $host = "https://silka-sso.vercel.app";
-        // $host = "http://localhost:3000";
+        // $host = "https://silka-sso.vercel.app";
+        $host = "http://localhost:3000";
         redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
-    
+
     private function getAccessToken(String $code)
     {
         $client = new Client([
-			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
-    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
-		]);
+            'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+            'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+        ]);
 
-		$options = [
-			'headers' => [
-				'apiKey' => $this->config->item('X-API-KEY'),
-			],
+        $options = [
+            'headers' => [
+                'apiKey' => $this->config->item('X-API-KEY'),
+            ],
             'json' => [
                 'code' => $code
             ]
-		];
+        ];
 
         // getAccessToken
         try {
@@ -75,14 +76,42 @@ class Oauth extends CI_Controller
             $this->output->set_header('Content-Type: application/json');
             return $exception->getResponse()->getBody()->getContents();
         }
-        
     }
 
-    public function callback() {
+
+    private function revokeAccessToken(String $userid)
+    {
+        $client = new Client([
+            'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+            'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+        ]);
+
+        $options = [
+            'headers' => [
+                'apiKey' => $this->config->item('X-API-KEY'),
+                'Authorization' => 'Bearer ' . $this->session->userdata('access_token'),
+                'Content-Type' => 'application/json'
+            ],
+            'query' => [
+                'user_id' => $userid
+            ]
+        ];
+
+        // getAccessToken
+        try {
+            $promise = $client->request('DELETE', 'oauth/sso/revoke_token', $options);
+            return json_decode($promise->getBody()->getContents());
+        } catch (RequestException $exception) {
+            // $this->output->set_header('Content-Type: application/json');
+            return json_decode($exception->getResponse()->getBody()->getContents());
+        }
+    }
+
+    public function callback()
+    {
 
         $state = $this->input->get('state');
-        if(!isset($state) || $state !== $this->session->userdata('state'))
-        {
+        if (!isset($state) || $state !== $this->session->userdata('state')) {
             $this->output->set_header('Content-Type: application/json');
             echo json_encode([
                 'status' => false,
@@ -96,28 +125,28 @@ class Oauth extends CI_Controller
         ];
 
         $client = new Client([
-			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
-    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
-		]);
+            'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+            'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+        ]);
 
-		$options = [
-			'headers' => [
-				'apiKey' => $this->config->item('X-API-KEY'),
-				'Content-Type' => 'application/json'
-			],
+        $options = [
+            'headers' => [
+                'apiKey' => $this->config->item('X-API-KEY'),
+                'Content-Type' => 'application/json'
+            ],
             'json' => $post
-		];
+        ];
 
         $promise = $client->postAsync('oauth/sso/code_verify', $options);
         $promise->then(
             function ($response) {
                 $raw = json_decode($response->getBody()->getContents());
-                if(!isset($code) && !$raw->status) {
+                if (!isset($code) && !$raw->status) {
                     return show_error($raw->message, 401, "Unauthorized");
                 }
                 // exchange access_token with code
                 $access_token = $this->getAccessToken($raw->data->code);
-                if(!$access_token->status) {
+                if (!$access_token->status) {
                     return show_error($access_token->message, 401, "Unauthorized");
                 }
 
@@ -155,13 +184,20 @@ class Oauth extends CI_Controller
                 echo $err;
             }
         );
-        
+
         // Tunggu semua promise selesai (jika dalam konteks multi-request)
         Utils::settle([$promise])->wait();
     }
 
     public function logout()
     {
+        $revoke = $this->revokeAccessToken($this->session->userdata('nip'));
+
+
+        if ($revoke->status === false) {
+            return show_error($revoke->message ?? 'Sesi Anda Pada Aplikasi Telah Berakhir', 400, 'Logout');
+        }
+
         $data = array('nip', 'username', 'csrf_token', 'access_token', 'level');
         $this->session->unset_userdata($data);
         $this->session->sess_destroy();

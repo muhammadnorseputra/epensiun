@@ -93,8 +93,11 @@
 
                         <div>
                             <div class="d-grid mt-3">
-                                <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">
-                                    Login with SSO <i class="bi bi-fingerprint"></i></a>
+                                <!-- <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">
+                                    Login with SSO <i class="bi bi-fingerprint"></i></a> -->
+                                <button id="loginBtn" class="btn btn-lg btn-outline-primary" type="button">
+                                    Continue with SSO <i class="bi bi-fingerprint"></i></a>
+                                </button>
                             </div>
                             <div style="display: flex; align-items: center; margin: 20px 0;">
                                 <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
@@ -122,6 +125,106 @@
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
+    <script>
+        let loading = false;
+        let popupWindow = null;
+        let btn = $("#loginBtn");
+
+        function setLoading(state) {
+            loading = state;
+
+            if (!state) {
+                btn.prop("disabled", false);
+                btn.html(`Continue with SSO`);
+                return false;
+            }
+
+            btn.prop("disabled", true);
+            btn.html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`);
+        }
+
+        $("#loginBtn").on("click", function() {
+
+            setLoading(true);
+
+            const width = 500;
+            const height = 700;
+
+            const left =
+                window.screenX + (window.outerWidth - width) / 2;
+
+            const top =
+                window.screenY + (window.outerHeight - height) / 2;
+
+            popupWindow = window.open(
+                '<?= base_url("oauth/sso/authorize") ?>',
+                "SSOLogin",
+                `
+          width=${width},
+          height=${height},
+          left=${left},
+          top=${top},
+          popup=yes,
+          resizable=no,
+          scrollbars=yes
+        `
+            );
+
+            if (!popupWindow) {
+                alert("Popup blocked");
+                setLoading(false);
+                return;
+            }
+
+            popupWindow.focus();
+
+            // detect popup close
+            const popupChecker = setInterval(() => {
+
+                if (popupWindow.closed) {
+
+                    clearInterval(popupChecker);
+
+                    if (loading) {
+                        setLoading(false);
+
+                        console.log("Login dibatalkan");
+                    }
+                }
+
+            }, 500);
+
+        });
+
+        // receive callback message
+        window.addEventListener("message", function(event) {
+
+            if (event.data.type === "SSO_SUCCESS") {
+
+                setTimeout(() => {
+                    setLoading(false);
+                    if (popupWindow && !popupWindow.closed) {
+                        popupWindow.close();
+                    }
+                }, 1500);
+                btn.html(`<i class="bi bi-check-circle-fill text-success"></i>`);
+                window.location.href = "/app/dashboard";
+
+            }
+
+            if (event.data.type === "SSO_FAILED") {
+
+                setLoading(false);
+
+                if (popupWindow && !popupWindow.closed) {
+                    popupWindow.close();
+                }
+                btn.html(`Continue with SSO`);
+                alert("Login gagal");
+            }
+
+        });
+    </script>
 </body>
 
 </html>

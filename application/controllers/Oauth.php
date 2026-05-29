@@ -169,7 +169,8 @@ class Oauth extends CI_Controller
                         'access_token' => $access_token->access_token
                     ];
                     $this->session->set_userdata($data);
-                    return redirect("/");
+                    $this->session->unset_userdata(['logout_title', 'logout_message', 'logout_status', 'logout_is']);
+                    return redirect("/callback");
                 } catch (ExpiredException $e) {
                     // provided JWT is trying to be used after "exp" claim.
                     $this->output->set_header('Content-Type: application/json; charset=utf-8');

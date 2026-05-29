@@ -101,7 +101,6 @@ class Oauth extends CI_Controller
             $promise = $client->request('DELETE', 'oauth/sso/revoke_token', $options);
             return json_decode($promise->getBody()->getContents());
         } catch (RequestException $exception) {
-            // $this->output->set_header('Content-Type: application/json');
             return json_decode($exception->getResponse()->getBody()->getContents());
         }
     }
@@ -199,7 +198,15 @@ class Oauth extends CI_Controller
 
         $data = array('nip', 'username', 'csrf_token', 'access_token', 'level');
         $this->session->unset_userdata($data);
-        $this->session->sess_destroy();
+        // $this->session->sess_destroy();
+
+        $this->session->set_tempdata([
+            'logout_title' => 'Logout',
+            'logout_message' => $revoke->message,
+            'logout_status' => true,
+            'logout_is' => 'danger'
+        ], NULL, 60);
+
         redirect(base_url('/'));
     }
 }

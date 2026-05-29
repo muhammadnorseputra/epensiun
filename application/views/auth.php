@@ -80,6 +80,17 @@
                         }
                         ?>
 
+                        <?php
+                        $sesi = $this->session->tempdata();
+                        if (@$sesi['logout_status']) {
+                        ?>
+                            <div class="alert alert-<?= $sesi['logout_is'] ?> alert-dismissible fade show" role="alert">
+                                <strong><?= @$sesi['logout_title']; ?> !</strong> <?= $sesi['logout_message']; ?>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
                         <div>
                             <div class="d-grid mt-3">
                                 <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">

@@ -242,7 +242,7 @@ function Approve(token) {
 										res.data.nama_jenis.keterangan
 									}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk
+										res.data.tanggal_sk,
 									)}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
 										res.data.nomor_sk
@@ -254,7 +254,7 @@ function Approve(token) {
 					`);
 				}, 1000);
 			}
-		}
+		},
 	);
 }
 
@@ -300,7 +300,7 @@ function UbahStatus(token) {
 							.find("input[name='tglmeninggal']")
 							.datepicker(
 								"setDate",
-								formatDateSQLToIndo(res.data.tgl_meninggal)
+								formatDateSQLToIndo(res.data.tgl_meninggal),
 							);
 					}
 
@@ -315,7 +315,7 @@ function UbahStatus(token) {
 							.find("input[name='tgl_lahir_penerima']")
 							.datepicker(
 								"setDate",
-								formatDateSQLToIndo(res.data.tgl_lahir_penerima)
+								formatDateSQLToIndo(res.data.tgl_lahir_penerima),
 							);
 					}
 
@@ -335,13 +335,13 @@ function UbahStatus(token) {
 					$("#tglmeninggal").removeClass("d-none");
 					$("select[name='hubkeluarga'] option[value='YBS']").prop(
 						"disabled",
-						true
+						true,
 					);
 				} else {
 					$("#tglmeninggal").addClass("d-none");
 					$("select[name='hubkeluarga'] option[value='YBS']").prop(
 						"disabled",
-						false
+						false,
 					);
 				}
 
@@ -367,7 +367,7 @@ function UbahStatus(token) {
 					`);
 				}, 1000);
 			}
-		}
+		},
 	);
 }
 
@@ -411,7 +411,7 @@ function Arsip(token) {
 										res.data.nama_jenis.keterangan
 									}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk
+										res.data.tanggal_sk,
 									)}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
 										res.data.nomor_sk
@@ -423,7 +423,7 @@ function Arsip(token) {
 					`);
 				}, 1000);
 			}
-		}
+		},
 	);
 }
 
@@ -492,7 +492,7 @@ $formArchive.on("submit", function (e) {
 									autoClose: "ok|5000",
 								});
 							},
-							"json"
+							"json",
 						);
 					},
 				},
@@ -546,16 +546,16 @@ $formUbahStatus.on("submit", function (e) {
 					return false;
 				}
 				iziToast.warning({
-					timeout: 3000,
-					title: "Berhasil",
+					timeout: 5000,
+					title: "Info",
 					position: "topCenter",
 					message: res.message,
 					transitionIn: "fadeInDown",
 					transitionOut: "fadeOutUp",
-					pauseOnHover: false,
+					pauseOnHover: true,
 				});
 			},
-			"json"
+			"json",
 		);
 	}
 });
@@ -572,7 +572,7 @@ $formApprove.on("submit", function (e) {
 	button
 		.prop("disabled", true)
 		.html(
-			`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Approve`
+			`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Approve`,
 		);
 
 	if (!this.checkValidity()) {

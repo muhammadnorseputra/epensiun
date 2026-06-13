@@ -47,7 +47,8 @@ class Oauth extends CI_Controller
             'state' => $state
         ];
         $query_build = http_build_query($query);
-        $host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
+        // $host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
+        $host = 'https://silka-sso.vercel.app';
         redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
 
@@ -110,12 +111,15 @@ class Oauth extends CI_Controller
 
         $state = $this->input->get('state');
         if (!isset($state) || $state !== $this->session->userdata('state')) {
-            $this->output->set_header('Content-Type: application/json');
-            echo json_encode([
-                'status' => false,
-                'message' => 'State tidak sesuai'
-            ]);
-            return false;
+            $data = [
+                'sso' => [
+                    'message' => 'State Invalid',
+                    'status' => false,
+                    'data' => 'State Invalid'
+                ]
+            ];
+            $this->session->set_userdata($data);
+            return redirect("/callback");
         }
 
         $post = [
@@ -140,12 +144,28 @@ class Oauth extends CI_Controller
             function ($response) {
                 $raw = json_decode($response->getBody()->getContents());
                 if (!isset($code) && !$raw->status) {
-                    return show_error($raw->message, 401, "Unauthorized");
+                    // return show_error($raw->message, 401, "Unauthorized");
+                    $data = [
+                        'sso' => [
+                            'message' => 'Code Invalid',
+                            'status' => false,
+                            'data' => $raw->message
+                        ]
+                    ];
+                    return false;
                 }
                 // exchange access_token with code
                 $access_token = $this->getAccessToken($raw->data->code);
                 if (!$access_token->status) {
-                    return show_error($access_token->message, 401, "Unauthorized");
+                    // return show_error($access_token->message, 401, "Unauthorized");
+                    $data = [
+                        'sso' => [
+                            'message' => 'Access Token Invalid',
+                            'status' => false,
+                            'data' => $access_token->message
+                        ]
+                    ];
+                    return false;
                 }
 
                 // decoded access_token
@@ -166,16 +186,35 @@ class Oauth extends CI_Controller
                         'jenkel' => $decoded->data->pegawai->jenis_kelamin,
                         'unker' => $decoded->data->pegawai->unker,
                         'unker_id' => $decoded->data->pegawai->unker_id,
-                        'access_token' => $access_token->access_token
+                        'access_token' => $access_token->access_token,
+                        'sso' => [
+                            'message' => 'Login Berhasil',
+                            'status' => true,
+                            'data' => $decoded->data->nama_lengkap
+                        ]
                     ];
-                    $this->session->set_userdata($data);
                     $this->session->unset_userdata(['logout_title', 'logout_message', 'logout_status', 'logout_is']);
-                    return redirect("/callback");
                 } catch (ExpiredException $e) {
                     // provided JWT is trying to be used after "exp" claim.
-                    $this->output->set_header('Content-Type: application/json; charset=utf-8');
-                    echo json_encode($e);
+                    $data = [
+                        'sso' => [
+                            'message' => 'Access Token : Expired',
+                            'status' => false,
+                            'data' => $e->getMessage()
+                        ]
+                    ];
+                } catch (Exception $e) {
+                    // provided JWT is trying to be used after "exp" claim.
+                    $data = [
+                        'sso' => [
+                            'message' => 'Err Nework',
+                            'status' => false,
+                            'data' => $e->getMessage()
+                        ]
+                    ];
                 }
+                $this->session->set_userdata($data);
+                return redirect("/callback");
             },
             function (RequestException $exception) {
                 $this->output->set_header('Content-Type: application/json; charset=utf-8');
@@ -199,7 +238,6 @@ class Oauth extends CI_Controller
 
         $data = array('username', 'csrf_token', 'access_token', 'level');
         $this->session->unset_userdata($data);
-        // $this->session->sess_destroy();
 
         $this->session->set_tempdata([
             'logout_title' => 'Logout',

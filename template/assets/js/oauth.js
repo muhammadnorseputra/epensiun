@@ -1,107 +1,158 @@
-class OAuthPopup {
-	constructor(clientName, clientId, authUrl, tokenUrl, redirectUri, scope) {
-		this.clientName = clientName;
-		this.clientId = clientId;
-		this.authUrl = authUrl;
-		this.tokenUrl = tokenUrl;
-		this.redirectUri = redirectUri;
-		this.scope = scope;
-		this.popup = null;
-	}
+class Oauth {
+	constructor(buttonId, options = {}) {
+		this.button = document.getElementById(buttonId);
 
-	generateRandomString(length) {
-		const array = new Uint32Array(length);
-		window.crypto.getRandomValues(array);
-		return Array.from(array, (dec) => ("0" + dec.toString(16)).slice(-2)).join(
-			""
-		);
-	}
-
-	login() {
-		const state = this.generateRandomString(16);
-
-		const authParams = new URLSearchParams({
-			client_name: this.clientName,
-			client_id: this.clientId,
-			redirect_uri: this.redirectUri,
-			scope: this.scope,
-			response_type: "code",
-			state: state,
-		});
-
-		const authWindowUrl = `${this.authUrl}?${authParams.toString()}`;
-
-		this.popup = window.open(
-			authWindowUrl,
-			"oauthPopup",
-			"width=520,height=800"
-		);
-
-		return new Promise((resolve, reject) => {
-			const interval = setInterval(() => {
-				if (this.popup.closed) {
-					clearInterval(interval);
-					reject(new Error("Popup closed by user"));
-				}
-
-				try {
-					const popupUrl = new URL(this.popup.location.href);
-					if (
-						popupUrl.origin === window.location.origin &&
-						popupUrl.pathname === new URL(this.redirectUri).pathname
-					) {
-						const code = popupUrl.searchParams.get("code");
-						const stateReturned = popupUrl.searchParams.get("state");
-
-						if (state !== stateReturned) {
-							reject(new Error("Invalid state"));
-						}
-
-						this.popup.close();
-						clearInterval(interval);
-
-						this.exchangeCodeForToken(code).then(resolve).catch(reject);
-					}
-				} catch (e) {
-					// Ignore cross-origin errors
-				}
-			}, 100);
-		});
-	}
-
-	async exchangeCodeForToken(code) {
-		const response = await fetch(`${this.tokenUrl}`, {
-			method: "POST",
-			headers: {
-				apiKey: "0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				code: code,
-			}),
-		});
-
-		if (!response.ok) {
-			throw new Error("Token exchange failed");
+		if (!this.button) {
+			throw new Error(`Button #${buttonId} tidak ditemukan`);
 		}
 
-		return response.json();
+		this.config = {
+			url: "/oauth/sso/authorize",
+			redirect: "/",
+			width: 500,
+			height: 700,
+			buttonText: this.button.innerHTML,
+			loadingHtml:
+				'<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>',
+			successHtml: '<i class="bi bi-check-circle-fill text-success"></i>',
+			onSuccess: null,
+			onFailed: null,
+			...options,
+		};
+
+		this.loading = false;
+		this.popupWindow = null;
+		this.popupChecker = null;
+
+		this.handleClick = this.handleClick.bind(this);
+		this.handleMessage = this.handleMessage.bind(this);
+
+		this.init();
+	}
+
+	init() {
+		this.button.addEventListener("click", this.handleClick);
+		window.addEventListener("message", this.handleMessage);
+	}
+
+	destroy() {
+		this.button.removeEventListener("click", this.handleClick);
+		window.removeEventListener("message", this.handleMessage);
+
+		if (this.popupChecker) {
+			clearInterval(this.popupChecker);
+		}
+	}
+
+	setLoading(state) {
+		this.loading = state;
+
+		if (state) {
+			this.button.disabled = true;
+			this.button.innerHTML = this.config.loadingHtml;
+		} else {
+			this.button.disabled = false;
+			this.button.innerHTML = this.config.buttonText;
+		}
+	}
+
+	openPopup() {
+		const left = window.screenX + (window.outerWidth - this.config.width) / 2;
+
+		const top = window.screenY + (window.outerHeight - this.config.height) / 2;
+
+		this.popupWindow = window.open(
+			this.config.url,
+			"SSOLogin",
+			`
+            width=${this.config.width},
+            height=${this.config.height},
+            left=${left},
+            top=${top},
+            popup=yes,
+            resizable=no,
+            scrollbars=yes
+            `,
+		);
+
+		return this.popupWindow;
+	}
+
+	watchPopup() {
+		this.popupChecker = setInterval(() => {
+			if (!this.popupWindow) return;
+
+			if (this.popupWindow.closed) {
+				clearInterval(this.popupChecker);
+
+				if (this.loading) {
+					this.setLoading(false);
+
+					console.log("Login dibatalkan");
+				}
+			}
+		}, 500);
+	}
+
+	handleClick() {
+		if (this.loading) return;
+
+		this.setLoading(true);
+
+		const popup = this.openPopup();
+
+		if (!popup) {
+			alert("Popup blocked");
+
+			this.setLoading(false);
+
+			return;
+		}
+
+		popup.focus();
+
+		this.watchPopup();
+	}
+
+	handleMessage(event) {
+		if (!event.data || !event.data.type) {
+			return;
+		}
+
+		switch (event.data.type) {
+			case "SSO_SUCCESS":
+				this.button.innerHTML = this.config.successHtml;
+
+				if (this.popupWindow && !this.popupWindow.closed) {
+					this.popupWindow.close();
+				}
+
+				if (typeof this.config.onSuccess === "function") {
+					this.config.onSuccess(event.data);
+				} else {
+					setTimeout(() => {
+						window.location.href = this.config.redirect;
+					}, 1000);
+				}
+
+				break;
+
+			case "SSO_FAILED":
+				this.setLoading(false);
+
+				if (this.popupWindow && !this.popupWindow.closed) {
+					this.popupWindow.close();
+				}
+
+				if (typeof this.config.onFailed === "function") {
+					this.config.onFailed(event.data);
+				} else {
+					alert(event.data.response || "Login gagal");
+				}
+
+				break;
+		}
 	}
 }
 
-// Contoh penggunaan:
-// const oauth = new OAuthPopup(
-//     'SimpunASN',
-//     '0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf',
-//     'https://silka-sso.vercel.app/oauth/sso/authorize',
-//     'http://silka.balangankab.go.id/services/v2/oauth/sso/access_token',
-//     'http://localhost:8000/oauth/sso/callback',
-//     'userportal'
-// );
-// document.getElementById('loginButton').addEventListener('click', () => {
-//     oauth.login().then((tokenResponse) => {
-//         console.log('Access Token:', tokenResponse.access_token);
-//     }).catch((error) => {
-//         console.error('Login failed:', error);
-//     });
-// });
+window.Oauth = Oauth;

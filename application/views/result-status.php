@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Success</title>
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title><?= $message ?? "Loading..."; ?></title>
 
     <style>
         * {
@@ -66,27 +64,38 @@
 
     <div class="spinner"></div>
 
-    <h1>Login berhasil...</h1>
+    <?php if (!$status): ?>
+        <h1>Login Gagal...</h1>
+        <p>Silahkan coba login kembali beberapa saat.</p>
+    <?php endif; ?>
 
-    <p>Mengalihkan ke aplikasi</p>
+    <?php if ($status): ?>
+        <h1>Login berhasil...</h1>
+        <p>Mengalihkan ke aplikasi</p>
+    <?php endif; ?>
 
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!<?= $status ?>) {
+                if (window.opener) {
+                    window.opener.postMessage({
+                        type: "SSO_FAILED",
+                        response: "<?= $message ?> (<?= $data; ?>)"
+                    }, "*");
+                }
+                window.close();
+                return false;
+            }
 
             // delay 2 detik
             setTimeout(function() {
-
                 // kirim event ke parent window
                 if (window.opener) {
-
                     window.opener.postMessage({
-                            type: "SSO_SUCCESS"
-                        },
-                        "*"
-                    );
-
+                        type: "SSO_SUCCESS",
+                        response: "<?= $message ?> (<?= $data; ?>)"
+                    }, "*");
                 }
-
                 // tutup popup
                 window.close();
 

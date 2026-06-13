@@ -186,6 +186,17 @@ class Verifikasi extends CI_Controller
 
 	public function ubahstatus()
 	{
+
+		// cek jika masih ada status selesai belum di arsip maka tidak bisa melanjutkan verifikasi
+		$doneStatus = $this->verify->countSelesaiStatusIsExistInVerify();
+		if ($doneStatus) {
+			echo json_encode([
+				'status' => false,
+				'message' => 'Terdapat (<b>' . $doneStatus . '</b>) usulan belum diarsipkan !'
+			]);
+			return false;
+		}
+
 		$post = $this->input->post();
 
 		$whr = [
@@ -252,7 +263,7 @@ class Verifikasi extends CI_Controller
 	{
 		$post = $this->input->post();
 
-		$baseUrlApi = 'http://silka.balangankab.go.id';
+		$baseUrlApi = $this->config->item('BASE_API_URL');
 
 		$file = $_FILES['filesk'];
 		$curlFile = new \CURLFile($file['tmp_name'], $file['type'], $file['name']);

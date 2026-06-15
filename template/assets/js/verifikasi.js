@@ -56,12 +56,12 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 	},
 	columnDefs: [
 		{
-			targets: [0, 1, 2, 3, 5, 6, 7],
+			targets: [0, 1, 2, 3, 4, 6, 7, 8],
 			orderable: false,
 			className: "text-left",
 		},
 		{
-			targets: [4],
+			targets: [5],
 			orderable: true,
 		},
 	],

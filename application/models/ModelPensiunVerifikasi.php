@@ -10,7 +10,7 @@ class ModelPensiunVerifikasi extends CI_Model
     //set column field database for datatable searchable 
     protected $column_search = array('u.nip', 'u.nama');
     // default order 
-    protected $order = array('up.id' => 'desc');
+    protected $order = array('up.id' => 'asc');
     // default select 
     protected $select_table = array('u.*', 'up.fid_jenis_usul', 'up.token AS token_pengantar', 'up.nomor', 'up.tanggal', 'uj.nama AS nama_jenis', 'uj.keterangan');
 

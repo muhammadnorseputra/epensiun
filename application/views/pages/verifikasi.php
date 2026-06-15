@@ -45,7 +45,8 @@
                             <th class="text-nowrap">Nomor & Tanggal Usul</th>
                             <th>Jenis Usulan</th>
                             <th>Pensiun ASN</th>
-                            <th>Usia</th>
+                            <th class="text-nowrap">TMT Pensiun</th>
+                            <th class="none">Usia</th>
                             <th>Status</th>
                             <th class="text-nowrap none">Detail SK</th>
                             <th class="none">Link Berkas Usul</th>

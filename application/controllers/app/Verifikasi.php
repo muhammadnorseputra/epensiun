@@ -97,22 +97,27 @@ class Verifikasi extends CI_Controller
 				</div>
 			</div>';
 
-			$path_picture = $r->url_photo ?? base_url('template/assets/images/avatar/user-pns.png');
+			$path_picture = base_url('template/assets/images/avatar/user-pns.png');
 
 			$no++;
 			$row = array();
 			$row[] = "<strong>" . $r->nomor . "</strong><br>" . @date_indo($r->tanggal);
 			$row[] = "<strong>" . $r->nama_jenis . "</strong> <br> <div>" . $r->keterangan . "</div>";
-			$row[] = '<div class="d-flex align-items-start">
-                    <div class="ms-3 lh-1">
-                        <h5 class="mb-1">
-                            <strong>' . $r->nip . '</strong> <br>
-                            <a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '" class="text-inherit">' . $r->nama . '</a> <br>
-							<span class="text-secondary">' . $r->nama_unit_kerja . '</span>
-                        </h5>
-                    </div>
-                </div>';
-
+			$row[] = '<div class="d-flex align-items-start gap-1">
+						<div>
+							<div class="avatar avatar-lg">
+								<img src="' . $path_picture . '" alt="' . $r->nama . '" class="rounded"/>
+							</div>
+						</div>
+						<div class="ms-3 lh-1">
+							<h5 class="mb-1">
+								<strong>' . $r->nip . '</strong> <br>
+								<a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '" class="text-inherit">' . $r->nama . '</a> <br>
+								<span class="text-secondary">' . $r->nama_unit_kerja . '</span>
+							</h5>
+						</div>
+                	</div>';
+			$row[] = @date_indo($r->tmt_pensiun);
 			$row[] = !empty($r->usia_pensiun) ? $r->usia_pensiun . " Tahun" : '';
 			$row[] = $status;
 			$row[] = $detail_sk;

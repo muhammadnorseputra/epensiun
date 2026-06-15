@@ -225,16 +225,18 @@
                             <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
                         </div>
                     </div>
-                    <div id="filesk" class="col-8 d-none p-2 border rounded d-flex justify-content-between align-content-start border border-primary">
-                        <div class="d-inline-flex align-items-center justify-content-center  gap-2">
-                            <i class="icon-md p-2" data-feather="file-text"></i>
-                            <div class="vr h-100"></div>
-                            <div>
-                                <span class="small">Unduh File SK</span> <br>
-                                <a href="#" id="filename-link" target="_blank"><span class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small" id="filename"></span></a>
+                    <div class="col-8 ">
+                        <div id="filesk" class="d-none p-1 border rounded d-flex justify-content-between align-content-start border border-primary">
+                            <div class="d-inline-flex align-items-center justify-content-center  gap-2">
+                                <i class="icon-md p-2" data-feather="file-text"></i>
+                                <div class="vr h-100"></div>
+                                <div>
+                                    <span class="small">Unduh File SK</span> <br>
+                                    <a href="#" id="filename-link" target="_blank"><span class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small" id="filename"></span></a>
+                                </div>
                             </div>
+                            <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download" class="align-self-center"></i></a>
                         </div>
-                        <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download" class="align-self-center"></i></a>
                     </div>
                 </div>
             </div>

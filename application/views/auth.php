@@ -129,7 +129,7 @@
     <script>
         new Oauth("loginBtn", {
             url: "/oauth/sso/authorize",
-            redirect: "/app/dashboard"
+            redirect: "/app/dashboard",
         });
     </script>
 </body>

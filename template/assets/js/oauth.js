@@ -130,9 +130,7 @@ class Oauth {
 				if (typeof this.config.onSuccess === "function") {
 					this.config.onSuccess(event.data);
 				} else {
-					setTimeout(() => {
-						window.location.href = this.config.redirect;
-					}, 1000);
+					window.location.href = this.config.redirect;
 				}
 
 				break;

@@ -72,86 +72,100 @@
             </div>
             <div class="modal-body">
                 <div id="loadProfile"></div>
-                <div class="form-floating">
-                    <select class="form-select" name="status" id="floatingSelect" aria-label="Floating label select example" required="">
-                        <option value="" selected>-- Pilih Status Usulan --</option>
-                        <option value="SKPD">SKPD</option>
-                        <option value="CETAK_USUL">SKPD CETAK USUL</option>
-                        <option value="KIRIM_USUL">SKPD KIRIM USUL</option>
-                        <option value="TTD_SK">TANDA TANGAN SK</option>
-                        <option value="SELESAI_TMS">TMS</option>
-                        <option value="SELESAI_BTL">BTL</option>
-                    </select>
-                    <label for="floatingSelect">Pilih Status Usul</label>
-                </div>
-                <div class="form-floating mt-3 d-none field-catatan">
-                    <textarea class="form-control" name="catatan" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
-                    <label for="floatingTextarea">Masukan Catatan TMS atau BTL</label>
-                </div>
-                <div class="row row-cols-2 mt-3 d-none field-sk">
-                    <div class="mb-3">
+                <ul class="nav nav-pills nav-fill border p-1 rounded" id=" myTabVerify" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="verify-tab" data-bs-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="true"><i class="bi bi-patch-check-fill text-warning"></i> Proses Verifikasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="eviden-tab" data-bs-toggle="tab" href="#eviden" role="tab" aria-controls="eviden" aria-selected="false"><i class="bi bi-folder-check text-danger"></i> Kelengkapan Berkas</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabVerifyContent">
+                    <div class="tab-pane fade pt-3" id="verify" role="tabpanel" aria-labelledby="verify-tab">
                         <div class="form-floating">
-                            <input type="text" class="form-control" name="nomorsk" id="nomorsk" placeholder="Masukan Nomor SK Pensiun">
-                            <label for="nomorsk">Nomor SK</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control tanggal" name="tanggalsk" id="tanggalsk" placeholder="Masukan Tanggal SK Pensiun">
-                            <label for="tanggalsk">Tanggal SK</label>
-                        </div>
-                    </div>
-                    <div class="mb-3 d-none" id="tglmeninggal">
-                        <div class="form-floating">
-                            <input type="text" class="form-control tanggal" data-parsley-excluded="true" name="tglmeninggal" id="tglmeninggal" placeholder="Masukan Tanggal Meninggal">
-                            <label for="tglmeninggal">Tanggal Meninggal Dunia</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control tanggal" name="tmt_pensiun" id="tmt_pensiun" placeholder="TMT Pensiun">
-                            <label for="tmt_pensiun">TMT Pensiun</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" name="namakeluarga" id="namakeluarga" placeholder="Masukan Nomor SK Pensiun">
-                            <label for="namakeluarga">Nama Keluarga</label>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-floating">
-                            <select name="hubkeluarga" id="hubkeluarga" class="form-select">
-                                <option value="0">-- Hubungan Keluarga --</option>
-                                <option value="YBS">PNS Ybs</option>
-                                <option value="SUTRI">SUAMI / ISTRI</option>
-                                <option value="ANAK">ANAK</option>
-                                <option value="ORTU">ORANG TUA</option>
+                            <select class="form-select" name="status" id="floatingSelect" aria-label="Floating label select example" required="">
+                                <option value="" selected>-- Pilih Status Usulan --</option>
+                                <option value="SKPD">SKPD</option>
+                                <option value="CETAK_USUL">SKPD CETAK USUL</option>
+                                <option value="KIRIM_USUL">SKPD KIRIM USUL</option>
+                                <option value="TTD_SK">TANDA TANGAN SK</option>
+                                <option value="SELESAI_TMS">TMS</option>
+                                <option value="SELESAI_BTL">BTL</option>
                             </select>
-                            <label for="hubkeluarga">Hubungan Keluarga</label>
+                            <label for="floatingSelect">Pilih Status Usul</label>
+                        </div>
+                        <div class="form-floating mt-3 d-none field-catatan">
+                            <textarea class="form-control" name="catatan" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                            <label for="floatingTextarea">Masukan Catatan TMS atau BTL</label>
+                        </div>
+                        <div class="row row-cols-2 mt-3 d-none field-sk">
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="nomorsk" id="nomorsk" placeholder="Masukan Nomor SK Pensiun">
+                                    <label for="nomorsk">Nomor SK</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control tanggal" name="tanggalsk" id="tanggalsk" placeholder="Masukan Tanggal SK Pensiun">
+                                    <label for="tanggalsk">Tanggal SK</label>
+                                </div>
+                            </div>
+                            <div class="mb-3 d-none" id="tglmeninggal">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control tanggal" data-parsley-excluded="true" name="tglmeninggal" id="tglmeninggal" placeholder="Masukan Tanggal Meninggal">
+                                    <label for="tglmeninggal">Tanggal Meninggal Dunia</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control tanggal" name="tmt_pensiun" id="tmt_pensiun" placeholder="TMT Pensiun">
+                                    <label for="tmt_pensiun">TMT Pensiun</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" name="namakeluarga" id="namakeluarga" placeholder="Masukan Nomor SK Pensiun">
+                                    <label for="namakeluarga">Nama Keluarga</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-floating">
+                                    <select name="hubkeluarga" id="hubkeluarga" class="form-select">
+                                        <option value="0">-- Hubungan Keluarga --</option>
+                                        <option value="YBS">PNS Ybs</option>
+                                        <option value="SUTRI">SUAMI / ISTRI</option>
+                                        <option value="ANAK">ANAK</option>
+                                        <option value="ORTU">ORANG TUA</option>
+                                    </select>
+                                    <label for="hubkeluarga">Hubungan Keluarga</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control tanggal" name="tgl_lahir_penerima" id="tgl_lahir_penerima" placeholder="TMT Pensiun">
+                                    <label for="tgl_lahir_penerima">Tanggal Lahir Penerima</label>
+                                </div>
+                            </div>
+                            <div class="w-100 my-2"></div>
+                            <div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="alamat_pensiun" placeholder="Alamat Pensiun" id="AlamatPensiun" style="height: 100px"></textarea>
+                                    <label for="AlamatPensiun">Alamat Pensiun</label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="form-floating">
+                                    <textarea class="form-control" name="note" data-parsley-validate-if-empty placeholder="Tambahkan Catatan" id="floatingTextareaCatatan" style="height: 100px"></textarea>
+                                    <label for="floatingTextareaCatatan">Tambah Catatan</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="form-floating">
-                            <input type="text" class="form-control tanggal" name="tgl_lahir_penerima" id="tgl_lahir_penerima" placeholder="TMT Pensiun">
-                            <label for="tgl_lahir_penerima">Tanggal Lahir Penerima</label>
-                        </div>
-                    </div>
-                    <div class="w-100 my-2"></div>
-                    <div>
-                        <div class="form-floating">
-                            <textarea class="form-control" name="alamat_pensiun" placeholder="Alamat Pensiun" id="AlamatPensiun" style="height: 100px"></textarea>
-                            <label for="AlamatPensiun">Alamat Pensiun</label>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-floating">
-                            <textarea class="form-control" name="note" data-parsley-validate-if-empty placeholder="Tambahkan Catatan" id="floatingTextareaCatatan" style="height: 100px"></textarea>
-                            <label for="floatingTextareaCatatan">Tambah Catatan</label>
-                        </div>
+                    <div class="tab-pane fade show active  pt-3" id="eviden" role="tabpanel" aria-labelledby="eviden-tab">
+                        <div id="loadEviden"></div>
                     </div>
                 </div>
-                <div id="loadEviden" class="mt-4"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
@@ -164,7 +178,7 @@
 
 <!-- Modal approve usulan-->
 <div class="modal fade" id="modalApprove" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}' role="dialog" aria-labelledby="modalApproveTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <?= form_open_multipart(base_url('/app/verifikasi/approve'), ['id' => 'FormApprove', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
             <input type="hidden" name="token">
@@ -177,13 +191,36 @@
             <div class="modal-body">
                 <div id="loadProfile"></div>
                 <div id="loadMessage"></div>
+                <div class="upload-dropzone position-relative" id="uploadArea">
 
-                <div class="form-floating">
-                    <div class="input-group">
-                        <input type="file" name="filesk" class="form-control" id="inputGroupFile01" data-parsley-errors-container=".errorBlock" required>
-                        <label class="input-group-text bg-light" for="inputGroupFile01"><i class="bi bi-upload"></i></label>
+                    <input type="file"
+                        name="filesk"
+                        id="filesk"
+                        class="upload-input"
+                        data-parsley-errors-container=".errorBlock"
+                        accept="pdf"
+                        required>
+
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                        </div>
+                        <h5 class="font-weight-bold mt-3 mb-2">
+                            Drag & Drop File Disini
+                        </h5>
+                        <small class="text-muted d-block">
+                            Format: PDF
+                        </small>
+                        <small class="text-muted">
+                            Maksimal ukuran file 5 MB
+                        </small>
+                        <div class="selected-file mt-3"></div>
+                        <div class="errorBlock mt-2"></div>
                     </div>
-                    <div class="errorBlock"></div>
+                </div>
+                <div class="form-floating col-4 mt-3">
+                    <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
+                    <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
                 </div>
                 <div id="filesk" class="d-none p-2 mb-4 mt-3 w-100 border rounded d-flex justify-content-between align-content-start border border-primary">
                     <div class="d-inline-flex align-content-center justify-content-center  gap-2">
@@ -196,11 +233,6 @@
                     </div>
                     <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download"></i></a>
                 </div>
-                <div class="form-floating mt-3">
-                    <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
-                    <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
-                </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
@@ -249,3 +281,76 @@
         </div>
     </div>
 </div>
+
+<style>
+    .upload-dropzone {
+        position: relative;
+        border: 2px dashed #dfe4ea;
+        border-radius: 14px;
+        background: #f8fafc;
+        min-height: 180px;
+        transition: all .25s ease;
+        overflow: hidden;
+    }
+
+    .upload-dropzone:hover {
+        border-color: #754ffe;
+        background: #f9f7ff;
+    }
+
+    .upload-dropzone.dragover {
+        border-color: #754ffe;
+        background: #f3efff;
+        transform: scale(1.01);
+    }
+
+    .upload-content {
+        padding: 20px 10px;
+        text-align: center;
+    }
+
+    .upload-input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .upload-icon {
+        width: 90px;
+        height: 90px;
+        margin: auto;
+        border-radius: 50%;
+        background: rgba(117, 79, 254, .1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .upload-icon i {
+        font-size: 42px;
+        color: #754ffe;
+    }
+
+    .selected-file {
+        display: none;
+        background: #fff;
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid #e9ecef;
+        font-weight: 500;
+    }
+
+    .selected-file i {
+        color: #dc3545;
+        margin-right: 8px;
+    }
+
+    .errorBlock {
+        color: #dc3545;
+        font-size: 13px;
+    }
+</style>

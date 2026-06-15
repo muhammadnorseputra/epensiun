@@ -218,20 +218,24 @@
                         <div class="errorBlock mt-2"></div>
                     </div>
                 </div>
-                <div class="form-floating col-4 mt-3">
-                    <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
-                    <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
-                </div>
-                <div id="filesk" class="d-none p-2 mb-4 mt-3 w-100 border rounded d-flex justify-content-between align-content-start border border-primary">
-                    <div class="d-inline-flex align-content-center justify-content-center  gap-2">
-                        <i class="icon-md p-2" data-feather="file-text"></i>
-                        <div class="vr h-100"></div>
-                        <div>
-                            <span class="small">Unduh File SK</span> <br>
-                            <a href="#" id="filename-link" target="_blank"><span class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small" id="filename"></span></a>
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
+                            <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
                         </div>
                     </div>
-                    <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download"></i></a>
+                    <div id="filesk" class="col-8 d-none p-2 border rounded d-flex justify-content-between align-content-start border border-primary">
+                        <div class="d-inline-flex align-items-center justify-content-center  gap-2">
+                            <i class="icon-md p-2" data-feather="file-text"></i>
+                            <div class="vr h-100"></div>
+                            <div>
+                                <span class="small">Unduh File SK</span> <br>
+                                <a href="#" id="filename-link" target="_blank"><span class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small" id="filename"></span></a>
+                            </div>
+                        </div>
+                        <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download" class="align-self-center"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

@@ -10,7 +10,7 @@
                     <h4 class="mb-0">Verifikasi Usulan Pensiun ASN</h4>.
                 </div>
                 <div>
-                    <button class="btn btn-secondary btn-md" onclick="return TabelVerifikasiPesiun.ajax.reload();"><i class="icon-xs" data-feather="refresh-ccw"></i></a>
+                    <button class="btn btn-secondary btn-md" onclick="return TabelVerifikasiPesiun.ajax.reload();"><i class="icon-xs me-2" data-feather="refresh-ccw"></i> Refresh Data</a>
                 </div>
             </div>
             <!-- table  -->
@@ -23,6 +23,21 @@
                         <strong>Perhatian!</strong> <br>
                         Jangan lupa untuk mengarsipkan usulan, jika SK sudah diserahkan atau diterima yang bersangkutan.
                     </div>
+                </div>
+                <div class="col-6 d-flex gap-2">
+                    <div class="form-floating">
+                        <select class="form-select" name="filter_status" id="filter_status" aria-label="Floating label select example">
+                            <option value="" selected>-- Filter Status Usulan --</option>
+                            <option value="BKPSDM">VERIFIKASI</option>
+                            <option value="SELESAI">APPROVED</option>
+                            <option value="TTD_SK">TANDA TANGAN SK</option>
+                            <option value="SELESAI_TMS">TMS</option>
+                        </select>
+                        <label for="filter_status">Filter Status Usul</label>
+                    </div>
+                    <button id="btnClearFilter" class="btn btn-warning d-none">
+                        Hapus Filter
+                    </button>
                 </div>
                 <table id="table-verifikasi" class="table table-hover table-nowrap mb-0">
                     <thead class="bg-light">

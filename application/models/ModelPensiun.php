@@ -56,6 +56,7 @@ class ModelPensiun extends CI_Model
         $this->db->select('u.nip');
         $this->db->from('usul as u');
         $this->db->join('usul_pengantar as up', 'up.token=u.token');
+        $this->db->where('YEAR(u.tmt_pensiun)', date('Y'));
         if ($this->session->userdata('level') == 'USER') {
             $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         }

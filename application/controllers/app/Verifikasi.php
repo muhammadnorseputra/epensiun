@@ -57,7 +57,7 @@ class Verifikasi extends CI_Controller
 			} elseif ($r->is_status === 'SELESAI_TMS' || $r->is_status === 'SELESAI_BTL') {
 				$status = '<span class="badge bg-danger px-3 py-2"><i class="bi bi-x-circle-fill me-2"></i> ' . $r->is_status . '</span>';
 			} else {
-				$status = '';
+				$status = $r->is_status;
 			}
 
 			if ($r->nomor_sk !== '' && @$r->tanggal_sk !== '') {
@@ -187,17 +187,17 @@ class Verifikasi extends CI_Controller
 	public function ubahstatus()
 	{
 
-		// cek jika masih ada status selesai belum di arsip maka tidak bisa melanjutkan verifikasi
+		$post = $this->input->post();
+
+		// cek jika masih ada status selesai belum di arsip sebanyajk 3 maka tidak bisa melanjutkan verifikasi
 		$doneStatus = $this->verify->countSelesaiStatusIsExistInVerify();
-		if ($doneStatus) {
+		if ($doneStatus > 3 && $post['status'] === 'TTD_SK') {
 			echo json_encode([
 				'status' => false,
 				'message' => 'Terdapat (<b>' . $doneStatus . '</b>) usulan belum diarsipkan !'
 			]);
 			return false;
 		}
-
-		$post = $this->input->post();
 
 		$whr = [
 			'token' => $post['token']

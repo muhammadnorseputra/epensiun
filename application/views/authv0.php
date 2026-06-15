@@ -59,7 +59,7 @@
                 <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
                 <!-- Logo IMAGE -->
                 <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/640px-Lambang_Kabupaten_Balangan.png"
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Lambang_Kabupaten_Balangan.png"
                         alt="Logo Kab. Balangan" width="50">
                     <!-- <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan"
                         width="150">

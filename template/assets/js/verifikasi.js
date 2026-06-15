@@ -26,6 +26,7 @@ $(function () {
 });
 
 var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
+	stateSave: true,
 	processing: true,
 	serverSide: true,
 	paging: true,
@@ -43,15 +44,25 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 		[10, 25, 50, "All"],
 	],
 	order: [],
+	stateLoaded: function () {
+		$("#btnClearFilter").removeClass("d-none");
+	},
 	ajax: {
 		url: `${_uri}/app/verifikasi/ajax`,
 		type: "POST",
+		data: function (d) {
+			d.filter_status = $("select[name='filter_status']").val();
+		},
 	},
 	columnDefs: [
 		{
-			targets: [0, 1, 2, 3, 4, 5, 6, 7],
+			targets: [0, 1, 2, 3, 5, 6, 7],
 			orderable: false,
 			className: "text-left",
+		},
+		{
+			targets: [4],
+			orderable: true,
 		},
 	],
 	language: {
@@ -65,6 +76,16 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 		},
 		emptyTable: "No matching records found, please filter this data",
 	},
+});
+
+$("select[name='filter_status']").on("change", function () {
+	TabelVerifikasiPesiun.ajax.reload();
+});
+
+$("#btnClearFilter").on("click", function () {
+	$("#filter_status").val("");
+	TabelVerifikasiPesiun.state.clear();
+	TabelVerifikasiPesiun.search("").order([]).page("first").draw();
 });
 
 let $modalUbahStatus = $("#modalUbahStatusUsul"),
@@ -226,7 +247,7 @@ function Approve(token) {
 					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
 						<div>
 							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
+								<img src="/template/assets/images/avatar/user-empty.png" alt="${res.data.nama}" class="rounded"/>
 							</div>
 						</div>
 						<div class="ms-3 lh-1">
@@ -350,7 +371,7 @@ function UbahStatus(token) {
 					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
 						<div>
 							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
+								<img src="${res.data.url_photo && "/template/assets/images/avatar/user-empty.png"}" alt="${res.data.nama}" class="rounded-circle"/>
 							</div>
 						</div>
 						<div class="ms-3 lh-1">
@@ -395,7 +416,7 @@ function Arsip(token) {
 					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
 						<div>
 							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
+								<img src="${res.data.url_photo && "/template/assets/images/avatar/user-empty.png"}" alt="${res.data.nama}" class="rounded-circle"/>
 							</div>
 						</div>
 						<div class="ms-3 lh-1">

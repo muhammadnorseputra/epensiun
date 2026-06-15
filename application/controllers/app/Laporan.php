@@ -8,46 +8,49 @@ class Laporan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-		// cek session level
-		if($this->session->userdata('level') !== 'ADMIN') {
-			return show_404();
-		}
+        // cek session level
+        if ($this->session->userdata('level') !== 'ADMIN') {
+            return show_404();
+        }
         $this->load->model(['ModelLaporan' => 'laporan']);
     }
-	public function usul_pensiun()
-	{
-        
+    public function usul_pensiun()
+    {
+
         $filter = [
-            'tahun' => $this->input->get('tahun') ??date('Y'),
-            'bulan' => $this->input->get('bulan')?? date('m')
+            'tahun' => $this->input->get('tahun') ?? date('Y'),
+            'bulan' => $this->input->get('bulan') ?? date('m')
         ];
-		$data = [
+        $data = [
             'title' => 'Laporan Usul Pensiun | Integrated Pensiun ASN',
             'content' => 'pages/laporan/usul_pensiun',
             'data' => $this->laporan->getDaftarUsulPensiun($filter)
         ];
 
         $this->load->view('layouts/app', $data);
-	}
-   
-   public function pengantar_usul()
-	{
+    }
+
+    public function pengantar_usul()
+    {
         $filter = [
             'tahun' => $this->input->get('tahun') ?? date('Y'),
-            'bulan' => $this->input->get('bulan')?? date('m')
+            'bulan' => $this->input->get('bulan') ?? date('m')
         ];
 
+        $role_nip = $this->session->userdata('nip');
+        $role_status = strtoupper($this->session->userdata('role') || 'USER');
+
         $req = [
-            'url' => 'http://silka.balangankab.go.id/services/PegawaiWithBasicAuth/getSKPD?nip=199204072015032002&role=ADMIN',
+            'url' => "http://silka.balangankab.go.id/services/PegawaiWithBasicAuth/getSKPD?nip={$role_nip}&role={$role_status}",
             'headers' => [
                 'apiKey' => 'bkpsdm6811',
                 'Authorization' => 'Basic QmFsYW5nYW5rYWI6Ymtwc2RtQDIwMjI='
             ]
-           ];
-  
+        ];
+
         $skpd = httpclient($req);
 
-		$data = [
+        $data = [
             'title' => 'Laporan Pengantar Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/pengantar_usul',
             'data' => $this->laporan->getDaftarPengantarUsulPensiun($filter),
@@ -55,49 +58,47 @@ class Laporan extends CI_Controller
         ];
 
         $this->load->view('layouts/app', $data);
-	}
-   
-   public function verval_usul()
-	{
+    }
+
+    public function verval_usul()
+    {
         $filter = [
             'status' => $this->input->get('status') ?? "",
         ];
-		$data = [
+        $data = [
             'title' => 'Laporan Verifikasi dan Validasi Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/verval_usul',
             'data' => $this->laporan->getDaftarVervalUsulPensiun($filter)
         ];
 
         $this->load->view('layouts/app', $data);
-	}
-	public function tanda_terima_sk_pensiun()
-	{
+    }
+    public function tanda_terima_sk_pensiun()
+    {
         $filter = [
             'nip' => $this->input->get('nip') ?? "",
         ];
-		$data = [
+        $data = [
             'title' => 'Laporan Tanda Terima Usul | Integrated Pensiun ASN',
             'content' => 'pages/laporan/tanda_terima_sk_pensiun',
             'data' => $this->laporan->getDaftarTandaTerimaUsulPensiun($filter)
         ];
 
         $this->load->view('layouts/app', $data);
-	}
-	public function trend_kesalahan_usulan()
-	{
+    }
+    public function trend_kesalahan_usulan()
+    {
         $filter = [
             'jns_kesalahan' => $this->input->get('jns_kesalahan') ?? "",
         ];
-		$data = [
+        $data = [
             'title' => 'Laporan Trend Kesalahan Usulan | Integrated Pensiun ASN',
             'content' => 'pages/laporan/trend_kesalahan_usulan',
             'data' => $this->laporan->getTrendKesalahanUsulPensiun($filter)
         ];
 
         $this->load->view('layouts/app', $data);
-	}
-
-
+    }
 }
         
     /* End of file  app/Arsip.php */

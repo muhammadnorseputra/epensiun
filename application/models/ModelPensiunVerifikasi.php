@@ -6,7 +6,7 @@ class ModelPensiunVerifikasi extends CI_Model
     // set table
     protected $table = 'usul_pengantar AS up';
     //set column field database for datatable orderable
-    protected $column_order = array(null);
+    protected $column_order = array(null, null, null, null, 'u.is_status');
     //set column field database for datatable searchable 
     protected $column_search = array('u.nip', 'u.nama');
     // default order 
@@ -21,7 +21,26 @@ class ModelPensiunVerifikasi extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['BKPSDM', 'TTD_SK', 'SELESAI']);
+
+        $filterStatus = $_POST['filter_status'] ?? '';
+
+        $statusMap = [
+            'BKPSDM' => ['BKPSDM'],
+            'SELESAI'   => ['SELESAI'],
+            'TTD_SK'     => ['TTD_SK'],
+            'SELESAI_TMS' => ['SELESAI_TMS', 'SELESAI_BTL']
+        ];
+
+        if ($filterStatus && isset($statusMap[$filterStatus])) {
+            $this->db->where_in('u.is_status', $statusMap[$filterStatus]);
+        } else {
+            $this->db->where_in('u.is_status', [
+                'BKPSDM',
+                'TTD_SK',
+                'SELESAI'
+            ]);
+        }
+
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 

@@ -31,10 +31,23 @@
             font-size: 80px;
             color: #dc3545;
         }
+
+        .countdown {
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .countdown span {
+            font-weight: bold;
+            color: #dc3545;
+        }
     </style>
 </head>
 
 <body>
+
+    <?php $login_url = site_url('/'); ?>
 
     <div class="container error-container">
         <div class="card error-card">
@@ -48,11 +61,16 @@
                     <?= $heading; ?>
                 </h1>
 
-                <div class="text-muted mb-4">
+                <div class="text-muted mb-3">
                     <?= $message; ?>
                 </div>
 
-                <a href="<?= site_url('/'); ?>" class="btn btn-primary">
+                <div class="countdown">
+                    Anda akan dialihkan ke halaman login dalam
+                    <span id="countdown">5</span> detik...
+                </div>
+
+                <a href="<?= $login_url; ?>" class="btn btn-primary">
                     Login
                 </a>
 
@@ -63,6 +81,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        let seconds = 5;
+        const countdownElement = document.getElementById('countdown');
+        const loginUrl = '<?= $login_url; ?>';
+
+        const timer = setInterval(function() {
+            seconds--;
+            countdownElement.textContent = seconds;
+
+            if (seconds <= 0) {
+                clearInterval(timer);
+                window.location.href = loginUrl;
+            }
+        }, 1000);
+    </script>
 
 </body>
 

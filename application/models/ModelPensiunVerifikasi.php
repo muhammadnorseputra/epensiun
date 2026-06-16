@@ -89,14 +89,15 @@ class ModelPensiunVerifikasi extends CI_Model
 
     public function make_count_all()
     {
-        $this->db->select($this->select_table);
-        $this->db->from($this->table);
-        $this->db->join('usul AS u', 'u.token=up.token', 'left');
-        $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['BKPSDM', 'TTD_SK', 'SELESAI', 'SELESAI_TMS', 'SELESAI_BTL']);
+        $this->_datatables();
         return $this->db->count_all_results();
     }
     // -------------------------------- end-datatable --------------------------//
+
+    public function getJumlah($tbl, $whr)
+    {
+        return $this->db->get_where($tbl, $whr);
+    }
 
     public function getJenisUsul($token)
     {

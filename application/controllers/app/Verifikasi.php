@@ -39,6 +39,20 @@ class Verifikasi extends CI_Controller
 		$this->load->view('layouts/app', $data);
 	}
 
+	public function getJumlahUsulByStatus()
+	{
+		$jumlah_verify = $this->verify->getJumlah('usul', ['is_status' => 'BKPSDM']);
+		$jumlah_selesai = $this->verify->getJumlah('usul', ['is_status' => 'SELESAI']);
+		$jumlah_ttd = $this->verify->getJumlah('usul', ['is_status' => 'TTD_SK']);
+		$data = [
+			'jumlah_verify' => @$jumlah_verify->num_rows(),
+			'jumlah_approved' => @$jumlah_selesai->num_rows(),
+			'jumlah_ttd_sk' => @$jumlah_ttd->num_rows()
+		];
+		$this->output->set_header('Content-Type: Application/json');
+		echo json_encode($data);
+	}
+
 	public function ajax()
 	{
 		$db = $this->verify->make_datatables();
@@ -132,6 +146,8 @@ class Verifikasi extends CI_Controller
 			"recordsFiltered" => $this->verify->make_count_filtered(),
 			"data" => $data,
 		);
+
+		$this->output->set_header('Content-Type: Application/json');
 		//output to json format
 		echo json_encode($output);
 	}

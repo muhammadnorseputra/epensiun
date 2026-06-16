@@ -128,7 +128,6 @@
     <script src="<?= base_url('template/') ?>assets/js/oauth.js"></script>
     <script>
         new Oauth("loginBtn", {
-            url: "/oauth/sso/authorize",
             redirect: "/app/dashboard",
         });
     </script>

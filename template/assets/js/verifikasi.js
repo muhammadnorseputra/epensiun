@@ -1,4 +1,7 @@
 $(function () {
+	// Load jumlah
+	getJumlahUsulByStatus();
+	// init tanggal
 	$(".tanggal").datepicker({
 		format: "dd/mm/yyyy",
 		autoclose: true,
@@ -7,6 +10,7 @@ $(function () {
 		clearBtn: true,
 		keepEmptyValues: true,
 	});
+	// init tanggal dan waktu
 	$(".tanggal-waktu").datetimepicker({
 		locale: "id",
 		showClear: true,
@@ -75,6 +79,11 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 			next: `<i class="bi bi-arrow-bar-right"></i>`,
 		},
 		emptyTable: "No matching records found, please filter this data",
+		processing: `
+            <div class="custom-loader">
+                Memuat data...
+            </div>
+        `,
 	},
 });
 
@@ -142,6 +151,9 @@ $modalApprove.on("hidden.bs.modal", (event) => {
 $modalArchive.on("hidden.bs.modal", (event) => {
 	$formArchive[0].reset();
 });
+function loadJumlah(isLoading) {
+	return `<span class="placeholder col-12 rounded animate-pulse"></span>`;
+}
 
 function loadEffect(isLoading = true, type = 0) {
 	if (type === 1) {
@@ -493,6 +505,31 @@ async function Arsip(token) {
 					`);
 				}, 1000);
 			}
+		},
+	);
+}
+
+async function refresh() {
+	await TabelVerifikasiPesiun.ajax.reload();
+	await getJumlahUsulByStatus();
+}
+
+async function getJumlahUsulByStatus() {
+	// GET ATTERIBUTE
+	let jumlah_verify = $("h1#jumlah_verify"),
+		jumlah_ttd_sk = $("h1#jumlah_ttd_sk"),
+		jumlah_approved = $("h1#jumlah_approved");
+
+	jumlah_verify.html(loadJumlah);
+	jumlah_ttd_sk.html(loadJumlah);
+	jumlah_approved.html(loadJumlah);
+	await $.getJSON(
+		`${_uri}/app/verifikasi/getJumlahUsulByStatus`,
+		function (res) {
+			// PARSE KE HTML
+			jumlah_verify.text(res.jumlah_verify);
+			jumlah_ttd_sk.text(res.jumlah_ttd_sk);
+			jumlah_approved.text(res.jumlah_approved);
 		},
 	);
 }

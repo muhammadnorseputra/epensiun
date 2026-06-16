@@ -10,6 +10,69 @@
                 Jangan lupa untuk mengarsipkan usulan, jika SK sudah diserahkan atau diterima yang bersangkutan.
             </div>
         </div>
+        <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3">
+            <!-- card -->
+            <div class="card w-100 border">
+                <!-- card body -->
+                <div class="card-body">
+                    <!-- heading -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">Verifikasi</h4>
+                        </div>
+                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                            <i class="bi bi-book fs-4"></i>
+                        </div>
+                    </div>
+                    <!-- project number -->
+                    <div>
+                        <h1 class="fw-bold" id="jumlah_verify">-</h1>
+                        <p class="mb-0">Total dalam proses verifikasi.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- card -->
+            <div class="card w-100 border">
+                <!-- card body -->
+                <div class="card-body">
+                    <!-- heading -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">Proses TTD SK</h4>
+                        </div>
+                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                            <i class="bi bi-person-plus fs-4"></i>
+                        </div>
+                    </div>
+                    <!-- project number -->
+                    <div>
+                        <h1 class="fw-bold" id="jumlah_ttd_sk">-</h1>
+                        <p class="mb-0">Total dalam proses TTD</p>
+                    </div>
+                </div>
+            </div>
+            <!-- card -->
+            <div class="card w-100 border">
+                <!-- card body -->
+                <div class="card-body">
+                    <!-- heading -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-0">Approved</h4>
+                        </div>
+                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                            <i class="bi bi-lock fs-4"></i>
+                        </div>
+                    </div>
+                    <!-- project number -->
+                    <div>
+                        <h1 class="fw-bold" id="jumlah_approved">-</h1>
+                        <p class="mb-0">Total Disetujui.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <!-- card  -->
         <div class="card p-0">
             <!-- card header  -->
@@ -19,11 +82,11 @@
                     <h4 class="mb-0">Verifikasi Usulan Pensiun ASN</h4>.
                 </div>
                 <div>
-                    <button class="btn btn-secondary btn-md" onclick="return TabelVerifikasiPesiun.ajax.reload();"><i class="icon-xs me-2" data-feather="refresh-ccw"></i> Refresh Data</a>
+                    <button class="btn btn-secondary btn-md" onclick="return refresh();"><i class="icon-xs me-2" data-feather="refresh-ccw"></i> Refresh Data</a>
                 </div>
             </div>
             <!-- table  -->
-            <div class="table-responsive p-4">
+            <div class="table-responsive p-2">
                 <div class="col-6 d-flex gap-2">
                     <div class="form-floating">
                         <select class="form-select" name="filter_status" id="filter_status" aria-label="Floating label select example">
@@ -168,7 +231,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-send me-2"></i> Simpan Perubahan</button>
             </div>
         </div>
@@ -206,7 +269,7 @@
                             <i class="bi bi-cloud-arrow-up"></i>
                         </div>
                         <h5 class="font-weight-bold mt-3 mb-2">
-                            Drag & Drop File Disini
+                            Drag & Drop File SK Disini
                         </h5>
                         <small class="text-muted d-block">
                             Format: PDF
@@ -241,7 +304,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
                 <button type="submit" class="btn btn-success"><i class="bi bi-hand-thumbs-up-fill me-2"></i> Approve</button>
             </div>
             <?= form_close() ?>
@@ -280,7 +343,7 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-arrow-left me-2"></i> Batal</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
                 <button type="submit" class="btn btn-success"><i class="bi bi-send me-2"></i> Simpan</button>
             </div>
             <?= form_close() ?>
@@ -289,6 +352,7 @@
 </div>
 
 <style>
+    /* Custom Upload File */
     .upload-dropzone {
         position: relative;
         border: 2px dashed #dfe4ea;

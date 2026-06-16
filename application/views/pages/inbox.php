@@ -1,25 +1,25 @@
 <div class="container mb-4 pt-4 px-4 px-md-4">
-    <div class="card mb-4">
+    <div class="card mb-3">
         <!-- card header  -->
-        <div class="card-header bg-white py-4 d-flex flex-column flex-md-row justify-content-between align-items-start gap-5">
-                    <i data-feather="inbox" class="icon-md"></i>
-                    <div>
-                        <h4 class="mb-0">Inbox Usulan Pensiun ASN</h4>
-                        <p class="lead"><?= $this->session->userdata('unker') ?>.</p>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="<?= base_url('app/pensiun/buatusul') ?>" class="btn btn-primary btn-md"><i class="icon-sm me-2" data-feather="plus-circle"></i>Tambah Usul Pensiun</a>
-                        <button class="btn btn-secondary btn-md" onclick="return refresh()"><i class="icon-xs" data-feather="refresh-ccw"></i></a>
-                    </div>
-                </div>
+        <div class="card-header bg-primary rounded text-white py-4 d-flex flex-column flex-md-row justify-content-between align-items-center gap-5">
+            <i data-feather="inbox" class="icon-md"></i>
+            <div>
+                <h4 class="mb-0 text-white">Inbox Usulan Pensiun ASN</h4>
+                <p class="lead"><?= $this->session->userdata('unker') ?>.</p>
+            </div>
+            <div class="ms-auto gap-2">
+                <button class="btn btn-primary btn-md" onclick="return refresh()"><i class="icon-xs me-2" data-feather="refresh-ccw"></i> Refresh</button>
+                <a href="<?= base_url('app/pensiun/buatusul') ?>" class="btn btn-white btn-md"><i class="icon-sm me-2" data-feather="plus-circle"></i>Tambah Usul Pensiun</a>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-12 col-md-12 col-12">
             <!-- Page header -->
             <div>
-                <div class="d-flex flex-column flex-lg-row justify-content-between gap-5">
+                <div class="d-flex flex-column flex-lg-row justify-content-between gap-3">
                     <!-- card -->
-                    <div class="card w-100">
+                    <div class="card w-100 border">
                         <!-- card body -->
                         <div class="card-body">
                             <!-- heading -->
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <!-- card -->
-                    <div class="card w-100">
+                    <div class="card w-100 border">
                         <!-- card body -->
                         <div class="card-body">
                             <!-- heading -->
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <!-- card -->
-                    <div class="card w-100">
+                    <div class="card w-100 border">
                         <!-- card body -->
                         <div class="card-body">
                             <!-- heading -->
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <!-- card -->
-                    <div class="card w-100">
+                    <div class="card w-100 border">
                         <!-- card body -->
                         <div class="card-body">
                             <!-- heading -->
@@ -103,13 +103,13 @@
         </div>
     </div>
     <!-- row  -->
-    <div class="row mt-6">
+    <div class="row mt-4">
         <div class="col-md-12 col-12">
             <!-- card  -->
             <div class="card">
-                
+
                 <!-- table  -->
-                <div class="table-responsive p-4">
+                <div class="table-responsive p-2">
                     <table id="table-inbox" class="table text-nowrap mb-0">
                         <thead class="bg-light">
                             <tr>

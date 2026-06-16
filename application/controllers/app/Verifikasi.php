@@ -24,7 +24,7 @@ class Verifikasi extends CI_Controller
 		parent::__construct();
 		// cek session level
 		if ($this->session->userdata('level') !== 'ADMIN') {
-			return show_404();
+			return show_unauthorized();
 		}
 		$this->load->model(['ModelPensiun' => 'pensiun', 'ModelPensiunVerifikasi' => 'verify']);
 	}

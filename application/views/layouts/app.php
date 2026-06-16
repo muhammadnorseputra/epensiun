@@ -163,7 +163,7 @@
                 href="<?= base_url('/app/verifikasi/list') ?>">
                 <i class="nav-icon bi bi-patch-check-fill text-primary me-2">
                 </i>
-                Verifikasi Usul
+                Verifikasi
               </a>
             </li>
 

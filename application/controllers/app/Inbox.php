@@ -10,8 +10,8 @@ class Inbox extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if ($this->session->userdata('level') !== 'ADMIN' && $this->session->userdata('level') !== 'USER') {
-            return show_404();
+        if (!in_array($this->session->userdata('level'), ['ADMIN', 'USER'])) {
+            return show_unauthorized();
         }
         $this->load->model(['ModelPensiunInbox' => 'inbox']);
     }

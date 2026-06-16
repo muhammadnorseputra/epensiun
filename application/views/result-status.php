@@ -99,7 +99,7 @@
                 // tutup popup
                 window.close();
 
-            }, 1000);
+            }, 2000);
 
         });
     </script>

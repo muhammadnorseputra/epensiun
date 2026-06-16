@@ -8,10 +8,10 @@ class Arsip extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-		// cek session level
-		if($this->session->userdata('level') !== 'ADMIN') {
-			return show_404();
-		}
+        // cek session level
+        if ($this->session->userdata('level') !== 'ADMIN') {
+            return show_unauthorized();
+        }
         $this->load->model(['ModelArsip' => 'arsip', 'ModelPensiun' => 'pensiun']);
     }
 
@@ -44,15 +44,15 @@ class Arsip extends CI_Controller
                     More
 				</a>
 				<div class="dropdown-menu" aria-labelledby="dropdownTeamOne">
-					<a target="_blank" class="dropdown-item" type="button" href="'.$r->url_berkas.'"><i class="bi bi-link text-primary me-2"></i>Berkas Usul</a>
+					<a target="_blank" class="dropdown-item" type="button" href="' . $r->url_berkas . '"><i class="bi bi-link text-primary me-2"></i>Berkas Usul</a>
 			';
 
-			if($r->is_status === 'SELESAI_ARSIP') {
-                $button .= '<button type="button" class="dropdown-item" onclick="UnArsip(\''.$r->token.'\')"><i class="bi bi-arrow-counterclockwise me-2 text-warning"></i>Unarsip</button>';
-				$button .= '<a class="dropdown-item" href="'.$r->url_sk.'" target="_blank"><i class="bi bi-download me-2 text-success"></i>Download SK</a>';
-			}
+            if ($r->is_status === 'SELESAI_ARSIP') {
+                $button .= '<button type="button" class="dropdown-item" onclick="UnArsip(\'' . $r->token . '\')"><i class="bi bi-arrow-counterclockwise me-2 text-warning"></i>Unarsip</button>';
+                $button .= '<a class="dropdown-item" href="' . $r->url_sk . '" target="_blank"><i class="bi bi-download me-2 text-success"></i>Download SK</a>';
+            }
 
-			$button .='
+            $button .= '
 				</div>
 			</div>';
 
@@ -70,7 +70,7 @@ class Arsip extends CI_Controller
                     <div class="ms-3 lh-1">
                         <h5 class="mb-1">
                             <strong>' . $r->nip . '</strong> <br>
-                            <a href="'.$r->url_sk.'" target="_blank" class="text-inherit">' . $r->nama . '</a> <br>
+                            <a href="' . $r->url_sk . '" target="_blank" class="text-inherit">' . $r->nama . '</a> <br>
 							<span class="text-secondary">' . $r->nama_unit_kerja . '</span>
                         </h5>
                     </div>
@@ -91,10 +91,11 @@ class Arsip extends CI_Controller
         echo json_encode($output);
     }
 
-    public function unarchive() {
+    public function unarchive()
+    {
         $token = $this->input->post('token');
         $db = $this->pensiun->update('usul', ['is_status' => 'SELESAI'], ['token' => $token]);
-        if($db) {
+        if ($db) {
             $this->pensiun->update('usul_pengantar', ['is_status' => 'SELESAI'], ['token' => $token]);
             $msg = [
                 'status' => true,

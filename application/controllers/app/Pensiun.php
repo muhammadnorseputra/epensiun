@@ -27,11 +27,6 @@ class Pensiun extends CI_Controller
 		$this->load->model(['ModelPensiun' => 'pensiun']);
 	}
 
-	// public function apitest()
-	// {
-	// 	$req = postApi('http://silka.balangankab.go.id/services/pensiun/profile', ['nip' => '197812042005012009']);
-	// 	echo $req;
-	// }
 
 	public function syarat()
 	{
@@ -74,7 +69,7 @@ class Pensiun extends CI_Controller
 		// filter pencarian berdasarkan NIP dan Kewenangan Akun UMPEG
 		$nip = $this->input->post('nip');
 		$db = $this->pensiun->getWhere('usul', ['nip' => $nip, 'created_by_unorid' => $this->session->userdata('unker_id')]);
-		
+
 		if ($db->num_rows() > 0) {
 			$usul = $db->row();
 			$template = $this->load->view('pages/statususul', ['usul' => $usul]);
@@ -89,17 +84,17 @@ class Pensiun extends CI_Controller
 	public function carinip()
 	{
 		$client = new \GuzzleHttp\Client([
-			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
-    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+			'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+			'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
 		]);
 
 		$nip = $this->input->post('nip');
-		$endpoint = "pns/".$nip."/pensiun";
-		
+		$endpoint = "pns/" . $nip . "/pensiun";
+
 		$headers = [
 			'headers' => [
 				'apiKey' => $this->config->item('X-API-KEY'),
-				'Authorization' => 'Bearer '.$this->session->userdata('access_token'),
+				'Authorization' => 'Bearer ' . $this->session->userdata('access_token'),
 				'Accept' => 'application/json',
 				'Content-Type' => 'multipart/form-data'
 			]
@@ -119,16 +114,16 @@ class Pensiun extends CI_Controller
 	protected function CekBlueItem($nip)
 	{
 		$client = new \GuzzleHttp\Client([
-			'base_uri' => $this->config->item('BASE_API_URL').'/'.$this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
-    		'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
+			'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
+			'timeout'  => $this->config->item('TIME_OUT'), // Timeout opsional
 		]);
 
-		$endpoint = "pns/".$nip."/pensiun/cek-file";
-		
+		$endpoint = "pns/" . $nip . "/pensiun/cek-file";
+
 		$headers = [
 			'headers' => [
 				'apiKey' => $this->config->item('X-API-KEY'),
-				'Authorization' => 'Bearer '.$this->session->userdata('access_token'),
+				'Authorization' => 'Bearer ' . $this->session->userdata('access_token'),
 				'Accept' => 'application/json',
 				'Content-Type' => 'application/json'
 			]
@@ -152,7 +147,7 @@ class Pensiun extends CI_Controller
 			$detail = $this->pensiun->getWhere('usul_pengantar', ['token' => $_GET['token']])->row();
 			$usul = $this->pensiun->getWhere('usul', ['token' => $_GET['token']])->row();
 		}
-		
+
 		$data = [
 			'title' => 'Buat Usul Pensiun | Integrated Pensiun ASN',
 			'content' => 'pages/buatusul',
@@ -266,7 +261,7 @@ class Pensiun extends CI_Controller
 			return false;
 		}
 
-		
+
 
 		$cektoken = $this->pensiun->getWhere('usul', ['token' => $post['token']]);
 		if ($cektoken->num_rows() > 0) {

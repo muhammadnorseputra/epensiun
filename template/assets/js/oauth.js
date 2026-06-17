@@ -14,7 +14,8 @@ class Oauth {
 			buttonText: this.button.innerHTML,
 			loadingHtml:
 				'<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menghubungkan',
-			successHtml: '<i class="bi bi-check-circle-fill text-success me-2"></i> Berhasil',
+			successHtml:
+				'<i class="bi bi-check-circle-fill text-green-100 me-2"></i> Berhasil',
 			onSuccess: null,
 			onFailed: null,
 			...options,
@@ -72,7 +73,7 @@ class Oauth {
             popup=yes,
             resizable=no,
             scrollbars=yes
-            `
+            `,
 		);
 
 		return this.popupWindow;

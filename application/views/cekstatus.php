@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="<?= base_url('template/assets/images/approve.png') ?>">
-
-    <!-- Theme CSS -->
-    <link href="<?= base_url('template/assets/libs/bootstrap-icons/font/bootstrap-icons.css') ?>" rel="stylesheet">
-    <link href="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/theme-default.css') ?>"
-        rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('template/assets/css/theme.min.css') ?>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CEK STATUS USULAN PENSIUN | SIMPUN (Sistem Informasi Pengelolaan Usulan Pensiun)</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="<?= base_url('template/assets/libs/bootstrap-icons/font/bootstrap-icons.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/theme-default.css') ?>" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
-<body>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
     <noscript>
         <style>
             #main-login {
@@ -47,97 +49,331 @@
             <h1>JavaScript is not enabled, please check your browser settings.</h1>
         </div>
     </noscript>
-    <!-- container -->
-    <div id="main-login" class="container d-flex flex-column">
-        <div class="row align-items-center justify-content-center g-0
-        min-vh-100">
-            <img class="position-fixed z-n1 opacity-25"
-                src="https://png.pngtree.com/thumb_back/fw800/background/20240430/pngtree-tree-planting-on-black-soil-in-forest-background-image_15722421.jpg" alt="Background"
-                style="height: 100vh;margin:0;padding:0;top:0;left:0">
-            <div class="col-12 col-md-8 col-lg-6 col-xxl-5 py-8 py-xl-0 z-1">
-                <!-- Logo ICON -->
-                <!-- <div class="mx-auto text-center my-4"><i class="bi bi-browser-edge fs-1 text-primary "></i></div> -->
-                <!-- Logo IMAGE -->
-                <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/500px-Lambang_Kabupaten_Balangan.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
-                        alt="Logo Kab. Balangan" width="80">
-                    <!-- <img src="http://silka.balangankab.go.id/assets/silka3copy.png" alt="Logo Kab. Balangan"
-                        width="150">
-                    <img src="https://www.iosys.co.uk/images/ssl-security-encryption.png" alt="Logo Kab. Balangan"
-                        width="100"> -->
+    <!-- Background Decoration -->
+
+    <div class="fixed inset-0 overflow-hidden -z-10">
+
+        <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-blue-400/15 rounded-full blur-3xl"></div>
+
+        <div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-indigo-400/15 rounded-full blur-3xl"></div>
+
+    </div>
+
+    <div class="container mx-auto">
+
+        <div class="min-h-screen flex items-center py-8 px-6 lg:px-10">
+
+            <div class="grid lg:grid-cols-2 gap-16 items-center w-full">
+
+                <!-- LEFT -->
+
+                <div>
+
+                    <!-- Logo -->
+
+                    <div class="flex items-center gap-4 mb-8">
+
+                        <div class="h-14 w-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            S
+                        </div>
+
+                        <div>
+                            <h2 class="font-bold text-2xl text-slate-900">
+                                SIMPUN
+                            </h2>
+
+                            <p class="text-sm text-slate-500">
+                                Sistem Informasi Pengelolaan Usulan Pensiun
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Badge -->
+
+                    <span class="inline-flex px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-medium">
+                        🔍 Pengecekan Status Usulan
+                    </span>
+
+                    <!-- Heading -->
+
+                    <h1 class="mt-6 text-3xl sm:text-5xl font-extrabold leading-tight text-slate-900">
+
+                        Pantau progres
+
+                        <span class="text-blue-600 block">
+                            usulan pensiun Anda.
+                        </span>
+
+                    </h1>
+
+                    <p class="mt-6 text-normal sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+                        Masukkan NIP untuk mengetahui perkembangan proses usulan pensiun secara cepat, aman, dan real-time melalui SIMPUN.
+                    </p>
+
+                    <!-- Features -->
+
+                    <div class="grid grid-cols-2 gap-4 mt-8 max-w-xl">
+
+                        <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
+                            ⚡ Cek Status Cepat
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
+                            🔒 Aman
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
+                            📊 Real-time
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-sm">
+                            📱 Mudah Digunakan
+                        </div>
+
+                    </div>
+
+                    <!-- Illustration -->
+
                 </div>
-                <!-- Card -->
-                <div class="card rounded-lg">
-                    <!-- Card body -->
-                    <div class="card-body p-6">
-                        <div class="mb-4 text-center">
-                            <h2 class="font-bold"><span class="text-primary text-xl">PENGECEKAN STATUS USULAN</span></h2>
-                            <h4>Masukkan NIP Anda untuk melakukan pengecekan status usulan pensiun melalui sistem kami.</h4>
+
+                <!-- RIGHT -->
+
+                <div class="flex justify-center lg:justify-end">
+
+                    <div
+                        class="w-full max-w-md
+                        bg-white
+                        backdrop-blur-xl
+                        rounded-[32px]
+                        border border-white
+                        shadow-[0_20px_70px_rgba(15,23,42,0.10)]
+                        p-8">
+
+                        <div class="mb-8">
+
+                            <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center text-3xl mb-4">
+                                🔍
+                            </div>
+
+                            <h2 class="text-3xl font-bold text-slate-900">
+                                Cek Status
+                            </h2>
+
+                            <p class="mt-2 text-slate-500">
+                                Masukkan data untuk melihat status usulan pensiun.
+                            </p>
+
                         </div>
                         <?php
                         $urlRef = isset($_GET['continue']) ? $_GET['continue'] : '';
+
                         if (!$this->session->csrf_token) {
                             $this->session->csrf_token = hash('sha1', time());
                         }
+
                         if ($this->session->flashdata('success') && $this->session->userdata('usul')) {
+
                             $usul = $this->session->userdata('usul');
-                            echo '<div class="alert alert-info alert-dismissible fade show" role="alert">';
-                            echo 'Data usulan ditemukan: <strong>' . $usul->nip . '</strong>';
-                            echo '</div>';
-                            echo TrackingUsulan($usul);
-                            echo '<div class="d-grid mt-3"><button type="button" class="btn btn-danger" aria-label="Close" onclick="window.location.reload()">OKE</button></div>';
+                        ?>
+
+                            <div
+                                class="mb-6 flex items-start gap-3 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-4 text-blue-800">
+
+                                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
+                                    🔍
+                                </div>
+
+                                <div>
+                                    <p class="font-semibold">
+                                        Data usulan ditemukan
+                                    </p>
+
+                                    <p class="mt-1 text-sm">
+                                        NIP:
+                                        <span class="font-bold">
+                                            <?= $usul->nip ?>
+                                        </span>
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <?php
+
+                            echo trackingUsulan($usul);
+
+                            ?>
+
+                            <div class="mt-6">
+                                <button
+                                    type="button"
+                                    onclick="window.location.reload()"
+                                    class="w-full rounded-2xl bg-teal-600 px-4 py-3 font-semibold text-white transition hover:bg-teal-700 cursor-pointer">
+
+                                    OKE
+
+                                </button>
+                            </div>
+
+                        <?php
                             return false;
                         }
+
                         if ($this->session->flashdata('error')) {
-                            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
-                            echo $this->session->flashdata('error');
-                            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                            echo '</div>';
+                        ?>
+
+                            <div
+                                id="alert-error"
+                                class="mb-6 flex items-start justify-between gap-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-4 text-red-800">
+
+                                <div class="flex items-start gap-3">
+
+                                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-red-100">
+                                        ⚠️
+                                    </div>
+
+                                    <div>
+                                        <p class="font-semibold">
+                                            Informasi Sistem
+                                        </p>
+
+                                        <p class="mt-1 text-sm">
+                                            <?= $this->session->flashdata('error'); ?>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    type="button"
+                                    onclick="document.getElementById('alert-error').remove()"
+                                    class="text-red-500 transition hover:text-red-700">
+
+                                    ✕
+                                </button>
+
+                            </div>
+
+                        <?php
                         }
                         ?>
 
                         <?= form_open(base_url("cekstatus/docek")); ?>
-                        <!-- Search input -->
-                        <div class="mb-3">
-                            <label for="search-input" class="form-label fw-bold">Nomor Induk Pegawai (NIP)</label>
-                            <input class="form-control form-control-lg" type="search" id="search-input" placeholder="Masukan NIP" name="nip" maxlength="18" minlength="18" value="<?= set_value('nip'); ?>" required>
-                            <small id="emailHelp" class="form-text text-muted">Pastikan NIP yang Anda masukkan benar.</small>
-                        </div>
-                        <div class="mb-3 d-flex flex-column">
-                            <label for="captcha" class="form-label fw-bold">Kode Keamanan (CAPTCHA)</label>
-                            <div>
-                                <img src="<?= base_url('cekstatus/getImageCaptcha') ?>" alt="Captcha" class="img-fluid" width="200" height="50">
-                                <button type="button" class="btn btn-link btn-outline-info" onclick="refreshCaptcha()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
-                            </div>
-                            <input type="text" class="form-control form-control-lg mt-2 w-50" id="captcha" name="captcha"
-                                placeholder="Masukkan kode" required>
-                        </div>
-                        <div class="d-grid mt-3">
-                            <button type="submit" class="btn btn-lg btn-outline-primary">
-                                Submit <i class="bi bi-search"></i></button>
-                        </div>
-                        <?= form_close(); ?>
-                        <div style="display: flex; align-items: center; margin: 20px 0;">
-                            <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
-                            <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
-                            <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
-                        </div>
-                        <a href="<?= base_url('/') ?>" class="btn btn-link"><i class="bi bi-arrow-left"></i> Kembali Login</a>
-                    </div>
-                </div>
-                <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>
-            </div>
-        </div>
-    </div>
-    <!-- Scripts -->
-    <!-- Libs JS -->
-    <script src="<?= base_url('template/assets/libs/jquery/dist/jquery.min.js') ?>"></script>
-    <script src="<?= base_url('template/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') ?>"></script>
-    <script src="<?= base_url('template/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js') ?>"></script>
+                        <!-- NIP -->
 
-    <!-- Theme JS -->
-    <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
+                        <div class="mb-5">
+
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                Nomor Induk Pegawai
+                            </label>
+
+                            <input
+                                type="search"
+                                placeholder="Masukkan NIP"
+                                name="nip"
+                                data-validation="required,number"
+                                maxlength="18"
+                                minlength="18"
+                                value="<?= set_value('nip'); ?>"
+                                required
+                                class="w-full h-14 rounded-2xl border border-slate-200 px-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500">
+
+                        </div>
+
+                        <!-- Captcha -->
+
+                        <div class="mb-5">
+
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                Kode Keamanan
+                            </label>
+
+                            <div class="flex items-center gap-3 mb-3">
+
+                                <img
+                                    src="<?= base_url('cekstatus/getImageCaptcha') ?>"
+                                    alt="Captcha"
+                                    class="h-14 rounded-xl border border-slate-200">
+
+                                <button
+                                    onclick="refreshCaptcha()"
+                                    type="button"
+                                    class="text-blue-600 text-sm font-medium hover:text-blue-700 cursor-pointer">
+
+                                    <i class="bi bi-arrow-clockwise"></i> Refresh
+
+                                </button>
+
+                            </div>
+
+                            <input
+                                type="text"
+                                name="captcha"
+                                data-validation="required,number"
+                                placeholder="Masukkan kode CAPTCHA"
+                                class="w-full h-14 rounded-2xl border border-slate-200 px-4 focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-blue-500">
+
+                        </div>
+
+                        <!-- Button -->
+
+                        <button type="submit" class="w-full h-14 rounded-2xl bg-blue-600 text-white font-semibold hover:bg-blue-700 transition shadow-lg cursor-pointer">
+
+                            Submit
+
+                        </button>
+                        <?= form_close(); ?>
+
+                        <!-- Divider -->
+
+                        <div class="relative my-8">
+
+                            <div class="border-t border-slate-200"></div>
+
+                            <span
+                                class="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-4 text-sm text-slate-400">
+
+                                ATAU
+
+                            </span>
+
+                        </div>
+
+                        <!-- Back -->
+
+                        <a
+                            href="<?= base_url('/') ?>"
+                            class="flex justify-center text-blue-600 font-medium hover:text-blue-700">
+
+                            ← Kembali ke Login
+
+                        </a>
+
+                        <!-- Footer -->
+
+                        <div class="mt-8 text-center text-xs text-slate-400">
+
+                            &copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. <br /> Version <?= phpversion(); ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="<?= base_url('template/assets/libs/jquery/dist/jquery.min.js') ?>"></script>
+    <script src="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/jquery.form-validator.min.js') ?>"></script>
     <script>
+        $.validate({
+            modules: 'security'
+        });
+
         function refreshCaptcha() {
             const captchaImage = document.querySelector('img[alt="Captcha"]');
             captchaImage.src = '<?= base_url('cekstatus/getImageCaptcha') ?>?' + new Date().getTime();

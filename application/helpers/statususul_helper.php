@@ -1,62 +1,203 @@
 <?php
 
-function TrackingUsulan($data)
+function trackingUsulan($data)
 {
-    $template = "";
-    if ($data->is_status === 'SKPD' || $data->is_status === 'KIRIM_USUL') {
-        $template .= '<div class="card shadow-lg text-center">
-                        <div class="card-body">
-                            Usulan Masih Dalam Tahap "<strong>DIUSULKAN SKPD</strong>"
-                        </div>
-                    </div>';
-    } elseif ($data->is_status === 'CETAK_USUL') {
-        $template .= '<div class="card shadow-lg text-center">
-                        <div class="card-body">
-                            Usulan Masih Dalam Tahap "<strong>CETAK USUL</strong>"
-                        </div>
-                    </div>';
-    } elseif ($data->is_status === 'BKPSDM') {
-        $template .= '<div class="card shadow-lg">
-                        <div class="card-body">
-                            <div class="d-flex flex-column justify-content-center align-items-center gap-3">
-                            <i class="bi bi-bookmark-check-fill text-primary fs-1 mb-8"></i>
-                            <img src="' . base_url('template/assets/images/svg/verify.svg') . '" class="w-75 w-md-50 rounded mb-6" alt="Verify Status">
-                            <h2>TAHAP VERIFIKASI</h2>
-                            <span>Usulan masih dalam tahap "<strong>VERIFIKASI BKPSDM</strong>"</span>
-                            </div>
-                        </div>
-                    </div>';
-    } elseif ($data->is_status === 'SELESAI') {
-        $template .= '<div class="card shadow-none border">
-                        <div class="card-body d-flex flex-column align-items-center gap-3">
-                            <i class="bi bi-bookmark-check-fill text-success fs-1 mb-0 pb-0"></i>
-                            <img src="' . base_url('template/assets/images/approve.png') . '" class="w-50"/>
-                            <div>Usulan Pensiun Telah "<strong>SELESAI & SK Sudah Terbit</strong>". <br> Silahkan Ke Kantor BKPSDM untuk pengambilan SK</div>
-                        </div>
-                    </div>';
-    } elseif ($data->is_status === 'TTD_SK') {
-        $template .= '<div class="card shadow-none border">
-                        <div class="card-body d-flex flex-column align-items-center gap-3">
-                            <i class="bi bi-bookmark-check-fill text-success fs-1 mb-8"></i>
-                            <img src="' . base_url('template/assets/images/ttd_sk.png') . '" class="w-50"/>
-                            <p>Usulan Pensiun dalam proses "<strong>Signature (TTD) oleh BUPATI BALANGAN</strong>"</p>
-                        </div>
-                    </div>';
-    } elseif ($data->is_status === 'SELESAI_ARSIP') {
-        $template .= '<div class="card shadow-none border">
-                        <div class="card-body d-flex flex-column align-items-center gap-3">
-                            <i class="bi bi-bookmark-check-fill text-success fs-1 mb-0 pb-0"></i>
-                            <img src="' . base_url('template/assets/images/arsip.png') . '" class="w-50"/>
-                            <div>SK telah <strong class="text-dark">DI-SERAHKAN</strong> dan <strong class="text-dark">DI-TERIMA</strong> oleh <strong class="text-success">' . $data->diterima_oleh . '</strong> <br> pada tanggal <strong>' . @date_indo(substr($data->arsip_at, 0, 10)) . '</strong> jam <strong>' . substr($data->arsip_at, 10, 6) . '</strong></div>
-                        </div>
-                    </div>';
-    } else {
-        $template .= '<div class="card shadow-none border border-danger">
-                        <div class="card-body text-danger">
-                            Ops, usulan sepertinya <strong>Tidak Memenuhi Syarat</strong> atau <strong>Berkas Tidak Lengkap</strong>. Silahkan hubungi SKPD terkait !
-                        </div>
-                    </div>';
-    }
+    $wrapper = 'rounded-3xl border border-slate-200 bg-white p-6 shadow-sm';
+    $center  = 'flex flex-col items-center text-center gap-4';
 
-    return $template;
+    switch ($data->is_status) {
+
+        case 'SKPD':
+        case 'KIRIM_USUL':
+
+            return '
+            <div class="' . $wrapper . '">
+                <div class="' . $center . '">
+                    <div class="text-5xl">📄</div>
+                    <h3 class="text-xl font-bold text-slate-800">
+                        Tahap Pengusulan
+                    </h3>
+                    <p class="text-slate-600">
+                        Usulan masih dalam tahap
+                        <span class="font-semibold text-blue-600">
+                            DIUSULKAN SKPD
+                        </span>
+                    </p>
+                </div>
+            </div>';
+
+        case 'CETAK_USUL':
+
+            return '
+            <div class="' . $wrapper . '">
+                <div class="' . $center . '">
+                    <div class="text-5xl">🖨️</div>
+                    <h3 class="text-xl font-bold text-slate-800">
+                        Tahap Cetak Usulan
+                    </h3>
+                    <p class="text-slate-600">
+                        Usulan masih dalam tahap
+                        <span class="font-semibold text-blue-600">
+                            CETAK USUL
+                        </span>
+                    </p>
+                </div>
+            </div>';
+
+        case 'BKPSDM':
+
+            return '
+            <div class="' . $wrapper . '">
+                <div class="' . $center . '">
+
+                    <div class="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center text-3xl">
+                        🔎
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-slate-900">
+                        Tahap Verifikasi
+                    </h2>
+
+                    <p class="text-slate-600">
+                        Usulan masih dalam proses
+                        <span class="font-semibold text-blue-600">
+                            VERIFIKASI BKPSDM
+                        </span>
+                    </p>
+
+                </div>
+            </div>';
+
+        case 'TTD_SK':
+
+            return '
+            <div class="' . $wrapper . '">
+                <div class="' . $center . '">
+
+                    <div class="w-16 h-16 rounded-2xl bg-yellow-100 flex items-center justify-center text-3xl">
+                        ✍️
+                    </div>
+
+                    <img
+                        src="' . base_url('template/assets/images/ttd_sk.png') . '"
+                        class="max-w-xs w-full"
+                        alt="TTD SK">
+
+                    <h2 class="text-2xl font-bold text-slate-900">
+                        Proses Penandatanganan
+                    </h2>
+
+                    <p class="text-slate-600">
+                        Usulan sedang dalam proses
+                        <span class="font-semibold text-yellow-600">
+                            TTD BUPATI BALANGAN
+                        </span>
+                    </p>
+
+                </div>
+            </div>';
+
+        case 'SELESAI':
+
+            return '
+            <div class="rounded-3xl border border-green-200 bg-green-50 p-6">
+
+                <div class="' . $center . '">
+
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center text-3xl">
+                        ✅
+                    </div>
+
+                    <img
+                        src="' . base_url('template/assets/images/approve.png') . '"
+                        class="max-w-xs w-full"
+                        alt="Selesai">
+
+                    <h2 class="text-2xl font-bold text-green-700">
+                        Usulan Selesai
+                    </h2>
+
+                    <p class="text-green-700">
+                        SK telah terbit.
+                        Silakan datang ke
+                        <strong>BKPSDM</strong>
+                        untuk pengambilan SK.
+                    </p>
+
+                </div>
+
+            </div>';
+
+        case 'SELESAI_ARSIP':
+
+            return '
+            <div class="rounded-3xl border border-green-200 bg-green-50 p-6">
+
+                <div class="' . $center . '">
+
+                    <div class="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center text-3xl">
+                        📦
+                    </div>
+
+                    <img
+                        src="' . base_url('template/assets/images/arsip.png') . '"
+                        class="max-w-xs w-full"
+                        alt="Arsip">
+
+                    <h2 class="text-2xl font-bold text-green-700">
+                        SK Telah Diserahkan
+                    </h2>
+
+                    <div class="text-green-700 leading-relaxed">
+
+                        SK telah diserahkan dan diterima oleh
+
+                        <span class="font-bold">
+                            ' . $data->diterima_oleh . '
+                        </span>
+
+                        <br>
+
+                        pada tanggal
+
+                        <span class="font-bold">
+                            ' . @date_indo(substr($data->arsip_at, 0, 10)) . '
+                        </span>
+
+                        pukul
+
+                        <span class="font-bold">
+                            ' . substr($data->arsip_at, 10, 6) . '
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>';
+
+        default:
+
+            return '
+            <div class="rounded-3xl border border-red-200 bg-red-50 p-6">
+
+                <div class="text-center">
+
+                    <div class="text-5xl mb-4">
+                        ⚠️
+                    </div>
+
+                    <h3 class="text-xl font-bold text-red-700 mb-2">
+                        Usulan Tidak Memenuhi Syarat
+                    </h3>
+
+                    <p class="text-red-600">
+                        Berkas tidak lengkap atau tidak memenuhi persyaratan.
+                        Silakan menghubungi SKPD terkait.
+                    </p>
+
+                </div>
+
+            </div>';
+    }
 }

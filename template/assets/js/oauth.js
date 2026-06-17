@@ -13,8 +13,8 @@ class Oauth {
 			height: 700,
 			buttonText: this.button.innerHTML,
 			loadingHtml:
-				'<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>',
-			successHtml: '<i class="bi bi-check-circle-fill text-success"></i>',
+				'<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Menghubungkan',
+			successHtml: '<i class="bi bi-check-circle-fill text-success me-2"></i> Berhasil',
 			onSuccess: null,
 			onFailed: null,
 			...options,
@@ -72,7 +72,7 @@ class Oauth {
             popup=yes,
             resizable=no,
             scrollbars=yes
-            `,
+            `
 		);
 
 		return this.popupWindow;
@@ -114,6 +114,12 @@ class Oauth {
 		this.watchPopup();
 	}
 
+	setSuccess() {
+		this.loading = false;
+		this.button.disabled = true;
+		this.button.innerHTML = this.config.successHtml;
+	}
+
 	handleMessage(event) {
 		if (!event.data || !event.data.type) {
 			return;
@@ -121,7 +127,7 @@ class Oauth {
 
 		switch (event.data.type) {
 			case "SSO_SUCCESS":
-				this.button.innerHTML = this.config.successHtml;
+				this.setSuccess();
 
 				if (this.popupWindow && !this.popupWindow.closed) {
 					this.popupWindow.close();

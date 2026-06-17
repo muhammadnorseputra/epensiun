@@ -43,12 +43,12 @@ var TabelArsip = $("#table-arsip").DataTable({
 	},
 });
 
-function UnArsip(token) {
-	iziToast.question({
-		timeout: 20000,
+async function UnArsip(token) {
+	await iziToast.question({
+		timeout: 30000,
 		close: false,
 		theme: 'light',
-		color: 'green',
+		color: 'yellow',
 		overlay: true,
 		icon: 'bi bi-archive',
 		displayMode: 'once',
@@ -56,12 +56,12 @@ function UnArsip(token) {
 		zindex: 999,
 		title: 'Unarsip',
 		message: 'Mengembalikan ke inbox bkpsdm atau verifikasi usul',
-		position: 'center',
+		position: 'bottomCenter',
 		buttons: [
-			['<button><b>OKE</b></button>', function (instance, toast) {
+			['<button><b>OKE</b></button>', async function (instance, toast) {
 	 
 				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-				$.post(`${_uri}/app/arsip/unarchive`, {token: token}, function(res) {
+				await $.post(`${_uri}/app/arsip/unarchive`, {token: token}, function(res) {
 					TabelArsip.ajax.reload();
 					iziToast.success({
 						timeout: 3000,

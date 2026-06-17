@@ -1,5 +1,6 @@
 <!-- row  -->
-<div class="row mt-4 px-2 px-md-4">
+<div class="container mb-4 pt-4 px-4 px-md-4">
+<div class="row">
     <div class="col-md-12 col-12">
         <div class="alert alert-warning d-flex align-items-start" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle-fill me-2" viewBox="0 0 16 16">
@@ -120,6 +121,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Modal ubah status usulan-->

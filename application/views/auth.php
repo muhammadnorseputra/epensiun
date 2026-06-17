@@ -11,8 +11,8 @@
 
     <!-- Theme CSS -->
     <link href="<?= base_url('template/assets/libs/bootstrap-icons/font/bootstrap-icons.css') ?>" rel="stylesheet">
-    <link href="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/theme-default.css') ?>"
-        rel="stylesheet">
+    <link href="<?= base_url('template/assets/libs/jquery-form-validator/form-validator/theme-default.css') ?>" rel="stylesheet">
+    <link href="<?= base_url('template/assets/libs/jquery-toast/iziToast.min.css') ?>" rel="stylesheet" />
     <link rel="stylesheet" href="<?= base_url('template/assets/css/theme.min.css') ?>">
     <title>Sign In | SIMPUN (Sistem Informasi Pengelolaan Usulan Pensiun)</title>
 </head>
@@ -122,13 +122,30 @@
     <script src="<?= base_url('template/') ?>assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="<?= base_url('template/') ?>assets/libs/jquery-toast/iziToast.min.js"></script>
 
     <!-- Theme JS -->
     <script src="<?= base_url('template/') ?>assets/js/theme.min.js"></script>
     <script src="<?= base_url('template/') ?>assets/js/oauth.js"></script>
     <script>
         new Oauth("loginBtn", {
-            redirect: "/app/dashboard",
+            onSuccess: (data) => {
+                iziToast.success({
+                    timeout: 8000,
+                    title: "Login Berhasil",
+                    position: "topCenter",
+                    icon: 'bi bi-check-circle-fill',
+                    message: data.response,
+                    transitionIn: 'fadeInDown',
+                    transitionOut: 'fadeOutUp',
+                    pauseOnHover: false,
+                    onOpened: function(instance, toast){
+                        window.location.href = '/app/dashboard'
+                    },
+                    // onClosing: function(instance, toast, closedBy){
+                    // }
+                });
+            }
         });
     </script>
 </body>

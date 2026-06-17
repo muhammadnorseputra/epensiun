@@ -1,5 +1,6 @@
 <!-- row  -->
-<div class="row mt-6 px-2 px-md-4">
+<div class="container mb-4 pt-4 px-4 px-md-4">
+<div class="row">
     <div class="col-md-12 col-12">
         <!-- card  -->
         <div class="card p-0">
@@ -29,4 +30,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

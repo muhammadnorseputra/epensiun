@@ -286,12 +286,12 @@ function changeStatus($val) {
 	}
 }
 
-function Approve(token) {
+async function Approve(token) {
 	$modalApprove.modal("show");
 	let $container = $formApprove.find("#loadProfile");
 	$container.html(loadEffect());
 	$formApprove.find("input[name='token']").val(token);
-	$.getJSON(
+	await $.getJSON(
 		`${_uri}/app/verifikasi/getprofileasn`,
 		{ token: token },
 		function (res) {
@@ -302,6 +302,8 @@ function Approve(token) {
 						.val(formatDateTimeSQLToIndo(res.data.approve_at));
 				}
 				$formApprove.find("input[name='nip']").val(res.data.nip);
+				$formApprove.find("input[name='no_sk']").val(res.data.nomor_sk)
+				$formApprove.find("input[name='tgl_sk']").val(formatDateSQLToIndo(res.data.tanggal_sk))
 
 				let download = $("div#filesk");
 				if (res.data.url_sk !== null) {
@@ -329,12 +331,6 @@ function Approve(token) {
 									}</div>
 									<div class="badge bg-primary px-3 py-2 rounded text-white">Keterangan : ${
 										res.data.nama_jenis.keterangan
-									}</div>
-									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk,
-									)}</div>
-									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
-										res.data.nomor_sk
 									}</div>
 								</div>
 						</div>
@@ -470,6 +466,8 @@ async function Arsip(token) {
 				$formArchive
 					.find("input[name='tanda_penerima']")
 					.val(res.data.diterima_oleh);
+				$formArchive.find("input[name='no_sk']").val(res.data.nomor_sk)
+				$formArchive.find("input[name='tgl_sk']").val(formatDateSQLToIndo(res.data.tanggal_sk))
 				if (res.data.arsip_at !== null) {
 					$formArchive
 						.find("input[name='tanggal_archive']")
@@ -490,14 +488,8 @@ async function Arsip(token) {
 									<div class="badge bg-secondary px-3 py-2 rounded text-white">Jenis Usul : ${
 										res.data.nama_jenis.nama
 									}</div>
-									<div class="badge bg-secondary px-3 py-2 rounded text-white">Keterangan : ${
+									<div class="badge bg-primary px-3 py-2 rounded text-white">Keterangan : ${
 										res.data.nama_jenis.keterangan
-									}</div>
-									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk,
-									)}</div>
-									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
-										res.data.nomor_sk
 									}</div>
 								</div>
 						</div>

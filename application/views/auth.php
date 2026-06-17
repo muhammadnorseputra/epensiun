@@ -48,31 +48,22 @@
         </div>
     </noscript>
     <!-- container -->
-    <div id="main-login" class="container d-flex flex-column">
-        <div class="row align-items-center justify-content-center g-0
-        min-vh-100">
-            <img class="position-fixed z-n1 opacity-25"
-                src="https://png.pngtree.com/thumb_back/fw800/background/20240430/pngtree-tree-planting-on-black-soil-in-forest-background-image_15722421.jpg" alt="Background"
-                style="height: 100vh;margin:0;padding:0;top:0;left:0">
-            <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0 z-1">
-                <!-- Logo ICON -->
-                <!-- Logo IMAGE -->
-                <div class="my-4 d-flex gap-5 justify-content-center align-items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lambang_Kabupaten_Balangan.png/500px-Lambang_Kabupaten_Balangan.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail"
-                        alt="Logo Kab. Balangan" width="80">
+        <div class="d-flex align-items-center justify-content-center g-0 max-w-xl min-vh-100" style="background: linear-gradient(
+    180deg,
+    #F6F9FE 0%,
+    #EEF4FB 45%,
+    #E1EBF7 100%
+);">
+            <div class="col-5 d-none d-lg-block">
+                <img style="width:100%; border-radius: 2%" src="<?= base_url('template/assets/images/f2927c30-5043-4d21-9e77-fa16c87842f9.png') ?>" alt="background-simpun">
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="col-12 col-sm-8 mx-auto">
 
-                </div>
                 <!-- Card -->
-                <div class="card rounded-lg">
+                <div class="card rounded-xl">
                     <!-- Card body -->
-                    <div class="card-body p-6">
-                        <div class="mb-4 text-center">
-                            <a href="<?= base_url() ?>">
-                                <h2 class="font-bold"><span class="text-primary text-xl">SIMPUN</span></h2>
-                                <h4>Sistem Informasi Pengelolaan Usulan Pensiun</h4>
-                            </a>
-                            <p class="mb-4">Layanan SILKa Integrasi, silahkan masuk menggukana akun sso anda.</p>
-                        </div>
+                    <div class="card-body p-8">
                         <?php
                         $urlRef = isset($_GET['continue']) ? $_GET['continue'] : '';
                         if (!$this->session->csrf_token) {
@@ -92,31 +83,33 @@
                         ?>
 
                         <div>
-                            <div class="d-grid mt-3">
+                            <h3>Masuk dengan akun SSO</h3>
+                            <h5 class="opacity-50">Sistem Informasi Pengelolaan Usulan Pensiun</h5>
+                            <div class="d-grid mt-6">
                                 <!-- <a href="<?= base_url("oauth/sso/authorize") ?>" class="btn btn-lg btn-outline-primary">
                                     Login with SSO <i class="bi bi-fingerprint"></i></a> -->
-                                <button id="loginBtn" class="btn btn-lg btn-outline-primary" type="button">
+                                <button id="loginBtn" class="btn btn-lg btn-outline-primary shadow" type="button">
                                     Continue with SSO <i class="bi bi-fingerprint"></i></a>
                                 </button>
                             </div>
                             <div style="display: flex; align-items: center; margin: 20px 0;">
                                 <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
-                                <span style="padding: 0 10px; color: #666; font-weight: bold;">OR</span>
+                                <span style="padding: 0 10px; color: #666; font-weight: bold;">ATAU BISA JUGA</span>
                                 <hr style="flex: 1; border: none; height: 1px; background-color: #ccc;">
                             </div>
-                            <div class="d-grid mt-3 gap-4">
-                                <a href="<?= base_url("/cekstatus") ?>" class="btn btn-lg btn-outline-info">
+                            <div class="d-flex justify-content-center align-items-center mt-3 gap-4">
+                                <a href="<?= base_url("/cekstatus") ?>" class="btn btn-lg btn-outline-secondary w-100">
                                     Cek Status Usulan <i class="bi bi-app-indicator"></i></a>
-                                <a href="https://drive.google.com/file/d/1gvj4zjsTGtNgu2itWgnBTufuyempmRRX/view?usp=sharing" class="btn btn-lg btn-outline-success" target="_blank">
+                                <a href="https://drive.google.com/file/d/1gvj4zjsTGtNgu2itWgnBTufuyempmRRX/view?usp=sharing" class="btn btn-lg btn-outline-secondary  w-100" target="_blank">
                                     Buku Panduan <i class="bi bi-book-half"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <p class="mx-auto mt-4 mb-3 text-center text-black">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>
+                <p class="mx-auto mt-4 mb-3 fs-small text-center text-muted opacity-50">&copy; <?= date('Y') ?> Dikembangkan Oleh Bidang PPIK. Version <?= phpversion(); ?></p>
+                </div>
             </div>
         </div>
-    </div>
     <!-- Scripts -->
     <!-- Libs JS -->
     <script src="<?= base_url('template/') ?>assets/libs/jquery/dist/jquery.min.js"></script>

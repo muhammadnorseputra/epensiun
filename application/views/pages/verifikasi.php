@@ -283,7 +283,21 @@
                         <div class="errorBlock mt-2"></div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row my-3">
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="no_sk" id="no_sk" disabled>
+                            <label for="no_sk">Nomor SK</label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control tanggal-waktu" name="tgl_sk" id="tgl_sk" disabled>
+                            <label for="tgl_sk">Tanggal SK</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-4">
                         <div class="form-floating">
                             <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
@@ -327,6 +341,20 @@
             </div>
             <div class="modal-body">
                 <div id="loadProfile"></div>
+                <div class="row mb-3">
+                    <div class="col-8">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" name="no_sk" id="no_sk" disabled>
+                            <label for="no_sk">Nomor SK</label>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-floating">
+                            <input type="text" class="form-control tanggal-waktu" name="tgl_sk" id="tgl_sk" disabled>
+                            <label for="tgl_sk">Tanggal SK</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="row row-cols-2">
                     <div>
                         <div class="form-floating">

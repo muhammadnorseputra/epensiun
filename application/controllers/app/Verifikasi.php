@@ -24,7 +24,7 @@ class Verifikasi extends CI_Controller
 		parent::__construct();
 		// cek session level
 		if ($this->session->userdata('level') !== 'ADMIN') {
-			return show_404();
+			return show_unauthorized();
 		}
 		$this->load->model(['ModelPensiun' => 'pensiun', 'ModelPensiunVerifikasi' => 'verify']);
 	}
@@ -37,6 +37,20 @@ class Verifikasi extends CI_Controller
 		];
 
 		$this->load->view('layouts/app', $data);
+	}
+
+	public function getJumlahUsulByStatus()
+	{
+		$jumlah_verify = $this->verify->getJumlah('usul', ['is_status' => 'BKPSDM']);
+		$jumlah_selesai = $this->verify->getJumlah('usul', ['is_status' => 'SELESAI']);
+		$jumlah_ttd = $this->verify->getJumlah('usul', ['is_status' => 'TTD_SK']);
+		$data = [
+			'jumlah_verify' => @$jumlah_verify->num_rows(),
+			'jumlah_approved' => @$jumlah_selesai->num_rows(),
+			'jumlah_ttd_sk' => @$jumlah_ttd->num_rows()
+		];
+		$this->output->set_header('Content-Type: Application/json');
+		echo json_encode($data);
 	}
 
 	public function ajax()
@@ -57,7 +71,7 @@ class Verifikasi extends CI_Controller
 			} elseif ($r->is_status === 'SELESAI_TMS' || $r->is_status === 'SELESAI_BTL') {
 				$status = '<span class="badge bg-danger px-3 py-2"><i class="bi bi-x-circle-fill me-2"></i> ' . $r->is_status . '</span>';
 			} else {
-				$status = '';
+				$status = $r->is_status;
 			}
 
 			if ($r->nomor_sk !== '' && @$r->tanggal_sk !== '') {
@@ -97,22 +111,27 @@ class Verifikasi extends CI_Controller
 				</div>
 			</div>';
 
-			$path_picture = $r->url_photo ?? base_url('template/assets/images/avatar/user-pns.png');
+			$path_picture = base_url('template/assets/images/avatar/user-pns.png');
 
 			$no++;
 			$row = array();
 			$row[] = "<strong>" . $r->nomor . "</strong><br>" . @date_indo($r->tanggal);
 			$row[] = "<strong>" . $r->nama_jenis . "</strong> <br> <div>" . $r->keterangan . "</div>";
-			$row[] = '<div class="d-flex align-items-start">
-                    <div class="ms-3 lh-1">
-                        <h5 class="mb-1">
-                            <strong>' . $r->nip . '</strong> <br>
-                            <a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '" class="text-inherit">' . $r->nama . '</a> <br>
-							<span class="text-secondary">' . $r->nama_unit_kerja . '</span>
-                        </h5>
-                    </div>
-                </div>';
-
+			$row[] = '<div class="d-flex align-items-start gap-1">
+						<div>
+							<div class="avatar avatar-lg">
+								<img src="' . $path_picture . '" alt="' . $r->nama . '" class="rounded"/>
+							</div>
+						</div>
+						<div class="ms-3 lh-1">
+							<h5 class="mb-1">
+								<strong>' . $r->nip . '</strong> <br>
+								<a href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '" class="text-inherit">' . $r->nama . '</a> <br>
+								<span class="text-secondary">' . $r->nama_unit_kerja . '</span>
+							</h5>
+						</div>
+                	</div>';
+			$row[] = @date_indo($r->tmt_pensiun);
 			$row[] = !empty($r->usia_pensiun) ? $r->usia_pensiun . " Tahun" : '';
 			$row[] = $status;
 			$row[] = $detail_sk;
@@ -127,6 +146,8 @@ class Verifikasi extends CI_Controller
 			"recordsFiltered" => $this->verify->make_count_filtered(),
 			"data" => $data,
 		);
+
+		$this->output->set_header('Content-Type: Application/json');
 		//output to json format
 		echo json_encode($output);
 	}
@@ -186,7 +207,18 @@ class Verifikasi extends CI_Controller
 
 	public function ubahstatus()
 	{
+
 		$post = $this->input->post();
+
+		// cek jika masih ada status selesai belum di arsip sebanyajk 3 maka tidak bisa melanjutkan verifikasi
+		$doneStatus = $this->verify->countSelesaiStatusIsExistInVerify();
+		if ($doneStatus > 3 && $post['status'] === 'TTD_SK') {
+			echo json_encode([
+				'status' => false,
+				'message' => 'Terdapat (<b>' . $doneStatus . '</b>) usulan belum diarsipkan !'
+			]);
+			return false;
+		}
 
 		$whr = [
 			'token' => $post['token']
@@ -252,7 +284,7 @@ class Verifikasi extends CI_Controller
 	{
 		$post = $this->input->post();
 
-		$baseUrlApi = 'http://silka.balangankab.go.id';
+		$baseUrlApi = $this->config->item('BASE_API_URL');
 
 		$file = $_FILES['filesk'];
 		$curlFile = new \CURLFile($file['tmp_name'], $file['type'], $file['name']);

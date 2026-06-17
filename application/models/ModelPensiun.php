@@ -32,11 +32,12 @@ class ModelPensiun extends CI_Model
         $this->db->join('usul_pengantar as up', 'up.token=u.token');
         $this->db->join('usul_jenis as uj', 'up.fid_jenis_usul = uj.id');
         $this->db->where('up.fid_jenis_usul', $jns);
-        if($this->session->userdata('level') == 'USER') {
+        if ($this->session->userdata('level') == 'USER') {
             $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         }
         // $this->db->where_not_in('up.fid_jenis_usul', ['5']);
         $this->db->where_in('up.is_status', ['SELESAI', 'SELESAI_ARSIP']);
+        $this->db->where('YEAR(u.tmt_pensiun)', date('Y'));
         return $this->db->get();
     }
 
@@ -46,6 +47,7 @@ class ModelPensiun extends CI_Model
         $this->db->from('usul as u');
         $this->db->join('usul_pengantar as up', 'up.token=u.token');
         $this->db->where_in('up.is_status', ['SELESAI', 'SELESAI_ARSIP']);
+        $this->db->where('YEAR(u.tmt_pensiun)', date('Y'));
         return $this->db->get();
     }
 
@@ -54,7 +56,8 @@ class ModelPensiun extends CI_Model
         $this->db->select('u.nip');
         $this->db->from('usul as u');
         $this->db->join('usul_pengantar as up', 'up.token=u.token');
-        if($this->session->userdata('level') == 'USER') {
+        $this->db->where('YEAR(u.tmt_pensiun)', date('Y'));
+        if ($this->session->userdata('level') == 'USER') {
             $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         }
         $this->db->where_in('up.is_status', ['SELESAI', 'SELESAI_ARSIP']);
@@ -66,10 +69,10 @@ class ModelPensiun extends CI_Model
         $this->db->select('u.nip');
         $this->db->from('usul as u');
         $this->db->join('usul_pengantar as up', 'up.token=u.token');
-        if($this->session->userdata('level') == 'USER') {
+        if ($this->session->userdata('level') == 'USER') {
             $this->db->where('up.created_by_unorid', $this->session->userdata('unker_id'));
         }
-        $this->db->where_in('up.is_status', ['SKPD','CETAK_USUL','KIRIM_USUL','BKPSDM','TTD_SK']);
+        $this->db->where_in('up.is_status', ['SKPD', 'CETAK_USUL', 'KIRIM_USUL', 'BKPSDM', 'TTD_SK']);
         return $this->db->get();
     }
 

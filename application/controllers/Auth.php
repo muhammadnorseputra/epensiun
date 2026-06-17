@@ -32,7 +32,7 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
-		if ($this->session->userdata('nip') != ''):
+		if ($this->session->userdata('access_token') != ''):
 			redirect(base_url('app/dashboard'));
 			return false;
 		endif;
@@ -41,7 +41,7 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		if ($this->session->userdata('nip') != ''):
+		if ($this->session->userdata('access_token') != ''):
 			redirect(base_url('app/dashboard'));
 			return false;
 		endif;
@@ -61,7 +61,7 @@ class Auth extends CI_Controller
 			return false;
 		endif;
 
-		if (!empty($this->session->userdata('nip'))):
+		if (!empty($this->session->userdata('access_token'))):
 			return redirect(base_url('app/dashboard'));
 		endif;
 
@@ -129,41 +129,6 @@ class Auth extends CI_Controller
 			$err = $e->getResponse()->getBody()->getContents();
 			echo $err;
 		}
-
-		// $req = postApi('http://silka.balangankab.go.id/services/v2/auth', $post);
-		// $res = json_decode($req);
-
-		// $access_token = $res->data->token;
-
-		// JWT::$leeway = 60; // $leeway in seconds
-		// $decoded = JWT::decode($access_token, new Key("bkpsdm@6811", 'HS256'));
-
-		// if($res->status) {
-		// 	echo json_encode([
-		// 		'status' => true,
-		// 		'message' => $res->message,
-		// 		'redirect' => base_url('/app/dashboard')
-		// 	]);
-		// 	$data = [
-		// 		'nip' => $decoded->data->nip,
-		// 		'nama_lengkap' => $decoded->data->nama_lengkap,
-		// 		'username' => $decoded->data->user_nama,
-		// 		'level' => $decoded->data->level,
-		// 		'picture' => $decoded->data->picture,
-		// 		'tmtbup' => $decoded->data->tmtbup,
-		// 		'pangkat' => $decoded->data->pegawai->nama_pangkat,
-		// 		'jabatan' => $decoded->data->pegawai->nama_jabatan,
-		// 		'tgl_lahir' => $decoded->data->pegawai->tgl_lahir,
-		// 		'jenkel' => $decoded->data->pegawai->jenis_kelamin,
-		// 		'unker' => $decoded->data->pegawai->unker,
-		// 		'unker_id' => $decoded->data->pegawai->unker_id,
-		// 		'access_token' => $access_token
-		// 	];
-		// 	$this->session->set_userdata($data);
-		// 	return false;
-		// }
-
-		// echo $req;
 	}
 
 	public function forget()
@@ -173,7 +138,7 @@ class Auth extends CI_Controller
 
 	public function logout()
 	{
-		$data = array('nip', 'username', 'csrf_token');
+		$data = array('access_token', 'username', 'csrf_token');
 		$this->session->unset_userdata($data);
 		$this->session->sess_destroy();
 		redirect(base_url('/'));

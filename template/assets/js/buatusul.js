@@ -35,7 +35,7 @@ $(function () {
 		button
 			.prop("disabled", true)
 			.html(
-				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Simpan & Lanjutkan`
+				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Simpan & Lanjutkan`,
 			);
 		if (_.parsley().isValid()) {
 			$.post(
@@ -69,12 +69,12 @@ $(function () {
 							button
 								.prop("disabled", false)
 								.html(
-									`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`
+									`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`,
 								);
 						},
 					});
 				},
-				"json"
+				"json",
 			);
 		}
 	});
@@ -144,8 +144,8 @@ $(function () {
 					<div class="row">
 						<div class="col-12 col-lg-2 text-center">
 							<img src="${res.data.picture}" alt="${
-						res.data.nama
-					}" class="p-2 border bg-light" width="140">
+								res.data.nama
+							}" class="p-2 border bg-light" width="140">
 						</div>
 						<div class="col-12 col-lg-10">
 							<ul class="row row-cols-1 row-cols-sm-2 list-unstyled">
@@ -197,13 +197,13 @@ $(function () {
 				}
 
 				$container.html(
-					`<div class="alert alert-warning"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> ${res.message}</div>`
+					`<div class="alert alert-warning"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> ${res.message}</div>`,
 				);
 			},
-			"json"
+			"json",
 		).fail(function (err) {
 			$container.html(
-				`<div class="alert alert-danger"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> Internal Server Errors !</div>`
+				`<div class="alert alert-danger"><i class="bi bi-exclamation-circle-fill me-2 text-danger"></i> Internal Server Errors !</div>`,
 			);
 		});
 	}
@@ -229,7 +229,7 @@ $(function () {
 		button
 			.prop("disabled", true)
 			.html(
-				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Cari`
+				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Cari`,
 			);
 		loadProfile($url, $data, $container, button);
 	});
@@ -241,13 +241,13 @@ $(function () {
 		button
 			.prop("disabled", true)
 			.html(
-				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Cari`
+				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Cari`,
 			);
 		loadProfile(
 			`${_uri}/app/pensiun/carinip`,
 			{ nip: getNIP },
 			$container,
-			button
+			button,
 		);
 	}
 
@@ -272,7 +272,7 @@ $(function () {
 		button
 			.prop("disabled", true)
 			.html(
-				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Simpan & Lanjutkan`
+				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Simpan & Lanjutkan`,
 			);
 		$.post(
 			$url,
@@ -305,7 +305,7 @@ $(function () {
 					.prop("disabled", false)
 					.html(`<i class="bi bi-send-check-fill me-2"></i>Simpan & Lanjutkan`);
 			},
-			"json"
+			"json",
 		);
 	});
 
@@ -324,7 +324,7 @@ $(function () {
 		button
 			.prop("disabled", true)
 			.html(
-				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Kirim Usulan`
+				`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Kirim Usulan`,
 			);
 		$.confirm({
 			title: "Yakin ?",
@@ -365,12 +365,12 @@ $(function () {
 										button
 											.prop("disabled", false)
 											.html(
-												`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`
+												`<i class="bi bi-send-check-fill me-2"></i> Kirim Usulan`,
 											);
 									},
 								});
 							},
-							"json"
+							"json",
 						);
 					},
 				},
@@ -408,7 +408,7 @@ function loadSyarat(id, target) {
 				target.html(res);
 			}, 1000);
 		},
-		"html"
+		"html",
 	);
 }
 
@@ -471,7 +471,7 @@ function CetakUsul(token) {
 								window.location.href = res.url;
 							}
 						},
-						"json"
+						"json",
 					);
 				},
 			},
@@ -512,7 +512,7 @@ function Hapus(token) {
 								window.location.href = `${_uri}/app/inbox/usul`;
 							}
 						},
-						"json"
+						"json",
 					);
 				},
 			},

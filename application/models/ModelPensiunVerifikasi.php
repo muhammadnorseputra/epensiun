@@ -6,13 +6,13 @@ class ModelPensiunVerifikasi extends CI_Model
     // set table
     protected $table = 'usul_pengantar AS up';
     //set column field database for datatable orderable
-    protected $column_order = array(null);
+    protected $column_order = array(null, null, null, null, 'u.is_status');
     //set column field database for datatable searchable 
-    protected $column_search = array('u.nip','u.nama');
+    protected $column_search = array('u.nip', 'u.nama');
     // default order 
-    protected $order = array('up.id' => 'desc');
+    protected $order = array('up.id' => 'asc');
     // default select 
-    protected $select_table = array('u.*','up.fid_jenis_usul','up.token AS token_pengantar','up.nomor','up.tanggal','uj.nama AS nama_jenis','uj.keterangan');
+    protected $select_table = array('u.*', 'up.fid_jenis_usul', 'up.token AS token_pengantar', 'up.nomor', 'up.tanggal', 'uj.nama AS nama_jenis', 'uj.keterangan');
 
     private function _datatables()
     {
@@ -21,7 +21,26 @@ class ModelPensiunVerifikasi extends CI_Model
         $this->db->from($this->table);
         $this->db->join('usul AS u', 'u.token=up.token', 'left');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['BKPSDM','TTD_SK','SELESAI']);
+
+        $filterStatus = $_POST['filter_status'] ?? '';
+
+        $statusMap = [
+            'BKPSDM' => ['BKPSDM'],
+            'SELESAI'   => ['SELESAI'],
+            'TTD_SK'     => ['TTD_SK'],
+            'SELESAI_TMS' => ['SELESAI_TMS', 'SELESAI_BTL']
+        ];
+
+        if ($filterStatus && isset($statusMap[$filterStatus])) {
+            $this->db->where_in('u.is_status', $statusMap[$filterStatus]);
+        } else {
+            $this->db->where_in('u.is_status', [
+                'BKPSDM',
+                'TTD_SK',
+                'SELESAI'
+            ]);
+        }
+
         $i = 0;
 
         foreach ($this->column_search as $item) // loop column 
@@ -70,22 +89,33 @@ class ModelPensiunVerifikasi extends CI_Model
 
     public function make_count_all()
     {
-        $this->db->select($this->select_table);
-        $this->db->from($this->table);
-        $this->db->join('usul AS u', 'u.token=up.token', 'left');
-        $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id', 'left');
-        $this->db->where_in('u.is_status', ['BKPSDM','TTD_SK','SELESAI','SELESAI_TMS','SELESAI_BTL']);
+        $this->_datatables();
         return $this->db->count_all_results();
     }
     // -------------------------------- end-datatable --------------------------//
 
-    public function getJenisUsul($token) {
+    public function getJumlah($tbl, $whr)
+    {
+        return $this->db->get_where($tbl, $whr);
+    }
+
+    public function getJenisUsul($token)
+    {
         $this->db->select('uj.id,uj.nama,uj.keterangan,uj.kelompok');
         $this->db->from('usul_pengantar AS up');
         $this->db->join('usul_jenis AS uj', 'up.fid_jenis_usul=uj.id');
         $this->db->where('up.token', $token);
         $q = $this->db->get();
         return $q->row();
+    }
+
+    public function countSelesaiStatusIsExistInVerify()
+    {
+        $this->db->select('id');
+        $this->db->from('usul');
+        $this->db->where_in('is_status', ['SELESAI']);
+        $q = $this->db->get();
+        return $q->num_rows();
     }
 }
 

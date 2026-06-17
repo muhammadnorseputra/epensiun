@@ -1,4 +1,7 @@
 $(function () {
+	// Load jumlah
+	getJumlahUsulByStatus();
+	// init tanggal
 	$(".tanggal").datepicker({
 		format: "dd/mm/yyyy",
 		autoclose: true,
@@ -7,6 +10,7 @@ $(function () {
 		clearBtn: true,
 		keepEmptyValues: true,
 	});
+	// init tanggal dan waktu
 	$(".tanggal-waktu").datetimepicker({
 		locale: "id",
 		showClear: true,
@@ -26,6 +30,7 @@ $(function () {
 });
 
 var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
+	stateSave: true,
 	processing: true,
 	serverSide: true,
 	paging: true,
@@ -43,15 +48,25 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 		[10, 25, 50, "All"],
 	],
 	order: [],
+	stateLoaded: function () {
+		$("#btnClearFilter").removeClass("d-none");
+	},
 	ajax: {
 		url: `${_uri}/app/verifikasi/ajax`,
 		type: "POST",
+		data: function (d) {
+			d.filter_status = $("select[name='filter_status']").val();
+		},
 	},
 	columnDefs: [
 		{
-			targets: [0, 1, 2, 3, 4, 5, 6, 7],
+			targets: [0, 1, 2, 3, 4, 6, 7, 8],
 			orderable: false,
 			className: "text-left",
+		},
+		{
+			targets: [5],
+			orderable: true,
 		},
 	],
 	language: {
@@ -64,7 +79,49 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 			next: `<i class="bi bi-arrow-bar-right"></i>`,
 		},
 		emptyTable: "No matching records found, please filter this data",
+		processing: `
+            <div class="custom-loader">
+                Memuat data...
+            </div>
+        `,
 	},
+});
+
+const uploadArea = document.getElementById("uploadArea");
+const fileInput = document.getElementById("filesk");
+const selectedFile = document.querySelector(".selected-file");
+
+fileInput.addEventListener("change", function () {
+	if (this.files.length > 0) {
+		selectedFile.style.display = "block";
+
+		selectedFile.innerHTML = `
+            <i class="bi bi-file-earmark-pdf-fill"></i>
+            ${this.files[0].name}
+        `;
+	}
+});
+
+uploadArea.addEventListener("dragover", function () {
+	this.classList.add("dragover");
+});
+
+uploadArea.addEventListener("dragleave", function () {
+	this.classList.remove("dragover");
+});
+
+uploadArea.addEventListener("drop", function () {
+	this.classList.remove("dragover");
+});
+
+$("select[name='filter_status']").on("change", function () {
+	TabelVerifikasiPesiun.ajax.reload();
+});
+
+$("#btnClearFilter").on("click", function () {
+	$("#filter_status").val("");
+	TabelVerifikasiPesiun.state.clear();
+	TabelVerifikasiPesiun.search("").order([]).page("first").draw();
 });
 
 let $modalUbahStatus = $("#modalUbahStatusUsul"),
@@ -81,11 +138,22 @@ $modalUbahStatus.on("hidden.bs.modal", (event) => {
 
 $modalApprove.on("hidden.bs.modal", (event) => {
 	$formApprove[0].reset();
+	// Reset file input
+	$("#filesk").val("");
+
+	// Hapus class dragover
+	$("#uploadArea").removeClass("dragover");
+
+	// Sembunyikan preview file
+	$(".selected-file").hide().html("");
 });
 
 $modalArchive.on("hidden.bs.modal", (event) => {
 	$formArchive[0].reset();
 });
+function loadJumlah(isLoading) {
+	return `<span class="placeholder col-12 rounded animate-pulse"></span>`;
+}
 
 function loadEffect(isLoading = true, type = 0) {
 	if (type === 1) {
@@ -98,11 +166,11 @@ function loadEffect(isLoading = true, type = 0) {
 				</div>
 			</div>`;
 	}
-	return `<div class="d-flex justify-content-start gap-5">
-				<div class="placeholder avatar avatar-lg col-12 rounded-circle"></div>
+	return `<div class="d-flex justify-content-start align-items-start gap-2 bg-light p-3 rounded border mb-3">
+				<div class="placeholder avatar avatar-xl col-12 rounded-circle"></div>
 				<div class="w-100">
 					<span class="placeholder mb-2 col-6"></span>
-					<span class="placeholder mb-2 w-100"></span>
+					<span class="placeholder mb-2 w-100 mb-2"></span>
 					<span class="placeholder mb-4" style="width: 35%;"></span>
 				</div>
 			</div>`;
@@ -113,19 +181,42 @@ function loadEveden(nip, url_berkas) {
 	container.html(loadEffect(true, 1));
 	$.getJSON(`${_uri}/app/verifikasi/geteviden`, { nip }, (res) => {
 		let suket_anak_sekolah = res.data.file_suket_anak
-			? `<a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_suket_anak}">${res.data.file_suket_anak}</a>`
+			? `<span>${res.data.file_suket_anak} <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_suket_anak}" title="Unduh Berkas"><i class="bi bi-cloud-download ms-2"></i></a></span>`
 			: "-";
 		container.html(`
-			<ul class="list-group mb-4">
+			<ul class="list-group mb-4 shadow-sm">
 				<li class="list-group-item fw-bold">1. BERKAS USULAN</li>
-				<li class="list-group-item"><a target="_blank" href="${url_berkas}">${url_berkas}</a></li>
+				<li class="list-group-item d-grid gap-2">
+				<a href="${url_berkas}" target="_blank" class="btn btn-outline-primary btn-block text-left">
+                                    <i class="bi bi-file-pdf text-danger"></i>
+                                    Lihat Berkas Usulan
+                                </a>
+				</li>
 			</ul>
-			<ul class="list-group">
+			<ul class="list-group shadow-sm">
 				<li class="list-group-item fw-bold">2. BERKAS UPDATE & UPLOAD SILKa</li>
-				<li class="list-group-item">KTP : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_ktp}">${res.data.file_ktp}</a> (${res.data.no_ktp})</li>
-				<li class="list-group-item">NPWP : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_npwp}">${res.data.file_npwp}</a> (${res.data.no_npwp})</li>
-				<li class="list-group-item">BUKU REKENING : <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_rekening}">${res.data.file_rekening}</a></li>
-				<li class="list-group-item">SUKET ANAK SEKOLAH : ${suket_anak_sekolah}</li>
+				
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<span class="fw-bold flex-1">KTP</span>
+					<span class="text-right">${res.data.file_ktp} (${res.data.no_ktp}) <a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_ktp}" title="Unduh Berkas"><i class="bi bi-cloud-download ms-2"></i></a></span>
+				</li>
+
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<span class="fw-bold">NPWP</span>
+					<span class="text-right">${res.data.file_npwp} (${res.data.no_npwp})
+					<a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_npwp}" title="Unduh Berkas"><i class="bi bi-cloud-download ms-2"></i></a> </span>
+				</li>
+
+				<li class="list-group-item d-flex justify-content-between align-items-start">
+					<span class="fw-bold">BUKU REKENING</span>
+					<span class="text-right">${res.data.file_rekening}
+					<a target="_blank" href="http://silka.balangankab.go.id/fileperso/${res.data.file_rekening}" title="Unduh Berkas"><i class="bi bi-cloud-download ms-2"></i></a></span>
+				</li>
+
+				<li class="list-group-item  d-flex justify-content-between align-items-start">
+					<span class="fw-bold">SUKET ANAK SEKOLAH</span> 
+					<span class="text-start">${suket_anak_sekolah}</span>
+				</li>
 			</ul>
 		`);
 	});
@@ -223,38 +314,35 @@ function Approve(token) {
 
 				setTimeout(() => {
 					$container.html(`
-					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
+					<div class="d-flex justify-content-start align-items-start gap-2 bg-light p-3 rounded border mb-3">
 						<div>
-							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
-							</div>
+								<img width="110" src="/template/assets/images/avatar/user-empty.png" alt="${res.data.nama}" class="rounded-circle"/>
 						</div>
-						<div class="ms-3 lh-1">
-							<h5 class="mb-1">
-								<strong>${res.data.nip}</strong> <br>
-								${res.data.nama} <br>
+						<div>
+								<h4 class="fw-bold mb-0">${res.data.nip}</h4> 
+								<h5 class="fw-bold mb-0">${res.data.nama}</h5>
 								<div class="text-secondary">${res.data.nama_unit_kerja}</div>
+
 								<div class="d-flex flex-wrap justify-content-start gap-2 align-items-center mt-2">
 									<div class="badge bg-secondary px-3 py-2 rounded text-white">Jenis Usul : ${
 										res.data.nama_jenis.nama
 									}</div>
-									<div class="badge bg-secondary px-3 py-2 rounded text-white">Keterangan : ${
+									<div class="badge bg-primary px-3 py-2 rounded text-white">Keterangan : ${
 										res.data.nama_jenis.keterangan
 									}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk
+										res.data.tanggal_sk,
 									)}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
 										res.data.nomor_sk
 									}</div>
 								</div>
-							</h5>
 						</div>
 					</div>
 					`);
 				}, 1000);
 			}
-		}
+		},
 	);
 }
 
@@ -300,7 +388,7 @@ function UbahStatus(token) {
 							.find("input[name='tglmeninggal']")
 							.datepicker(
 								"setDate",
-								formatDateSQLToIndo(res.data.tgl_meninggal)
+								formatDateSQLToIndo(res.data.tgl_meninggal),
 							);
 					}
 
@@ -315,7 +403,7 @@ function UbahStatus(token) {
 							.find("input[name='tgl_lahir_penerima']")
 							.datepicker(
 								"setDate",
-								formatDateSQLToIndo(res.data.tgl_lahir_penerima)
+								formatDateSQLToIndo(res.data.tgl_lahir_penerima),
 							);
 					}
 
@@ -335,49 +423,46 @@ function UbahStatus(token) {
 					$("#tglmeninggal").removeClass("d-none");
 					$("select[name='hubkeluarga'] option[value='YBS']").prop(
 						"disabled",
-						true
+						true,
 					);
 				} else {
 					$("#tglmeninggal").addClass("d-none");
 					$("select[name='hubkeluarga'] option[value='YBS']").prop(
 						"disabled",
-						false
+						false,
 					);
 				}
 
 				setTimeout(() => {
 					$container.html(`
-					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
+					<div class="d-flex justify-content-start align-items-start gap-2 bg-light p-3 rounded border mb-3">
 						<div>
-							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
-							</div>
+								<img width="110" src="${res.data.url_photo && "/template/assets/images/avatar/user-empty.png"}" alt="${res.data.nama}" class="rounded-circle"/>
 						</div>
-						<div class="ms-3 lh-1">
-							<h5 class="mb-1">
-								<strong>${res.data.nip}</strong> <br>
-								${res.data.nama} <br>
+						<div>
+								<h4 class="fw-bold mb-0">${res.data.nip}</h4> 
+								<h5 class="fw-bold mb-0">${res.data.nama}</h5>
+
 								<div class="text-secondary">${res.data.nama_unit_kerja}</div>
 								<div class="badge bg-secondary px-3 py-2 mt-3 rounded text-white">Jenis Usul : ${res.data.nama_jenis.nama}</div>
-								<div class="badge bg-secondary px-3 py-2 mt-1 rounded text-white">Keterangan : ${res.data.nama_jenis.keterangan}</div>
+								<div class="badge bg-primary px-3 py-2 mt-1 rounded text-white">Keterangan : ${res.data.nama_jenis.keterangan}</div>
 								<div class="badge bg-success px-3 py-2 mt-3 rounded text-white">Status : ${res.data.is_status}</div>
-							</h5>
 						</div>
 					</div>
 					`);
 				}, 1000);
 			}
-		}
+		},
 	);
 }
 
-function Arsip(token) {
+async function Arsip(token) {
 	/* Arsip dengan form tanda terima */
 	$modalArchive.modal("show");
 	$formArchive.find("input[name='token']").val(token);
 	let $container = $formArchive.find("#loadProfile");
 	$container.html(loadEffect());
-	$.getJSON(
+	await $.getJSON(
 		`${_uri}/app/verifikasi/getprofileasn`,
 		{ token: token },
 		function (res) {
@@ -392,17 +477,15 @@ function Arsip(token) {
 				}
 				setTimeout(() => {
 					$container.html(`
-					<div class="d-flex align-items-start gap-2 mb-2 pb-3">
+					<div class="d-flex justify-content-start align-items-start gap-2 bg-light p-3 rounded border mb-3">
 						<div>
-							<div class="avatar avatar-lg">
-								<img src="${res.data.url_photo}" alt="${res.data.nama}" class="rounded-circle"/>
-							</div>
+								<img width="110" src="${res.data.url_photo && "/template/assets/images/avatar/user-empty.png"}" alt="${res.data.nama}" class="rounded-circle"/>
 						</div>
-						<div class="ms-3 lh-1">
-							<h5 class="mb-1">
-								<strong>${res.data.nip}</strong> <br>
-								${res.data.nama} <br>
+						<div>
+								<h4 class="fw-bold mb-0">${res.data.nip}</h4> 
+								<h5 class="fw-bold mb-0">${res.data.nama}</h5>
 								<div class="text-secondary">${res.data.nama_unit_kerja}</div>
+								
 								<div class="d-flex flex-wrap justify-content-start gap-2 align-items-center mt-2">
 									<div class="badge bg-secondary px-3 py-2 rounded text-white">Jenis Usul : ${
 										res.data.nama_jenis.nama
@@ -411,19 +494,43 @@ function Arsip(token) {
 										res.data.nama_jenis.keterangan
 									}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Tanggal SK : ${formatDateSQLToIndo(
-										res.data.tanggal_sk
+										res.data.tanggal_sk,
 									)}</div>
 									<div class="badge bg-info px-3 py-2 rounded text-white">Nomor SK : ${
 										res.data.nomor_sk
 									}</div>
 								</div>
-							</h5>
 						</div>
 					</div>
 					`);
 				}, 1000);
 			}
-		}
+		},
+	);
+}
+
+async function refresh() {
+	await TabelVerifikasiPesiun.ajax.reload();
+	await getJumlahUsulByStatus();
+}
+
+async function getJumlahUsulByStatus() {
+	// GET ATTERIBUTE
+	let jumlah_verify = $("h1#jumlah_verify"),
+		jumlah_ttd_sk = $("h1#jumlah_ttd_sk"),
+		jumlah_approved = $("h1#jumlah_approved");
+
+	jumlah_verify.html(loadJumlah);
+	jumlah_ttd_sk.html(loadJumlah);
+	jumlah_approved.html(loadJumlah);
+	await $.getJSON(
+		`${_uri}/app/verifikasi/getJumlahUsulByStatus`,
+		function (res) {
+			// PARSE KE HTML
+			jumlah_verify.text(res.jumlah_verify);
+			jumlah_ttd_sk.text(res.jumlah_ttd_sk);
+			jumlah_approved.text(res.jumlah_approved);
+		},
 	);
 }
 
@@ -492,7 +599,7 @@ $formArchive.on("submit", function (e) {
 									autoClose: "ok|5000",
 								});
 							},
-							"json"
+							"json",
 						);
 					},
 				},
@@ -546,16 +653,16 @@ $formUbahStatus.on("submit", function (e) {
 					return false;
 				}
 				iziToast.warning({
-					timeout: 3000,
-					title: "Berhasil",
+					timeout: 5000,
+					title: "Info",
 					position: "topCenter",
 					message: res.message,
 					transitionIn: "fadeInDown",
 					transitionOut: "fadeOutUp",
-					pauseOnHover: false,
+					pauseOnHover: true,
 				});
 			},
-			"json"
+			"json",
 		);
 	}
 });
@@ -572,7 +679,7 @@ $formApprove.on("submit", function (e) {
 	button
 		.prop("disabled", true)
 		.html(
-			`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Approve`
+			`<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Approve`,
 		);
 
 	if (!this.checkValidity()) {

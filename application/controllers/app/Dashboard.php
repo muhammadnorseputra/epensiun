@@ -31,7 +31,6 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
 		$jumlah_usulan = $this->pensiun->JmlByUsulInbox();
 		$jumlah_selesai_skpd = $this->pensiun->JmlByUsulSelesaiBySKPD();
 		$jumlah_selesai = $this->pensiun->JmlByUsulSelesai();
@@ -39,8 +38,9 @@ class Dashboard extends CI_Controller
 		$tms = $this->api->jmlUsulByStatus('SELESAI_TMS')->num_rows();
 		$btl = $this->api->jmlUsulByStatus('SELESAI_BTL')->num_rows();
 		$catatan = $this->api->catatanByKesalahan()->result();
-		
+
 		$listunor = postApi('http://silka.balangankab.go.id/services/statistik/listunor', [], 'GET');
+		$statistik = postApi('http://silka.balangankab.go.id/services/statistik', []);
 		// Charts
 		$charts = [
 			'bup' => $this->pensiun->JmlByJenis(1)->num_rows(),
@@ -67,12 +67,14 @@ class Dashboard extends CI_Controller
 		$this->load->view('layouts/app', $data);
 	}
 
-	protected function bulan($bln_db, $bln_now) {
+	protected function bulan($bln_db, $bln_now)
+	{
 		return $bln_db == $bln_now ? @count($bln_db) : 0;
 	}
 
-	protected function getJumlaUsul($unorid,$bulan) {
-		$query = $this->api->jmlUsulByBulan($unorid,$bulan)->num_rows();
+	protected function getJumlaUsul($unorid, $bulan)
+	{
+		$query = $this->api->jmlUsulByBulan($unorid, $bulan)->num_rows();
 		return $query !== 0 ? $query : 0;
 	}
 

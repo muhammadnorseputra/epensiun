@@ -64,7 +64,7 @@ $stat = json_decode($statistik);
                     <!-- project number -->
                     <div>
                         <h1 class="fw-bold"><?= $jumlah_selesai_skpd ?></h1>
-                        <p class="mb-0">Total Usulan Approval</p>
+                        <p class="mb-0">Total Usulan Approval Tahun 2026</p>
                     </div>
                 </div>
             </div>

@@ -70,6 +70,9 @@ class Inbox extends CI_Controller
             } elseif ($r->is_status === 'SELESAI_TMS' || $r->is_status === 'SELESAI_BTL') {
                 $status = '<span class="badge bg-danger px-3 py-2"><i class="bi bi-x-lg me-2"></i> ' . $statusNoApprove . '</span>';
                 $button = '<a class="btn btn-success btn-sm" href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '"><i class="bi bi-pencil"></i></a>  <button onclick="DetailNotApprove(\'' . $r->token_pengantar . '\')" class="btn btn-warning btn-sm" type="button"><i class="bi bi-info-circle-fill"></i></button>';
+            } elseif ($r->is_status === 'SELESAI') {
+                $status = '<span class="badge bg-success px-3 py-2"><i class="bi bi-patch-check-fill"></i> DI-SETUJUI BKPSDM</span>';
+                $button = '<a class="btn btn-success btn-sm" href="' . base_url('/app/pensiun/buatusul?step=3&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '"><i class="bi bi-eye me-2"></i> DETAIL</a>';
             } else {
                 $status = '<span class="badge bg-info px-3 py-2"><i class="bi bi-patch-check me-2"></i> ' . $r->is_status . '</span>';
                 $button = '<a class="btn btn-secondary btn-sm" href="' . base_url('/app/pensiun/buatusul?step=1&nip=' . $r->nip . '&token=' . $r->token_pengantar . '&jenis=' . $r->fid_jenis_usul) . '"><i class="bi bi-pencil"></i> <br> EDIT</a>

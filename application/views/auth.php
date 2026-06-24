@@ -101,6 +101,13 @@
             <h1>JavaScript is not enabled, please check your browser settings.</h1>
         </div>
     </noscript>
+    <div class="fixed inset-0 overflow-hidden -z-10">
+
+<div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-blue-400/15 rounded-full blur-3xl"></div>
+
+<div class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-indigo-400/15 rounded-full blur-3xl"></div>
+
+</div>
     <div class="container mx-auto">
         <div class="flex justify-center items-center min-h-screen px-6 py-8 lg:px-10">
             <div class="grid lg:grid-cols-2 gap-14 items-center w-full">

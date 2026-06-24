@@ -1,137 +1,154 @@
 <!-- row  -->
 <div class="container mb-4 pt-4 px-4 px-md-4">
-<div class="row">
-    <div class="col-md-12 col-12">
-        <div class="alert alert-warning d-flex align-items-start" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-circle-fill me-2" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-            </svg>
-            <div>
-                <strong>Perhatian!</strong> <br>
-                Jangan lupa untuk mengarsipkan usulan, jika SK sudah diserahkan atau diterima yang bersangkutan.
-            </div>
-        </div>
-        <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3">
-            <!-- card -->
-            <div class="card w-100 border">
-                <!-- card body -->
-                <div class="card-body">
-                    <!-- heading -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="mb-0">Verifikasi</h4>
-                        </div>
-                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
-                            <i class="bi bi-book fs-4"></i>
-                        </div>
-                    </div>
-                    <!-- project number -->
-                    <div>
-                        <h1 class="fw-bold" id="jumlah_verify">-</h1>
-                        <p class="mb-0">Total dalam proses verifikasi.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- card -->
-            <div class="card w-100 border">
-                <!-- card body -->
-                <div class="card-body">
-                    <!-- heading -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="mb-0">Proses TTD SK</h4>
-                        </div>
-                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
-                            <i class="bi bi-person-plus fs-4"></i>
-                        </div>
-                    </div>
-                    <!-- project number -->
-                    <div>
-                        <h1 class="fw-bold" id="jumlah_ttd_sk">-</h1>
-                        <p class="mb-0">Total dalam proses TTD</p>
-                    </div>
-                </div>
-            </div>
-            <!-- card -->
-            <div class="card w-100 border">
-                <!-- card body -->
-                <div class="card-body">
-                    <!-- heading -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h4 class="mb-0">Approved</h4>
-                        </div>
-                        <div class="icon-shape icon-md bg-light-success text-success rounded-2">
-                            <i class="bi bi-lock fs-4"></i>
-                        </div>
-                    </div>
-                    <!-- project number -->
-                    <div>
-                        <h1 class="fw-bold" id="jumlah_approved">-</h1>
-                        <p class="mb-0">Total Disetujui.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <!-- card  -->
-        <div class="card p-0">
-            <!-- card header  -->
-            <div class="card-header bg-white pt-4 d-flex justify-content-between align-items-start">
-                <div class="d-flex gap-4">
-                    <i data-feather="inbox" class="icon-sm"></i>
-                    <h4 class="mb-0">Verifikasi Usulan Pensiun ASN</h4>.
-                </div>
+    <div class="row">
+        <div class="col-md-12 col-12">
+            <div class="alert alert-warning d-flex align-items-start" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-info-circle-fill me-2" viewBox="0 0 16 16">
+                    <path
+                        d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                </svg>
                 <div>
-                    <button class="btn btn-secondary btn-md" onclick="return refresh();"><i class="icon-xs me-2" data-feather="refresh-ccw"></i> Refresh Data</a>
+                    <strong>Perhatian!</strong> <br>
+                    Jangan lupa untuk mengarsipkan usulan, jika SK sudah diserahkan atau diterima yang bersangkutan.
                 </div>
             </div>
-            <!-- table  -->
-            <div class="table-responsive p-2">
-                <div class="col-6 d-flex gap-2">
-                    <div class="form-floating">
-                        <select class="form-select" name="filter_status" id="filter_status" aria-label="Floating label select example">
-                            <option value="" selected>-- Filter Status Usulan --</option>
-                            <option value="BKPSDM">VERIFIKASI</option>
-                            <option value="SELESAI">APPROVED</option>
-                            <option value="TTD_SK">TANDA TANGAN SK</option>
-                            <option value="SELESAI_TMS">TMS</option>
-                        </select>
-                        <label for="filter_status">Filter Status Usul</label>
+            <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3">
+                <!-- card -->
+                <div class="card w-100 border">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <!-- heading -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-0">Verifikasi</h4>
+                            </div>
+                            <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                                <i class="bi bi-book fs-4"></i>
+                            </div>
+                        </div>
+                        <!-- project number -->
+                        <div>
+                            <h1 class="fw-bold" id="jumlah_verify">-</h1>
+                            <p class="mb-0">Total dalam proses verifikasi.</p>
+                        </div>
                     </div>
-                    <button id="btnClearFilter" class="btn btn-warning d-none">
-                        Hapus Filter
-                    </button>
                 </div>
-                <table id="table-verifikasi" class="table table-hover table-nowrap mb-0">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="text-nowrap">Nomor & Tanggal Usul</th>
-                            <th>Jenis Usulan</th>
-                            <th>Pensiun ASN</th>
-                            <th class="text-nowrap">TMT Pensiun</th>
-                            <th class="none">Usia</th>
-                            <th>Status</th>
-                            <th class="text-nowrap none">Detail SK</th>
-                            <th class="none">Link Berkas Usul</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
+                <!-- card -->
+                <div class="card w-100 border">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <!-- heading -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-0">TTE SK</h4>
+                            </div>
+                            <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                                <i class="bi bi-person-plus fs-4"></i>
+                            </div>
+                        </div>
+                        <!-- project number -->
+                        <div>
+                            <h1 class="fw-bold" id="jumlah_ttd_sk">-</h1>
+                            <p class="mb-0">Total dalam proses TTE</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- card -->
+                <div class="card w-100 border">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <!-- heading -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4 class="mb-0">Approved</h4>
+                            </div>
+                            <div class="icon-shape icon-md bg-light-success text-success rounded-2">
+                                <i class="bi bi-lock fs-4"></i>
+                            </div>
+                        </div>
+                        <!-- project number -->
+                        <div>
+                            <h1 class="fw-bold" id="jumlah_approved">-</h1>
+                            <p class="mb-0">Total Disetujui.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- card  -->
+            <div class="card p-0">
+                <!-- card header  -->
+                <div class="card-header bg-white pt-4 d-flex justify-content-between align-items-start">
+                    <div class="d-flex gap-4">
+                        <i data-feather="inbox" class="icon-sm"></i>
+                        <h4 class="mb-0">Verifikasi Usulan Pensiun ASN</h4>.
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary btn-md" onclick="return refresh();"><i class="icon-xs me-2"
+                                data-feather="refresh-ccw"></i> Refresh Data</a>
+                    </div>
+                </div>
+                <!-- table  -->
+                <div class="table-responsive p-2">
+                    <div class="col-6 d-flex gap-2 border-bottom pb-2">
+                        <div class="form-floating">
+                            <select class="form-select" name="filter_status" id="filter_status"
+                                aria-label="Floating label select example">
+                                <option value="" selected>-- Filter Status Usulan --</option>
+                                <option value="BKPSDM">VERIFIKASI</option>
+                                <option value="SELESAI">APPROVED</option>
+                                <option value="TTD_SK">TANDA TANGAN SK</option>
+                                <option value="SELESAI_TMS">TMS</option>
+                            </select>
+                            <label for="filter_status">Filter Status Usul</label>
+                        </div>
+                        <div class="form-floating">
+                            <select class="form-select" name="filter_jenis" id="filter_jenis"
+                                aria-label="Floating label select example">
+                                <option value="" selected>-- Filter Jenis Usulan --</option>
+                                <?php foreach ($data['jenis_pensiun'] as $row): ?>
+                                <option value="<?php echo $row->id; ?>"><?php echo $row->nama; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <label for="filter_status">Filter Jenis Usul</label>
+                        </div>
+                        <button id="btnClearFilter"
+                            class="btn btn-warning d-none d-flex justify-content-center align-items-center">
+                            <i class="bi bi-funnel"></i> Hapus Filter
+                        </button>
+                    </div>
+                    <table id="table-verifikasi" class="table table-hover table-nowrap mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="text-nowrap">Nomor & Tanggal Usul</th>
+                                <th>Jenis Usulan</th>
+                                <th>Pensiun ASN</th>
+                                <th class="text-nowrap">TMT Pensiun</th>
+                                <th class="none">Usia</th>
+                                <th>Status</th>
+                                <th class="text-nowrap none">Detail SK</th>
+                                <th class="none">Link Berkas Usul</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
 <!-- Modal ubah status usulan-->
-<?= form_open(base_url('/app/verifikasi/ubahstatus'), ['id' => 'FormUbahStatus', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
-<div class="modal fade" id="modalUbahStatusUsul" tabindex="-1" data-bs-backdrop="static" role="dialog" aria-labelledby="modalUbahStatusUsulTitle" aria-hidden="true">
+<?php echo form_open(base_url('/app/verifikasi/ubahstatus'), ['id' => 'FormUbahStatus', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
+<div class="modal fade" id="modalUbahStatusUsul" tabindex="-1" data-bs-backdrop="static" role="dialog"
+    aria-labelledby="modalUbahStatusUsulTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <input type="hidden" name="token">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="modalUbahStatusUsulTitle"><i class="bi bi-patch-check-fill me-2 text-primary"></i> Verifikasi Usul</h5>
+                <h5 class="modal-title fw-bold" id="modalUbahStatusUsulTitle"><i
+                        class="bi bi-patch-check-fill me-2 text-primary"></i> Verifikasi Usul</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -139,16 +156,21 @@
                 <div id="loadProfile"></div>
                 <ul class="nav nav-pills nav-fill border p-1 rounded" id=" myTabVerify" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link" id="verify-tab" data-bs-toggle="tab" href="#verify" role="tab" aria-controls="verify" aria-selected="true"><i class="bi bi-patch-check-fill text-warning"></i> Proses Verifikasi</a>
+                        <a class="nav-link" id="verify-tab" data-bs-toggle="tab" href="#verify" role="tab"
+                            aria-controls="verify" aria-selected="true"><i
+                                class="bi bi-patch-check-fill text-warning"></i> Proses Verifikasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="eviden-tab" data-bs-toggle="tab" href="#eviden" role="tab" aria-controls="eviden" aria-selected="false"><i class="bi bi-folder-check text-danger"></i> Kelengkapan Berkas</a>
+                        <a class="nav-link active" id="eviden-tab" data-bs-toggle="tab" href="#eviden" role="tab"
+                            aria-controls="eviden" aria-selected="false"><i class="bi bi-folder-check text-danger"></i>
+                            Kelengkapan Berkas</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabVerifyContent">
                     <div class="tab-pane fade pt-3" id="verify" role="tabpanel" aria-labelledby="verify-tab">
                         <div class="form-floating">
-                            <select class="form-select" name="status" id="floatingSelect" aria-label="Floating label select example" required="">
+                            <select class="form-select" name="status" id="floatingSelect"
+                                aria-label="Floating label select example" required="">
                                 <option value="" selected>-- Pilih Status Usulan --</option>
                                 <option value="SKPD">SKPD</option>
                                 <option value="CETAK_USUL">SKPD CETAK USUL</option>
@@ -160,37 +182,43 @@
                             <label for="floatingSelect">Pilih Status Usul</label>
                         </div>
                         <div class="form-floating mt-3 d-none field-catatan">
-                            <textarea class="form-control" name="catatan" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                            <textarea class="form-control" name="catatan" placeholder="Leave a comment here"
+                                id="floatingTextarea" style="height: 100px"></textarea>
                             <label for="floatingTextarea">Masukan Catatan TMS atau BTL</label>
                         </div>
                         <div class="row row-cols-2 mt-3 d-none field-sk">
                             <div class="mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="nomorsk" id="nomorsk" placeholder="Masukan Nomor SK Pensiun">
+                                    <input type="text" class="form-control" name="nomorsk" id="nomorsk"
+                                        placeholder="Masukan Nomor SK Pensiun">
                                     <label for="nomorsk">Nomor SK</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control tanggal" name="tanggalsk" id="tanggalsk" placeholder="Masukan Tanggal SK Pensiun">
+                                    <input type="text" class="form-control tanggal" name="tanggalsk" id="tanggalsk"
+                                        placeholder="Masukan Tanggal SK Pensiun">
                                     <label for="tanggalsk">Tanggal SK</label>
                                 </div>
                             </div>
                             <div class="mb-3 d-none" id="tglmeninggal">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control tanggal" data-parsley-excluded="true" name="tglmeninggal" id="tglmeninggal" placeholder="Masukan Tanggal Meninggal">
+                                    <input type="text" class="form-control tanggal" data-parsley-excluded="true"
+                                        name="tglmeninggal" id="tglmeninggal" placeholder="Masukan Tanggal Meninggal">
                                     <label for="tglmeninggal">Tanggal Meninggal Dunia</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control tanggal" name="tmt_pensiun" id="tmt_pensiun" placeholder="TMT Pensiun">
+                                    <input type="text" class="form-control tanggal" name="tmt_pensiun" id="tmt_pensiun"
+                                        placeholder="TMT Pensiun">
                                     <label for="tmt_pensiun">TMT Pensiun</label>
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" name="namakeluarga" id="namakeluarga" placeholder="Masukan Nomor SK Pensiun">
+                                    <input type="text" class="form-control" name="namakeluarga" id="namakeluarga"
+                                        placeholder="Masukan Nomor SK Pensiun">
                                     <label for="namakeluarga">Nama Keluarga</label>
                                 </div>
                             </div>
@@ -208,48 +236,56 @@
                             </div>
                             <div>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control tanggal" name="tgl_lahir_penerima" id="tgl_lahir_penerima" placeholder="TMT Pensiun">
+                                    <input type="text" class="form-control tanggal" name="tgl_lahir_penerima"
+                                        id="tgl_lahir_penerima" placeholder="TMT Pensiun">
                                     <label for="tgl_lahir_penerima">Tanggal Lahir Penerima</label>
                                 </div>
                             </div>
                             <div class="w-100 my-2"></div>
                             <div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="alamat_pensiun" placeholder="Alamat Pensiun" id="AlamatPensiun" style="height: 100px"></textarea>
+                                    <textarea class="form-control" name="alamat_pensiun" placeholder="Alamat Pensiun"
+                                        id="AlamatPensiun" style="height: 100px"></textarea>
                                     <label for="AlamatPensiun">Alamat Pensiun</label>
                                 </div>
                             </div>
                             <div>
                                 <div class="form-floating">
-                                    <textarea class="form-control" name="note" data-parsley-validate-if-empty placeholder="Tambahkan Catatan" id="floatingTextareaCatatan" style="height: 100px"></textarea>
+                                    <textarea class="form-control" name="note" data-parsley-validate-if-empty
+                                        placeholder="Tambahkan Catatan" id="floatingTextareaCatatan"
+                                        style="height: 100px"></textarea>
                                     <label for="floatingTextareaCatatan">Tambah Catatan</label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show active  pt-3" id="eviden" role="tabpanel" aria-labelledby="eviden-tab">
+                    <div class="tab-pane fade show active  pt-3" id="eviden" role="tabpanel"
+                        aria-labelledby="eviden-tab">
                         <div id="loadEviden"></div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i>
+                    Batal</button>
                 <button type="submit" class="btn btn-primary"><i class="bi bi-send me-2"></i> Simpan Perubahan</button>
             </div>
         </div>
     </div>
 </div>
-<?= form_close() ?>
+<?php echo form_close() ?>
 
 <!-- Modal approve usulan-->
-<div class="modal fade" id="modalApprove" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}' role="dialog" aria-labelledby="modalApproveTitle" aria-hidden="true">
+<div class="modal fade" id="modalApprove" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}'
+    role="dialog" aria-labelledby="modalApproveTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <?= form_open_multipart(base_url('/app/verifikasi/approve'), ['id' => 'FormApprove', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
+            <?php echo form_open_multipart(base_url('/app/verifikasi/approve'), ['id' => 'FormApprove', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
             <input type="hidden" name="token">
             <input type="hidden" name="nip">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="modalApproveTitle"><i class="bi bi-check-circle-fill me-2 text-success"></i> Approve Usul</h5>
+                <h5 class="modal-title fw-bold" id="modalApproveTitle"><i
+                        class="bi bi-check-circle-fill me-2 text-success"></i> Approve Usul</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -258,13 +294,8 @@
                 <div id="loadMessage"></div>
                 <div class="upload-dropzone position-relative" id="uploadArea">
 
-                    <input type="file"
-                        name="filesk"
-                        id="filesk"
-                        class="upload-input"
-                        data-parsley-errors-container=".errorBlock"
-                        accept="pdf"
-                        required>
+                    <input type="file" name="filesk" id="filesk" class="upload-input"
+                        data-parsley-errors-container=".errorBlock" accept="pdf" required>
 
                     <div class="upload-content">
                         <div class="upload-icon">
@@ -300,42 +331,51 @@
                 <div class="row">
                     <div class="col-4">
                         <div class="form-floating">
-                            <input type="text" class="form-control tanggal-waktu" name="tanggal_approve" id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
+                            <input type="text" class="form-control tanggal-waktu" name="tanggal_approve"
+                                id="tanggal_approve" placeholder="Masukan Tanggal Approve" required>
                             <label for="tanggal_approve">Pilih Tanggal & Jam Approve</label>
                         </div>
                     </div>
                     <div class="col-8 ">
-                        <div id="filesk" class="d-none p-1 border rounded d-flex justify-content-between align-content-start border border-primary">
+                        <div id="filesk"
+                            class="d-none p-1 border rounded d-flex justify-content-between align-content-start border border-primary">
                             <div class="d-inline-flex align-items-center justify-content-center  gap-2">
                                 <i class="icon-md p-2" data-feather="file-text"></i>
                                 <div class="vr h-100"></div>
                                 <div>
                                     <span class="small">Unduh File SK</span> <br>
-                                    <a href="#" id="filename-link" target="_blank"><span class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small" id="filename"></span></a>
+                                    <a href="#" id="filename-link" target="_blank"><span
+                                            class="font-monospace py-0 my-0 text-truncate fw-bold text-primary small"
+                                            id="filename"></span></a>
                                 </div>
                             </div>
-                            <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border" data-feather="download" class="align-self-center"></i></a>
+                            <a href="#" id="filename-link" target="_blank"><i class="icon-md p-2 rounded border"
+                                    data-feather="download" class="align-self-center"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
-                <button type="submit" class="btn btn-success"><i class="bi bi-hand-thumbs-up-fill me-2"></i> Approve</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i>
+                    Batal</button>
+                <button type="submit" class="btn btn-success"><i class="bi bi-hand-thumbs-up-fill me-2"></i>
+                    Approve</button>
             </div>
-            <?= form_close() ?>
+            <?php echo form_close() ?>
         </div>
     </div>
 </div>
 
 <!-- Modal archive usulan-->
-<div class="modal fade" id="modelArchive" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}' role="dialog" aria-labelledby="modelArchiveTitle" aria-hidden="true">
+<div class="modal fade" id="modelArchive" tabindex="-1" data-bs-backdrop="static" data-bs-delay='{"show":0,"hide":150}'
+    role="dialog" aria-labelledby="modelArchiveTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-            <?= form_open_multipart(base_url('/app/verifikasi/arsipkan'), ['id' => 'FormArchive', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
+            <?php echo form_open_multipart(base_url('/app/verifikasi/arsipkan'), ['id' => 'FormArchive', 'class' => 'needs-validation', 'data-parsley-validate' => '', 'novalidate' => '']) ?>
             <input type="hidden" name="token">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="modelArchiveTitle"><i class="bi bi-check-circle-fill me-2 text-success"></i> Tanda Terima SK</h5>
+                <h5 class="modal-title fw-bold" id="modelArchiveTitle"><i
+                        class="bi bi-check-circle-fill me-2 text-success"></i> Tanda Terima SK</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -358,14 +398,16 @@
                 <div class="row row-cols-2">
                     <div>
                         <div class="form-floating">
-                            <input type="text" class="form-control" name="tanda_penerima" id="tanda_penerima" placeholder="Masukan Nama Penerima." required>
+                            <input type="text" class="form-control" name="tanda_penerima" id="tanda_penerima"
+                                placeholder="Masukan Nama Penerima." required>
                             <label for="tanda_penerima">Tanda Penerima</label>
                         </div>
                     </div>
                     <div>
 
                         <div class="form-floating">
-                            <input type="text" class="form-control tanggal-waktu" name="tanggal_archive" id="tanggal_archive" placeholder="Masukan Tanggal archive" required>
+                            <input type="text" class="form-control tanggal-waktu" name="tanggal_archive"
+                                id="tanggal_archive" placeholder="Masukan Tanggal archive" required>
                             <label for="tanggal_archive">Pilih tanggal & jam diterima</label>
                         </div>
                     </div>
@@ -373,84 +415,85 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i> Batal</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x me-2"></i>
+                    Batal</button>
                 <button type="submit" class="btn btn-success"><i class="bi bi-send me-2"></i> Simpan</button>
             </div>
-            <?= form_close() ?>
+            <?php echo form_close() ?>
         </div>
     </div>
 </div>
 
 <style>
-    /* Custom Upload File */
-    .upload-dropzone {
-        position: relative;
-        border: 2px dashed #dfe4ea;
-        border-radius: 14px;
-        background: #f8fafc;
-        min-height: 180px;
-        transition: all .25s ease;
-        overflow: hidden;
-    }
+/* Custom Upload File */
+.upload-dropzone {
+    position: relative;
+    border: 2px dashed #dfe4ea;
+    border-radius: 14px;
+    background: #f8fafc;
+    min-height: 180px;
+    transition: all .25s ease;
+    overflow: hidden;
+}
 
-    .upload-dropzone:hover {
-        border-color: #754ffe;
-        background: #f9f7ff;
-    }
+.upload-dropzone:hover {
+    border-color: #754ffe;
+    background: #f9f7ff;
+}
 
-    .upload-dropzone.dragover {
-        border-color: #754ffe;
-        background: #f3efff;
-        transform: scale(1.01);
-    }
+.upload-dropzone.dragover {
+    border-color: #754ffe;
+    background: #f3efff;
+    transform: scale(1.01);
+}
 
-    .upload-content {
-        padding: 20px 10px;
-        text-align: center;
-    }
+.upload-content {
+    padding: 20px 10px;
+    text-align: center;
+}
 
-    .upload-input {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        cursor: pointer;
-        z-index: 2;
-    }
+.upload-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
 
-    .upload-icon {
-        width: 90px;
-        height: 90px;
-        margin: auto;
-        border-radius: 50%;
-        background: rgba(117, 79, 254, .1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.upload-icon {
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    border-radius: 50%;
+    background: rgba(117, 79, 254, .1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .upload-icon i {
-        font-size: 42px;
-        color: #754ffe;
-    }
+.upload-icon i {
+    font-size: 42px;
+    color: #754ffe;
+}
 
-    .selected-file {
-        display: none;
-        background: #fff;
-        border-radius: 10px;
-        padding: 12px 15px;
-        border: 1px solid #e9ecef;
-        font-weight: 500;
-    }
+.selected-file {
+    display: none;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 15px;
+    border: 1px solid #e9ecef;
+    font-weight: 500;
+}
 
-    .selected-file i {
-        color: #dc3545;
-        margin-right: 8px;
-    }
+.selected-file i {
+    color: #dc3545;
+    margin-right: 8px;
+}
 
-    .errorBlock {
-        color: #dc3545;
-        font-size: 13px;
-    }
+.errorBlock {
+    color: #dc3545;
+    font-size: 13px;
+}
 </style>

@@ -6,13 +6,13 @@ class ModelPensiunVerifikasi extends CI_Model
     // set table
     protected $table = 'usul_pengantar AS up';
     //set column field database for datatable orderable
-    protected $column_order = array(null, null, null, null, 'u.is_status');
-    //set column field database for datatable searchable 
-    protected $column_search = array('u.nip', 'u.nama');
-    // default order 
-    protected $order = array('up.id' => 'asc');
-    // default select 
-    protected $select_table = array('u.*', 'up.fid_jenis_usul', 'up.token AS token_pengantar', 'up.nomor', 'up.tanggal', 'uj.nama AS nama_jenis', 'uj.keterangan');
+    protected $column_order = [null, null, null, null, 'u.is_status'];
+    //set column field database for datatable searchable
+    protected $column_search = ['u.nip', 'u.nama'];
+    // default order
+    protected $order = ['up.id' => 'asc'];
+    // default select
+    protected $select_table = ['u.*', 'up.fid_jenis_usul', 'up.token AS token_pengantar', 'up.nomor', 'up.tanggal', 'uj.nama AS nama_jenis', 'uj.keterangan'];
 
     private function _datatables()
     {
@@ -25,10 +25,10 @@ class ModelPensiunVerifikasi extends CI_Model
         $filterStatus = $_POST['filter_status'] ?? '';
 
         $statusMap = [
-            'BKPSDM' => ['BKPSDM'],
-            'SELESAI'   => ['SELESAI'],
-            'TTD_SK'     => ['TTD_SK'],
-            'SELESAI_TMS' => ['SELESAI_TMS', 'SELESAI_BTL']
+            'BKPSDM'      => ['BKPSDM'],
+            'SELESAI'     => ['SELESAI'],
+            'TTD_SK'      => ['TTD_SK'],
+            'SELESAI_TMS' => ['SELESAI_TMS', 'SELESAI_BTL'],
         ];
 
         if ($filterStatus && isset($statusMap[$filterStatus])) {
@@ -37,33 +37,39 @@ class ModelPensiunVerifikasi extends CI_Model
             $this->db->where_in('u.is_status', [
                 'BKPSDM',
                 'TTD_SK',
-                'SELESAI'
+                'SELESAI',
             ]);
+        }
+
+        $filterJenis = $_POST['filter_jenis'] ?? '';
+        if ($filterJenis) {
+            $this->db->where('up.fid_jenis_usul', $filterJenis);
         }
 
         $i = 0;
 
-        foreach ($this->column_search as $item) // loop column 
+        foreach ($this->column_search as $item); // loop column
         {
-            if (@$_POST['search']['value']) // if datatable send POST for search
+            if (@$_POST['search']['value']); // if datatable send POST for search
             {
 
-                if ($i === 0) // first loop
-                {
+                if ($i === 0) {
                     $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
                     $this->db->like($item, $_POST['search']['value']);
                 } else {
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if (count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if (count($this->column_search) - 1 == $i); //last loop
+                {
+                    $this->db->group_end();
+                }
+                //close bracket
             }
             $i++;
         }
 
-        if (isset($_POST['order'])) // here order processing
-        {
+        if (isset($_POST['order'])) {
             $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else if (isset($this->order)) {
             $order = $this->order;
@@ -71,16 +77,18 @@ class ModelPensiunVerifikasi extends CI_Model
         }
     }
 
-    function make_datatables()
+    public function make_datatables()
     {
         $this->_datatables();
-        if (@$_POST['length'] != -1)
+        if (@$_POST['length'] != -1) {
             $this->db->limit(@$_POST['length'], @$_POST['start']);
+        }
+
         $query = $this->db->get();
         return $query->result();
     }
 
-    function make_count_filtered()
+    public function make_count_filtered()
     {
         $this->_datatables();
         $query = $this->db->get();
@@ -116,6 +124,15 @@ class ModelPensiunVerifikasi extends CI_Model
         $this->db->where_in('is_status', ['SELESAI']);
         $q = $this->db->get();
         return $q->num_rows();
+    }
+
+    public function getJenisPensiun()
+    {
+        $this->db->select('*');
+        $this->db->from('usul_jenis');
+        $this->db->where('is_aktif', 'Y');
+        $this->db->order_by('id', 'desc');
+        return $this->db->get()->result();
     }
 }
 

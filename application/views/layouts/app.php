@@ -105,8 +105,7 @@
             <div class="navbar-heading text-white">MENU UTAMA</div>
           </li>
           <?php if (
-            $this->session->userdata('level') === 'ADMIN' ||
-            $this->session->userdata('level') === 'USER'
+            in_array($this->session->userdata('level'), ['ADMIN', 'USER'])
           ): ?>
             <!-- Nav item -->
             <li
@@ -148,8 +147,8 @@
             </a>
           </li>
           <?php if (
-            $this->session->userdata('username') === 'putra' ||
-            $this->session->userdata('nip') === '199412242019032007'
+            in_array($this->session->userdata('username'), ['putra']) ||
+            in_array($this->session->userdata('nip'), ['199412242019032007'])
           ): ?>
             <!-- Nav item -->
             <li class="nav-item">

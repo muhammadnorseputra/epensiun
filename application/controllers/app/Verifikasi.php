@@ -31,9 +31,13 @@ class Verifikasi extends CI_Controller
 
 	public function list()
 	{
+		$listJenisPensiun = $this->verify->getJenisPensiun();
 		$data = [
 			'title' => 'Verifikasi | Integrated Pensiun ASN',
 			'content' => 'pages/verifikasi',
+			'data' => [
+				'jenis_pensiun' => $listJenisPensiun
+			]
 		];
 
 		$this->load->view('layouts/app', $data);

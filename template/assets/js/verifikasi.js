@@ -56,6 +56,7 @@ var TabelVerifikasiPesiun = $("#table-verifikasi").DataTable({
 		type: "POST",
 		data: function (d) {
 			d.filter_status = $("select[name='filter_status']").val();
+			d.filter_jenis = $("select[name='filter_jenis']").val();
 		},
 	},
 	columnDefs: [
@@ -114,12 +115,16 @@ uploadArea.addEventListener("drop", function () {
 	this.classList.remove("dragover");
 });
 
-$("select[name='filter_status']").on("change", function () {
-	TabelVerifikasiPesiun.ajax.reload();
-});
+$("select[name='filter_status'], select[name='filter_jenis']").on(
+	"change",
+	function () {
+		TabelVerifikasiPesiun.ajax.reload();
+	},
+);
 
 $("#btnClearFilter").on("click", function () {
 	$("#filter_status").val("");
+	$("#filter_jenis").val("");
 	TabelVerifikasiPesiun.state.clear();
 	TabelVerifikasiPesiun.search("").order([]).page("first").draw();
 });
@@ -302,8 +307,10 @@ async function Approve(token) {
 						.val(formatDateTimeSQLToIndo(res.data.approve_at));
 				}
 				$formApprove.find("input[name='nip']").val(res.data.nip);
-				$formApprove.find("input[name='no_sk']").val(res.data.nomor_sk)
-				$formApprove.find("input[name='tgl_sk']").val(formatDateSQLToIndo(res.data.tanggal_sk))
+				$formApprove.find("input[name='no_sk']").val(res.data.nomor_sk);
+				$formApprove
+					.find("input[name='tgl_sk']")
+					.val(formatDateSQLToIndo(res.data.tanggal_sk));
 
 				let download = $("div#filesk");
 				if (res.data.url_sk !== null) {
@@ -466,8 +473,10 @@ async function Arsip(token) {
 				$formArchive
 					.find("input[name='tanda_penerima']")
 					.val(res.data.diterima_oleh);
-				$formArchive.find("input[name='no_sk']").val(res.data.nomor_sk)
-				$formArchive.find("input[name='tgl_sk']").val(formatDateSQLToIndo(res.data.tanggal_sk))
+				$formArchive.find("input[name='no_sk']").val(res.data.nomor_sk);
+				$formArchive
+					.find("input[name='tgl_sk']")
+					.val(formatDateSQLToIndo(res.data.tanggal_sk));
 				if (res.data.arsip_at !== null) {
 					$formArchive
 						.find("input[name='tanggal_archive']")
@@ -640,6 +649,7 @@ $formUbahStatus.on("submit", function (e) {
 						},
 						onOpened: function () {
 							TabelVerifikasiPesiun.ajax.reload();
+							getJumlahUsulByStatus();
 						},
 					});
 					return false;
@@ -709,6 +719,7 @@ $formApprove.on("submit", function (e) {
 						},
 						onOpened: function () {
 							$modalApprove.modal("hide");
+							getJumlahUsulByStatus();
 						},
 					});
 					return false;

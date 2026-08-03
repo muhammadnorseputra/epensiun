@@ -28,6 +28,7 @@ class Auth extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper('rate_limit');
 	}
 
 	public function login()
@@ -68,6 +69,23 @@ class Auth extends CI_Controller
 		$username = trim($this->security->xss_clean($this->input->post('username', true)));
 		$password = trim($this->security->xss_clean($this->input->post('password', true)));
 
+		$identifiers = [
+			'ip:' . $this->input->ip_address(),
+			'user:' . $username,
+		];
+		$max_attempts = 3;
+		$block_minutes = 1;
+
+		// Cek blokir rate-limit sebelum memproses login
+		if ($block = rate_limit_check($identifiers, $max_attempts, $block_minutes)) {
+			$this->output->set_header('Content-Type: application/json; charset=utf-8');
+			echo json_encode([
+				'status' => false,
+				'message' => rate_limit_message($block),
+			]);
+			return false;
+		}
+
 		$post = [
 			'username' => $username,
 			'password' => $password,
@@ -98,6 +116,7 @@ class Auth extends CI_Controller
 			$decoded = JWT::decode($access_token, new Key("bkpsdm@6811", 'HS256'));
 
 			if ($raw->status) {
+				rate_limit_reset($identifiers);
 				echo json_encode([
 					'status' => true,
 					'message' => $raw->message,
@@ -122,6 +141,7 @@ class Auth extends CI_Controller
 				return false;
 			}
 
+			rate_limit_fail($identifiers, $max_attempts, $block_minutes);
 			echo $result;
 		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$this->output->set_header('Content-Type: application/json; charset=utf-8');

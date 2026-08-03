@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   {
     parent::__construct();
     $this->load->model(['ModelApi' => 'api']);
+    $this->load->helper('rate_limit');
   }
 
   private function cekValue($val) {
@@ -17,8 +18,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   public function index_get($nip=null) {
 
+    $identifiers = [
+      'ip:' . $this->input->ip_address(),
+      'nip:' . $nip,
+    ];
+    $max_attempts = 12;
+    $block_minutes = 1;
+
     // cek apakah ada params nip pada query atau params request
     if($nip === null) {
+      $identifiers = ['ip:' . $this->input->ip_address()];
+      rate_limit_fail($identifiers, $max_attempts, $block_minutes);
       $this->response(
         [
           'status' => false,
@@ -31,8 +41,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       return false;
     }
 
+    // cek blokir rate-limit sebelum memproses
+    if($block = rate_limit_check($identifiers, $max_attempts, $block_minutes)) {
+      $this->response(
+        [
+          'status' => false,
+          'status_color' => 'danger',
+          'message' => rate_limit_message($block),
+          'data' => null
+        ],
+        429
+      );
+      return false;
+    }
+
     // cek apakah ada params nip yang dimasukan berupa angka atau integer
     if(!is_numeric($nip)) {
+      rate_limit_fail($identifiers, $max_attempts, $block_minutes);
       $this->response(
         [
           'status' => false,
@@ -89,6 +114,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           'message' => 'Usul Pensiun <strong>"'.$nip.'"</strong> ditemukan pada database epensiun.',
           'data' => $data
         ];
+        rate_limit_reset($identifiers);
         return $this->response($response, RestController::HTTP_OK);
       else:
         $response = [
@@ -102,6 +128,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
     // jika usulan dengan nip tidak ditemukan pada table usul database
+    rate_limit_fail($identifiers, $max_attempts, $block_minutes);
     $this->response(
       [
         'status' => false,

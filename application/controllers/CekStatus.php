@@ -27,6 +27,7 @@ class CekStatus extends CI_Controller
     {
         parent::__construct();
         $this->load->helper('statususul');
+        $this->load->helper('rate_limit');
     }
 
     public function index()
@@ -53,11 +54,27 @@ class CekStatus extends CI_Controller
         $this->form_validation->set_rules('nip', 'NIP', 'required|trim|numeric|max_length[18]|min_length[18]');
         $this->form_validation->set_rules('captcha', 'Captcha', 'required|trim|numeric');
 
+        $identifiers = [
+            'ip:' . $this->input->ip_address(),
+            'nip:' . $this->input->post('nip'),
+        ];
+        $max_attempts = 3;
+        $block_minutes = 1;
+
+        // Cek blokir rate-limit sebelum memproses
+        if ($block = rate_limit_check($identifiers, $max_attempts, $block_minutes)) {
+            $this->session->set_flashdata('error', rate_limit_message($block));
+            $this->index();
+            return;
+        }
+
         if ($this->form_validation->run() == false) {
+            rate_limit_fail($identifiers, $max_attempts, $block_minutes);
             $this->session->set_flashdata('error', validation_errors());
             $this->index();
         } else {
             if ($this->input->post('captcha') !== $this->session->userdata('captcha')) {
+                rate_limit_fail($identifiers, $max_attempts, $block_minutes);
                 $this->session->set_flashdata('error', 'Kode keamanan (CAPTCHA) tidak sesuai.');
                 $this->index();
             } else {
@@ -67,10 +84,12 @@ class CekStatus extends CI_Controller
                 $db = $this->db->select('is_status, nip, diterima_oleh, arsip_at')->from('usul')->where('nip', $nip)->get();
                 if ($db->num_rows() > 0) {
                     $usul = $db->row();
+                    rate_limit_reset($identifiers);
                     $this->session->set_flashdata('success', 'Data usulan ditemukan.');
                     $this->session->set_userdata('usul', $usul);
                     $this->index();
                 } else {
+                    rate_limit_fail($identifiers, $max_attempts, $block_minutes);
                     $this->session->set_flashdata('error', 'Data usulan tidak ditemukan.');
                     $this->index();
                 }

@@ -196,6 +196,21 @@ CREATE TABLE `usul_pengantar` (
   `created_by_unorid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rate_limit`
+--
+
+CREATE TABLE `rate_limit` (
+  `id` int(11) NOT NULL,
+  `identifier` varchar(64) NOT NULL,
+  `attempts` int(11) NOT NULL DEFAULT 0,
+  `blocked_until` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -243,6 +258,12 @@ ALTER TABLE `usul_pengantar`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rate_limit`
+--
+ALTER TABLE `rate_limit`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -286,6 +307,12 @@ ALTER TABLE `usul_jenis`
 -- AUTO_INCREMENT for table `usul_pengantar`
 --
 ALTER TABLE `usul_pengantar`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rate_limit`
+--
+ALTER TABLE `rate_limit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

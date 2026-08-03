@@ -36,7 +36,7 @@ class Auth extends CI_Controller
 			redirect(base_url('app/dashboard'));
 			return false;
 		endif;
-		$this->load->view('/authv0');
+		$this->load->view('/auth');
 	}
 
 	public function index()

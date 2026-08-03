@@ -72,7 +72,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $active_group = 'default';
 $query_builder = TRUE;
-if ($_SERVER['HTTP_HOST'] == 'localhost:5001' || $_SERVER['HTTP_HOST'] == '192.168.2.102' || $_SERVER['HTTP_HOST'] == 'localhost'):
+if ($_SERVER['HTTP_HOST'] == 'localhost:5001' || $_SERVER['HTTP_HOST'] == '34c9-36-94-135-146.ngrok-free.app' || $_SERVER['HTTP_HOST'] == 'localhost'):
 	$db['default'] = array(
 		'dsn'	=> '',
 		'hostname' => '127.0.0.1',

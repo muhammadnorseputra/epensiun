@@ -55,8 +55,7 @@ class CekStatus extends CI_Controller
         $this->form_validation->set_rules('captcha', 'Captcha', 'required|trim|numeric');
 
         $identifiers = [
-            'ip:' . $this->input->ip_address(),
-            'nip:' . $this->input->post('nip'),
+            'ip:' . $this->input->ip_address()
         ];
         $max_attempts = 3;
         $block_minutes = 1;

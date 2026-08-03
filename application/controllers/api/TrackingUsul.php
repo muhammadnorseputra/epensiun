@@ -19,8 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   public function index_get($nip=null) {
 
     $identifiers = [
-      'ip:' . $this->input->ip_address(),
-      'nip:' . $nip,
+      'ip:' . $this->input->ip_address()
     ];
     $max_attempts = 12;
     $block_minutes = 1;

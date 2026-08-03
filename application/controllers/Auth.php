@@ -70,8 +70,7 @@ class Auth extends CI_Controller
 		$password = trim($this->security->xss_clean($this->input->post('password', true)));
 
 		$identifiers = [
-			'ip:' . $this->input->ip_address(),
-			'user:' . $username,
+			'ip:' . $this->input->ip_address()
 		];
 		$max_attempts = 3;
 		$block_minutes = 1;

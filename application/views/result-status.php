@@ -588,7 +588,7 @@
                     (DETAIL ? DETAIL + ' Silakan coba lagi beberapa saat.' : 'Silakan coba lagi beberapa saat.');
                 $('closing').textContent = STATUS ? 'Mengalihkan ke aplikasi' : 'Menutup jendela';
 
-                var delay = STATUS ? 2600 : 3400;
+                var delay = STATUS ? 2400 : 3400;
 
                 requestAnimationFrame(function() {
                     $('bar-fill').style.transitionDuration = delay + 'ms';

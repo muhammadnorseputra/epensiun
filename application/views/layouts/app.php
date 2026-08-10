@@ -492,7 +492,7 @@
                     <button
                       type="button"
                       class="dropdown-item"
-                      onclick="return PindahLayanan()">
+                      onclick="return window.location.href = 'https://silka-sso-panel.vercel.app/dashboard'">
                       <i
                         class="me-2 icon-xxs dropdown-item-icon"
                         data-feather="list"></i>Pindah Layanan

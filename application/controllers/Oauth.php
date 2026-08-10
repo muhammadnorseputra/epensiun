@@ -100,7 +100,7 @@ class Oauth extends CI_Controller
 
         // getAccessToken
         try {
-            $promise = $client->request('DELETE', 'oauth/sso/revoke_token', $options);
+            $promise = $client->request('DELETE', 'oauth/sso/revoke_token_client', $options);
             return json_decode($promise->getBody()->getContents());
         } catch (RequestException $exception) {
             return json_decode($exception->getResponse()->getBody()->getContents());

@@ -2,7 +2,7 @@
 $stat = json_decode($statistik);
 ?>
 <!-- Container fluid -->
-<div class="bg-primary pt-10 pb-21"></div>
+<div class="bg-success pt-10 pb-21"></div>
 <div class="container-fluid mt-n22 px-6">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-12">
@@ -32,7 +32,7 @@ $stat = json_decode($statistik);
                         <div>
                             <h4 class="mb-0">Usulan</h4>
                         </div>
-                        <div class="icon-shape icon-md bg-light-primary text-primary
+                        <div class="icon-shape icon-md bg-light-success text-success
                       rounded-2">
                             <i class="bi bi-briefcase fs-4"></i>
                         </div>
@@ -56,7 +56,7 @@ $stat = json_decode($statistik);
                         <div>
                             <h4 class="mb-0">Approve</h4>
                         </div>
-                        <div class="icon-shape icon-md bg-light-primary text-primary
+                        <div class="icon-shape icon-md bg-light-success text-success
                       rounded-2">
                             <i class="bi bi-list-task fs-4"></i>
                         </div>
@@ -80,7 +80,7 @@ $stat = json_decode($statistik);
                         <div>
                             <h4 class="mb-0">Total Pensiun</h4>
                         </div>
-                        <div class="icon-shape icon-md bg-light-primary text-primary
+                        <div class="icon-shape icon-md bg-light-success text-success
                       rounded-2">
                             <i class="bi bi-people fs-4"></i>
                         </div>
@@ -105,7 +105,7 @@ $stat = json_decode($statistik);
                         <div>
                             <h4 class="mb-0">Proggres</h4>
                         </div>
-                        <div class="icon-shape icon-md bg-light-primary text-primary
+                        <div class="icon-shape icon-md bg-light-success text-success
                       rounded-2">
                             <i class="bi bi-bullseye fs-4"></i>
                         </div>
@@ -123,9 +123,9 @@ $stat = json_decode($statistik);
     </div>
     <div class="row my-4">
         <div class="col-md-12">
-            <div class="alert alert-primary d-flex justify-content-start gap-3 align-items-start align-items-md-center"
+            <div class="alert alert-success d-flex justify-content-start gap-3 align-items-start align-items-md-center"
                 role="alert">
-                <i data-feather="award" class="icon-md text-primary"></i>
+                <i data-feather="award" class="icon-md text-success"></i>
                 <div>
                     <span class="fw-bold">Selamat Datang, <?= $this->session->userdata('nama_lengkap'); ?></span>
                     <br>Kamu Pensiun Terhitung Mulai Tanggal <span

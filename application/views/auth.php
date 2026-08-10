@@ -499,9 +499,6 @@
 
                         <!-- Trust strip -->
                         <div class="mt-7 flex items-center justify-center gap-2 rounded-xl bg-[#f4f7f6] px-4 py-3 text-xs text-[#5c6c7a]">
-
-                            <span class="text-base text-[#00a35c]">🛡️</span>
-
                             <span>
                                 Data Anda aman & terenkripsi — layanan resmi BKPSDM Kab. Balangan
                             </span>

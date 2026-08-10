@@ -47,7 +47,7 @@ class Oauth extends CI_Controller
             'state' => $state
         ];
         $query_build = http_build_query($query);
-        // $host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
+        //$host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
         $host = 'https://silka-sso.vercel.app';
         redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
@@ -79,7 +79,7 @@ class Oauth extends CI_Controller
     }
 
 
-    private function revokeAccessToken(String $userid)
+    private function revokeAccessToken(String $userid, String $clientid)
     {
         $client = new Client([
             'base_uri' => $this->config->item('BASE_API_URL') . '/' . $this->config->item('BASE_API_PATH'), // Ganti dengan URL API Anda
@@ -93,7 +93,8 @@ class Oauth extends CI_Controller
                 'Content-Type' => 'application/json'
             ],
             'query' => [
-                'user_id' => $userid
+                'user_id' => $userid,
+                'client_id' => $clientid
             ]
         ];
 
@@ -229,7 +230,7 @@ class Oauth extends CI_Controller
 
     public function logout()
     {
-        $revoke = $this->revokeAccessToken($this->session->userdata('nip'));
+        $revoke = $this->revokeAccessToken($this->session->userdata('nip'), '0194cb1f-fa3f-7dc3-a78e-85bf30f85ddf');
 
 
         if ($revoke->status === false) {

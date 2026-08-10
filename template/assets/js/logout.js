@@ -27,3 +27,8 @@ function Logout() {
 		],
 	});
 }
+
+function PindahLayanan() {
+	return (window.location.href =
+		"https://silka-sso-panel.vercel.app/dashboard");
+}

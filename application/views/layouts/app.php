@@ -59,6 +59,117 @@
     rel="stylesheet"
     href="<?= base_url('template/assets/css/theme.min.css') ?>" />
   <title><?= $title ?></title>
+
+  <style>
+    /* ===== page navigation loader overlay ===== */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: rgba(30, 30, 43, .78);
+      -webkit-backdrop-filter: blur(12px) saturate(120%);
+      backdrop-filter: blur(12px) saturate(120%);
+      opacity: 0;
+      visibility: hidden;
+      /* destination state when hiding -> smooth fade-out */
+      transition: opacity .45s cubic-bezier(.4, 0, .2, 1),
+        visibility .45s linear;
+    }
+
+    #page-loader.is-visible {
+      opacity: 1;
+      visibility: visible;
+      /* destination state when showing -> fast fade-in (as before) */
+      transition: opacity .25s ease, visibility .25s linear;
+    }
+
+    #page-loader .loader-ring,
+    #page-loader .loader-text {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    #page-loader:not(.is-visible) .loader-ring,
+    #page-loader:not(.is-visible) .loader-text {
+      opacity: 0;
+      transform: scale(.94);
+      transition: opacity .45s cubic-bezier(.4, 0, .2, 1),
+        transform .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .loader-ring {
+      width: 64px;
+      height: 64px;
+    }
+
+    .loader-ring svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .loader-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, .08);
+      stroke-width: 6;
+    }
+
+    .loader-arc {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 170 251;
+      transform-origin: 48px 48px;
+      animation: page-spin 1s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(0, 237, 100, .4));
+    }
+
+    .loader-text {
+      margin: 0;
+      font-family: "Euclid Circular A", "Avenir Next", -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: #a8b3bc;
+    }
+
+    .loader-dots i {
+      font-style: normal;
+      opacity: 0;
+      animation: page-blink 1.2s infinite;
+    }
+
+    .loader-dots i:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .loader-dots i:nth-child(3) {
+      animation-delay: .4s;
+    }
+
+    @keyframes page-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes page-blink {
+      0%,
+      60% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 
 <body class="bg-light">
@@ -78,6 +189,22 @@
     </style>
     <h1>JavaScript is not enabled, please check your browser settings.</h1>
   </noscript>
+  <!-- Page navigation loader -->
+  <div id="page-loader" aria-hidden="true">
+    <div class="loader-ring" aria-hidden="true">
+      <svg viewBox="0 0 96 96">
+        <defs>
+          <linearGradient id="page-loader-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00ed64" />
+            <stop offset="100%" stop-color="#00a35c" />
+          </linearGradient>
+        </defs>
+        <circle class="loader-track" cx="48" cy="48" r="40" />
+        <circle class="loader-arc" cx="48" cy="48" r="40" stroke="url(#page-loader-grad)" />
+      </svg>
+    </div>
+    <p class="loader-text">Memuat halaman<span class="loader-dots"><i>.</i><i>.</i><i>.</i></span></p>
+  </div>
   <div id="db-wrapper" class="<?= get_cookie('navbarStatus'); ?>">
     <!-- navbar vertical -->
     <!-- Sidebar -->
@@ -85,7 +212,7 @@
       <div class="nav-scroller">
         <!-- Brand logo -->
         <a class="navbar-brand text-white fw-bold" href="<?= base_url() ?>">
-          🚀 <span class="text-primary">SIMPUN</span>
+          🚀 <span class="text-success">SIMPUN</span>
         </a>
         <!-- Navbar nav -->
         <ul class="navbar-nav flex-column" id="sideNavbar">
@@ -365,6 +492,16 @@
                     <button
                       type="button"
                       class="dropdown-item"
+                      onclick="return PindahLayanan()">
+                      <i
+                        class="me-2 icon-xxs dropdown-item-icon"
+                        data-feather="list"></i>Pindah Layanan
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      type="button"
+                      class="dropdown-item"
                       onclick="return Logout()">
                       <i
                         class="me-2 icon-xxs dropdown-item-icon"
@@ -487,6 +624,52 @@
   <?php endif; ?> <?php if ($this->uri->segment(2) === 'referensi') : ?>
     <script src="<?= base_url('template/') ?>assets/js/ref_jenis_pensiun.js"></script>
   <?php endif; ?>
-</body>
+  <script>
+    // ===== page navigation loader =====
+    (function() {
+      var loader = document.getElementById('page-loader');
+      if (!loader) return;
+
+      var shownAt = 0;
+      var MIN_DISPLAY = 400; // ms, avoid flicker on fast navigations
+      var safetyTimer = null;
+
+      function show() {
+        shownAt = Date.now();
+        loader.classList.add('is-visible');
+        loader.setAttribute('aria-hidden', 'false');
+      }
+
+      function hide() {
+        var elapsed = Date.now() - shownAt;
+        var wait = Math.max(0, MIN_DISPLAY - elapsed);
+        setTimeout(function() {
+          loader.classList.remove('is-visible');
+          loader.setAttribute('aria-hidden', 'true');
+        }, wait);
+      }
+
+      document.addEventListener('click', function(e) {
+        var t = e.target;
+        var a = t && t.closest ? t.closest('a') : null;
+        if (!a) return;
+
+        var href = a.getAttribute('href') || '';
+        // skip controls that don't navigate the page
+        if (a.target === '_blank' || a.hasAttribute('download') ||
+          a.getAttribute('data-bs-toggle') || a.hasAttribute('data-bs-target') ||
+          href === '' || href === '#' || href === '#!' ||
+          /^javascript:/i.test(href)) {
+          return;
+        }
+
+        show();
+        clearTimeout(safetyTimer);
+        safetyTimer = setTimeout(hide, 10000); // never leave the loader stuck
+      });
+
+      window.addEventListener('load', hide);
+    })();
+  </script></body>
 
 </html>

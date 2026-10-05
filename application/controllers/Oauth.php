@@ -47,8 +47,8 @@ class Oauth extends CI_Controller
             'state' => $state
         ];
         $query_build = http_build_query($query);
-        //$host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
-        $host = 'https://silka-sso.vercel.app';
+        $host = str_contains($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost:3000' : 'https://silka-sso.vercel.app';
+        #$host = 'https://silka-sso.vercel.app';
         redirect("{$host}/oauth/sso/authorize?{$query_build}");
     }
 

@@ -275,7 +275,7 @@
           </li>
           <?php if (
             in_array($this->session->userdata('username'), ['putra']) ||
-            in_array($this->session->userdata('nip'), ['199412242019032007'])
+            in_array($this->session->userdata('nip'), ['199412242019032007', '198402052009042001'])
           ): ?>
             <!-- Nav item -->
             <li class="nav-item">

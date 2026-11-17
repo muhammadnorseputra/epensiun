@@ -12,6 +12,7 @@ class ModelApi extends CI_Model
         $this->db->join('usul_jenis as uj', 'up.fid_jenis_usul=uj.id');
         $this->db->where('u.nip', $nip);
         // $this->db->where_in('u.is_status', ['SELESAI', 'SELESAI_ARSIP']);
+        $this->db->order_by('u.id', 'DESC');
         return $this->db->get();
     }
 
